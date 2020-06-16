@@ -1,0 +1,147 @@
+2020-06-11 11:37:09,808 - ERROR - app.py - log_exception - 1892 - Exception on /base/getItems/ [GET]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\base_views.py", line 30, in get_items
+    print(items[i].username)
+AttributeError: 'Item' object has no attribute 'username'
+2020-06-11 11:41:57,634 - ERROR - app.py - log_exception - 1892 - Exception on /base/getItems/ [GET]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\base_views.py", line 31, in get_items
+    logging.info('---------------' + items[i])
+TypeError: can only concatenate str (not "Item") to str
+2020-06-11 11:42:26,951 - ERROR - app.py - log_exception - 1892 - Exception on /base/getItems/ [GET]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\base_views.py", line 31, in get_items
+    logging.info(str('---------------' + items[i]))
+TypeError: can only concatenate str (not "Item") to str
+2020-06-11 14:13:16,823 - ERROR - app.py - log_exception - 1892 - Exception on /base/getItems/ [GET]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\base_views.py", line 36, in get_items
+    return render_template('item-list.html', html=html, items=items)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\templating.py", line 140, in render_template
+    ctx.app,
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\templating.py", line 120, in _render
+    rv = template.render(context)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "E:\PycharmSpace\Flask_sys\sweep\templates\item-list.html", line 66, in top-level template code
+    <td>{{ user.username }}</td>
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\environment.py", line 430, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'user' is undefined
+2020-06-11 14:15:54,163 - ERROR - app.py - log_exception - 1892 - Exception on /base/getItems/ [GET]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\base_views.py", line 36, in get_items
+    return render_template('item-list.html', html=html, items=items)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\environment.py", line 869, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\environment.py", line 830, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\environment.py", line 804, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\loaders.py", line 125, in load
+    code = environment.compile(source, name, filename)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\environment.py", line 591, in compile
+    self.handle_exception(exc_info, source_hint=source_hint)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "E:\PycharmSpace\Flask_sys\sweep\templates\item-list.html", line 66, in template
+    <td>{{  }}</td>
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\environment.py", line 497, in _parse
+    return Parser(self, source, name, encode_filename(filename)).parse()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\parser.py", line 901, in parse
+    result = nodes.Template(self.subparse(), lineno=1)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\parser.py", line 883, in subparse
+    rv = self.parse_statement()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\parser.py", line 130, in parse_statement
+    return getattr(self, 'parse_' + self.stream.current.value)()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\parser.py", line 199, in parse_for
+    body = self.parse_statements(('name:endfor', 'name:else'))
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\parser.py", line 165, in parse_statements
+    result = self.subparse(end_tokens)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\parser.py", line 875, in subparse
+    add_data(self.parse_tuple(with_condexpr=True))
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\parser.py", line 637, in parse_tuple
+    describe_token(self.stream.current))
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\jinja2\parser.py", line 59, in fail
+    raise exc(msg, lineno, self.name, self.filename)
+jinja2.exceptions.TemplateSyntaxError: Expected an expression, got 'end of print statement'
