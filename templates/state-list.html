@@ -16,7 +16,7 @@
 <div class="x-nav">
       <span class="layui-breadcrumb">
         <a href="">首页</a>
-        <a href="">分类配置</a>
+        <a href="">状态配置</a>
       </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
        onclick="location.reload()" title="刷新">
@@ -29,7 +29,7 @@
                 <div class="layui-card-body ">
                     <form method="post" class="layui-form layui-col-space5">
                         <div class="layui-inline layui-show-xs-block">
-                            <input type="text" id="itemName" name="itemName" placeholder="分类名" autocomplete="off"
+                            <input type="text" id="stateName" name="stateName" placeholder="状态名" autocomplete="off"
                                    class="layui-input">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
@@ -38,7 +38,7 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn" onclick="xadmin.open('创建分类','/base/addItem',400,300)">
+                    <button class="layui-btn" onclick="xadmin.open('创建状态','/base/addState',400,400)">
                         <i class="layui-icon"></i>创建
                     </button>
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
@@ -52,29 +52,31 @@
                             <th>
                                 <input type="checkbox" lay-filter="checkall" lay-skin="primary">
                             </th>
-                            <th>分类</th>
+                            <th>状态</th>
                             <th>创建人</th>
                             <th>创建时间</th>
-                            <th>描述</th>
+                            <th>所属分类</th>
+                            <th>状态描述</th>
                             <th>操作</th>
                         </thead>
                         <tbody id="itemVal">
-                        {% for item in items %}
+                        {% for state in states %}
                             <tr>
                                 <td>
-                                    <input type="checkbox" lay-skin="primary" name="id" value="{{ item.i_id }}">
+                                    <input type="checkbox" lay-skin="primary" name="id" value="{{ state.s_id }}">
                                 </td>
-                                <td>{{ item.i_value }}</td>
-                                <td>{{ item.to_user.username }}</td>
-                                <td>{{ item.i_create_time }}</td>
-                                <td>{{ item.i_desc }}</td>
+                                <td>{{ state.s_value }}</td>
+                                <td>{{ state.to_user.username }}</td>
+                                <td>{{ state.s_create_time }}</td>
+                                <td>{{ state.to_item.i_value }}</td>
+                                <td>{{ state.s_desc }}</td>
                                 <td class="td-manage">
-                                    <a title="编辑分类"
-                                       onclick="xadmin.open('编辑分类', '/base/editItem/'+{{ item.i_id }}, 400, 300)"
+                                    <a title="编辑状态"
+                                       onclick="xadmin.open('编辑状态', '/base/editState/'+{{ state.s_id }}, 600, 500)"
                                        href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>
                                     </a>
-                                    <a title="删除分类" onclick="item_del(this)" href="javascript:;">
+                                    <a title="删除状态" onclick="state_del(this)" href="javascript:;">
                                         <i class="layui-icon">&#xe640;</i>
                                     </a>
                                 </td>
@@ -129,8 +131,8 @@
         form.on('submit(search)', function () {
             $.ajax({
                 type: "POST",
-                url: "/base/getItems",
-                data: {itemName: $('input[name="itemName"]').val()},
+                url: "/base/getStates",
+                data: {itemName: $('input[name="stateName"]').val()},
                 dataType: "json"
             });
         });
@@ -146,20 +148,20 @@
         });
     });
 
-    function item_del(obj) {
-        let item_id = $(obj).parent("td").parent("tr").children().eq(0).children(0).val();
-        let item_name = $(obj).parent("td").parent("tr").children().eq(1).text();
-        let item_desc = $(obj).parent("td").parent("tr").children().eq(4).text();
+    function state_del(obj) {
+        let state_id = $(obj).parent("td").parent("tr").children().eq(0).children(0).val();
+        let state_value = $(obj).parent("td").parent("tr").children().eq(1).text();
+        let state_desc = $(obj).parent("td").parent("tr").children().eq(4).text();
         i_data = {
-            item_id: item_id,
-            item_name: item_name,
-            item_desc: item_desc
+            state_id: state_id,
+            state_value: state_value,
+            state_desc: state_desc
         };
-        layer.confirm('确认要删除分类： ' + item_name + ' 吗？', function () {
+        layer.confirm('确认要删除状态： ' + state_value + ' 吗？', function () {
             //发异步删除数据
             $.ajax({
                 type: "POST",
-                url: "/base/delItem",//提交数据接口
+                url: "/base/delState",//提交数据接口
                 data: JSON.stringify(i_data),
                 dataType: "JSON",
                 success: function (data) {
@@ -187,7 +189,7 @@
             layer.confirm('确认要删除所需项吗？', function () {
                 $.ajax({
                     type: "POST",
-                    url: "/base/delAllItem",//提交数据接口
+                    url: "/base/delAllState",//提交数据接口
                     data: JSON.stringify(ids),
                     dataType: "JSON",
                     success: function (data) {
@@ -202,6 +204,7 @@
         }
 
     }
+
 </script>
 <script>var _hmt = _hmt || [];
 (function () {

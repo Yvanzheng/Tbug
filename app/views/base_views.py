@@ -9,7 +9,7 @@ from flask import Blueprint, render_template, request, session
 import json
 from datetime import datetime
 
-from app.models.models import Item, User
+from app.models.models import Item, State
 from app.utils.ch_login import is_login
 from app.utils.page_util import Pagination
 
@@ -22,50 +22,40 @@ def get_items():
     """
     获取所有分类信息 分页查询
     """
-    if request.method == 'GET':
-        items = Item.query.all()
-        li = []
-        for i in range(0, len(items)):
-            li.append(items[i])
-        pager_obj = Pagination(request.args.get("page", 1), len(li), request.path, request.args, per_page_count=10)
-        items = li[pager_obj.start:pager_obj.end]
-        html = pager_obj.page_html()
-        return render_template('item-list.html', html=html, items=items)
-
-
-@base_blueprint.route('/showItem/', methods=['GET'])
-@is_login
-def show_item():
-    """
-    进入添加分类页面
-    """
-    if request.method == 'GET':
-        return render_template('item-add.html')
+    itemName = ''
+    if request.method == 'POST':
+        itemName = request.form.get('itemName')
+    items = Item.query.filter(Item.i_value.like("%" + itemName + "%") if itemName is not None else "").all()
+    li = []
+    for i in range(0, len(items)):
+        li.append(items[i])
+    pager_obj = Pagination(request.args.get("page", 1), len(li), request.path, request.args, per_page_count=10)
+    items = li[pager_obj.start:pager_obj.end]
+    html = pager_obj.page_html()
+    return render_template('item-list.html', html=html, items=items)
 
 
 @base_blueprint.route('/addItem/', methods=['GET', 'POST'])
 @is_login
 def add_item():
     """
-    确认添加分类
+    添加分类页面
     """
-    user_id = session.get('user_id')
     if request.method == 'GET':
-        return render_template('item-list.html')
-    else:
+        return render_template('item-add.html')
+    if request.method == 'POST':
+        user_id = session.get('user_id')
         data_json = request.get_data().decode('utf-8')
         data_dict = json.loads(data_json)
         item = Item.query.filter_by(i_value=data_dict['i_value']).first()
         if item:
-            print('分类已经存在！')
-            result = {"flag": False}
+            result = {"flag": False, "value": "分类已经存在！"}
             return result
         else:
-            print('分类不存在，请添加！')
             item = Item(i_value=data_dict['i_value'], i_create_user_id=user_id,
                         i_desc=data_dict['i_desc'], i_create_time=datetime.now())
             item.save()
-            result = {"flag": True}
+            result = {"flag": True, "value": "分类新增成功！"}
             return result
 
 
@@ -90,14 +80,20 @@ def update_item():
     if request.method == 'POST':
         data_json = request.get_data().decode('utf-8')
         data_dict = json.loads(data_json)
-        item = Item.query.filter_by(i_id=data_dict['i_id']).first()
-        item.i_id = data_dict['i_id']
-        item.i_value = data_dict['i_value']
-        item.i_desc = data_dict['i_desc']
-        item.i_create_user_id = user_id
-        item.save()
-        result = {"flag": True}
-        return result
+        item = Item.query.filter_by(i_value=data_dict['i_value']).first()
+        if item:
+            result = {"flag": False, "value": "分类已经存在！"}
+            return result
+        else:
+            item = Item.query.filter_by(i_id=data_dict['i_id']).first()
+            item.i_id = data_dict['i_id']
+            item.i_value = data_dict['i_value']
+            item.i_desc = data_dict['i_desc']
+            item.i_create_user_id = user_id
+            item.i_create_time = datetime.now()
+            item.save()
+            result = {"flag": True, "value": "分类修改成功！"}
+            return result
 
 
 @base_blueprint.route('/delItem/', methods=['GET', 'POST'])
@@ -115,21 +111,138 @@ def del_item():
         return result
 
 
-@base_blueprint.route('/getStates/', methods=['GET'])
+@base_blueprint.route('/delAllItem/', methods=['GET', 'POST'])
 @is_login
-def getStates():
+def del_all_item():
     """
-    获取状态信息
+    删除分类
     """
-    if request.method == 'GET':
-        return render_template('state_list.html')
+    if request.method == 'POST':
+        data_json = request.get_data().decode('utf-8')
+        print(data_json)
+
+        data_dict = json.loads(data_json)
+        result = {"flag": True}
+        for id in data_dict:
+            print(id)
+            item = Item.query.filter_by(i_id=id).first()
+            item.delete()
+        return result
 
 
-@base_blueprint.route('/showAddState/', methods=['GET'])
+@base_blueprint.route('/getStates/', methods=['GET', 'POST'])
 @is_login
-def showAddState():
+def get_states():
     """
-    进入添加分类页面
+    获取所有状态信息 分页查询
+    """
+    stateName = ''
+    if request.method == 'POST':
+        stateName = request.form.get('stateName')
+    states = State.query.filter(State.s_value.like("%" + stateName + "%") if stateName is not None else "").all()
+    li = []
+    for i in range(0, len(states)):
+        li.append(states[i])
+    pager_obj = Pagination(request.args.get("page", 1), len(li), request.path, request.args, per_page_count=10)
+    states = li[pager_obj.start:pager_obj.end]
+    html = pager_obj.page_html()
+    return render_template('state-list.html', html=html, states=states)
+
+
+@base_blueprint.route('/addState/', methods=['GET', 'POST'])
+@is_login
+def add_state():
+    """
+    进入添加状态页面
     """
     if request.method == 'GET':
-        return render_template('state-add.html')
+        items = Item.query.filter().all()
+        return render_template('state-add.html', items=items)
+    if request.method == 'POST':
+        user_id = session.get('user_id')
+        data_json = request.get_data().decode('utf-8')
+        data_dict = json.loads(data_json)
+        print(data_dict)
+        state = State.query.filter_by(s_value=data_dict['s_value'], s_item_code=data_dict['contrller']).first()
+        if state:
+            result = {"flag": False, "value": "状态已经存在！"}
+            return result
+        else:
+            state = State(s_value=data_dict['s_value'], s_create_user_id=user_id, s_item_code=data_dict['contrller'],
+                          s_desc=data_dict['s_desc'], s_create_time=datetime.now())
+            state.save()
+            result = {"flag": True, "value": "状态新增成功！"}
+            return result
+
+
+@base_blueprint.route('/delState/', methods=['GET', 'POST'])
+@is_login
+def del_state():
+    """
+    删除状态
+    """
+    if request.method == 'POST':
+        data_json = request.get_data().decode('utf-8')
+        data_dict = json.loads(data_json)
+        state = State.query.filter_by(s_id=data_dict['state_id']).first()
+        state.delete()
+        result = {"flag": True}
+        return result
+
+
+@base_blueprint.route('/delAllState/', methods=['GET', 'POST'])
+@is_login
+def del_all_state():
+    """
+    删除状态
+    """
+    if request.method == 'POST':
+        data_json = request.get_data().decode('utf-8')
+        print(data_json)
+
+        data_dict = json.loads(data_json)
+        result = {"flag": True}
+        for id in data_dict:
+            print(id)
+            state = State.query.filter_by(s_id=id).first()
+            state.delete()
+        return result
+
+
+@base_blueprint.route('/editState/<s_id>', methods=['GET', 'POST'])
+@is_login
+def edit_state(s_id):
+    """
+    进入修改状态页面
+    """
+    if request.method == "GET":
+        state = State.query.filter_by(s_id=s_id).first()
+        items = Item.query.filter().all()
+        return render_template("state-edit.html", state=state, items=items)
+
+
+@base_blueprint.route('/updateState/', methods=['GET', 'POST'])
+@is_login
+def update_state():
+    """
+    确认修改状态
+    """
+    user_id = session.get('user_id')
+    if request.method == 'POST':
+        data_json = request.get_data().decode('utf-8')
+        data_dict = json.loads(data_json)
+        state = State.query.filter_by(s_value=data_dict['s_value']).first()
+        if state:
+            result = {"flag": False, "value": "状态已经存在！"}
+            return result
+        else:
+            state = State.query.filter_by(s_id=data_dict['s_id']).first()
+            state.s_id = data_dict['s_id']
+            state.s_item_code = data_dict['s_item_code']
+            state.s_value = data_dict['s_value']
+            state.s_desc = data_dict['s_desc']
+            state.s_create_user_id = user_id
+            state.s_create_time = datetime.now()
+            state.save()
+            result = {"flag": True, "value": "状态修改完成！"}
+            return result

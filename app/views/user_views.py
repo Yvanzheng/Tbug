@@ -20,9 +20,7 @@ def home(userid):
     首页
     """
     if request.method == 'GET':
-        print(userid)
         user = User.query.filter_by(id=userid).first()
-        print(user.username)
         return render_template('index.html', user=user)
 
 

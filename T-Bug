@@ -1,0 +1,57 @@
+# 数据库新建语句
+DROP TABLE IF EXISTS user;
+CREATE TABLE user(
+	 id INT PRIMARY KEY AUTO_INCREMENT COMMENT '用户编号',
+	 username VARCHAR (256) NOT NULL COMMENT '用户名称',
+	 password VARCHAR (256) NOT NULL COMMENT '用户密码',
+	 type enum('0','1','2','3') default '0' not null comment '用户类型，0普通用户1项目经理2项目主管3管理员，默认为0'
+) COMMENT='用户表';
+
+DROP TABLE IF EXISTS item;
+CREATE TABLE item (
+	i_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '分类ID',
+	i_value VARCHAR (10) NOT NULL COMMENT '分类值',
+	i_create_user_id INT NOT NULL COMMENT '创建人ID',
+	i_create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	i_desc VARCHAR (10) NOT NULL COMMENT '描述',
+	FOREIGN KEY (i_create_user_id) REFERENCES user(id)
+) COMMENT = '分类表';
+
+DROP TABLE IF EXISTS state;
+CREATE TABLE state (
+	s_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '状态ID',
+	s_value VARCHAR (10) NOT NULL COMMENT '状态值',
+	s_item_code INT NOT NULL COMMENT '分类',
+	s_create_user_id INT NOT NULL COMMENT '创建人ID',
+	s_create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	FOREIGN KEY (s_item_code) REFERENCES item (i_id),
+	FOREIGN KEY (s_create_user_id) REFERENCES user(id)
+) COMMENT = '状态表';
+
+DROP TABLE IF EXISTS project;
+CREATE TABLE project (
+	p_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '项目ID',
+	p_create_user_id INT NOT NULL COMMENT '创建人ID',
+	p_name VARCHAR (256) NOT NULL COMMENT '项目名称',
+	p_start_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '开始时间',
+	p_end_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '截止时间',
+	p_remarks VARCHAR (256) NOT NULL COMMENT '项目描述',
+	p_state INT NOT NULL COMMENT '项目状态',
+	p_create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
+	FOREIGN KEY (p_create_user_id) REFERENCES user(id),
+	FOREIGN KEY (p_state) REFERENCES state(s_id)
+) COMMENT = '项目表';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
