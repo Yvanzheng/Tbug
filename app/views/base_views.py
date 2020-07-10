@@ -198,12 +198,9 @@ def del_all_state():
     """
     if request.method == 'POST':
         data_json = request.get_data().decode('utf-8')
-        print(data_json)
-
         data_dict = json.loads(data_json)
         result = {"flag": True}
         for id in data_dict:
-            print(id)
             state = State.query.filter_by(s_id=id).first()
             state.delete()
         return result
@@ -231,7 +228,7 @@ def update_state():
     if request.method == 'POST':
         data_json = request.get_data().decode('utf-8')
         data_dict = json.loads(data_json)
-        state = State.query.filter_by(s_value=data_dict['s_value']).first()
+        state = State.query.filter_by(s_value=data_dict['s_value'], s_item_code=data_dict['s_item_code']).first()
         if state:
             result = {"flag": False, "value": "状态已经存在！"}
             return result

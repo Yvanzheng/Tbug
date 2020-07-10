@@ -11,11 +11,6 @@
     <script type="text/javascript" src="{{ url_for('static',filename='lib/layui/layui.js') }}"></script>
     <script src="{{ url_for('static',filename='js/xadmin.js') }}" charset="utf-8"></script>
     <script src="{{ url_for('static',filename='js/jquery.min.js') }}" charset="utf-8"></script>
-    <script>
-        $(function () {
-            console.info({{ projects }})
-        })
-    </script>
 </head>
 
 <body>
@@ -34,33 +29,31 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body ">
-                    <form class="layui-form layui-col-space5">
+                    <form method="post" class="layui-form layui-col-space5">
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input class="layui-input" placeholder="开始日" name="start" id="start"></div>
-                        <div class="layui-input-inline layui-show-xs-block">
-                            <input class="layui-input" placeholder="截止日" name="end" id="end"></div>
-                        <div class="layui-input-inline layui-show-xs-block">
-                            <select name="contrller">
-                                <option>支付方式</option>
-                                <option>支付宝</option>
-                                <option>微信</option>
-                                <option>货到付款</option>
-                            </select>
-                        </div>
-                        <div class="layui-input-inline layui-show-xs-block">
-                            <select name="contrller">
-                                <option value="">订单状态</option>
-                                <option value="0">待确认</option>
-                                <option value="1">已确认</option>
-                                <option value="2">已收货</option>
-                                <option value="3">已取消</option>
-                                <option value="4">已完成</option>
-                                <option value="5">已作废</option>
-                            </select>
-                        </div>
-                        <div class="layui-input-inline layui-show-xs-block">
-                            <input type="text" name="username" placeholder="请输入订单号" autocomplete="off"
+                            <input type="text" name="projectName" placeholder="请输入项目名称" autocomplete="off"
                                    class="layui-input"></div>
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <select name="user">
+                                <option value="">创建人</option>
+                                {% for user in users %}
+                                    <option value="{{ user.id }}">{{ user.username }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <select name="project_state">
+                                <option value="">项目状态</option>
+                                {% for state in states %}
+                                    <option value="{{ state.s_id }}">{{ state.s_value }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        </br>
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <input class="layui-input" placeholder="开始日期" name="start" id="start"></div>
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <input class="layui-input" placeholder="截止日期" name="end" id="end"></div>
                         <div class="layui-input-inline layui-show-xs-block">
                             <button class="layui-btn" lay-submit="" lay-filter="sreach">
                                 <i class="layui-icon">&#xe615;</i></button>
@@ -68,11 +61,11 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
+                    <button class="layui-btn" onclick="xadmin.open('创建项目','/project/addProject',500,500)">
+                        <i class="layui-icon"></i>创建
+                    </button>
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除
-                    </button>
-                    <button class="layui-btn" onclick="xadmin.open('添加项目','/project/showAddProject',500,500)">
-                        <i class="layui-icon"></i>添加
                     </button>
                 </div>
                 <div class="layui-card-body ">
@@ -80,65 +73,57 @@
                         <thead>
                         <tr>
                             <th>
-                                <input type="checkbox" name="" lay-skin="primary">
+                                <input type="checkbox" lay-filter="checkall" lay-skin="primary">
                             </th>
-                            <th>项目编号</th>
                             <th>项目名称</th>
-                            <th>项目归属</th>
+                            <th>创建人</th>
                             <th>开始时间</th>
                             <th>截止时间</th>
                             <th>项目状态</th>
+                            <th>创建时间</th>
                             <th>项目描述</th>
                             <th>操作</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="" lay-skin="primary"></td>
-                            <td>1</td>
-                            <td>立减金</td>
-                            <td>老王</td>
-                            <td>2020-06-01 18:22</td>
-                            <td>2020-06-17 18:22</td>
-                            <td>可执行</td>
-                            <td>test001</td>
-                            <td class="td-manage">
-                                <a title="查看" onclick="xadmin.open('编辑','order-view.html')" href="javascript:;">
-                                    <i class="layui-icon">&#xe63c;</i></a>
-                                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                                    <i class="layui-icon">&#xe640;</i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="" lay-skin="primary"></td>
-                            <td>2</td>
-                            <td>一分抽奖</td>
-                            <td>老张</td>
-                            <td>2020-05-17 18:22</td>
-                            <td>2020-07-17 18:22</td>
-                            <td>可执行</td>
-                            <td>test001</td>
-                            <td class="td-manage">
-                                <a title="查看" onclick="xadmin.open('编辑','order-view.html')" href="javascript:;">
-                                    <i class="layui-icon">&#xe63c;</i></a>
-                                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                                    <i class="layui-icon">&#xe640;</i></a>
-                            </td>
-                        </tr>
+                        <tbody id="itemVal">
+                        {% for project in projects %}
+                            <tr>
+                                <td>
+                                    <input type="checkbox" lay-skin="primary" name="id" value="{{ project.p_id }}">
+                                </td>
+                                <td>{{ project.p_name }}</td>
+                                <td>{{ project.to_user.username }}</td>
+                                <td>{{ project.p_start_time }}</td>
+                                <td>{{ project.p_end_time }}</td>
+                                <td>{{ project.to_state.s_value }}</td>
+                                <td>{{ project.p_create_time }}</td>
+                                <td>{{ project.p_remarks }}</td>
+                                <td class="td-manage">
+                                    <a title="编辑项目"
+                                       onclick="xadmin.open('编辑项目', '/project/editProject/'+{{ project.p_id }}, 600, 500)"
+                                       href="javascript:;">
+                                        <i class="layui-icon">&#xe642;</i>
+                                    </a>
+                                    <a title="删除项目" onclick="project_del(this)" href="javascript:;">
+                                        <i class="layui-icon">&#xe640;</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
                 <div class="layui-card-body ">
                     <div class="page">
                         <div>
-                            <a class="prev" href="">&lt;&lt;</a>
-                            <a class="num" href="">1</a>
-                            <span class="current">2</span>
-                            <a class="num" href="">3</a>
-                            <a class="num" href="">489</a>
-                            <a class="next" href="">&gt;&gt;</a></div>
+                            <div class="row " style="margin-top: 10px">
+                                <nav aria-label="Page navigation" class="pull-right">
+                                    <ul class="pagination">
+                                        {{ html|safe }}
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -149,6 +134,7 @@
 <script>layui.use(['laydate', 'form'],
     function () {
         var laydate = layui.laydate;
+        var form = layui.form;
 
         //执行一个laydate实例
         laydate.render({
@@ -159,64 +145,78 @@
         laydate.render({
             elem: '#end' //指定元素
         });
+
+        // 监听全选
+        form.on('checkbox(checkall)', function (data) {
+
+            if (data.elem.checked) {
+                $('tbody input').prop('checked', true);
+            } else {
+                $('tbody input').prop('checked', false);
+            }
+            form.render('checkbox');
+        });
+
     });
 
-/*用户-停用*/
-function member_stop(obj, id) {
-    layer.confirm('确认要停用吗？',
-        function (index) {
-
-            if ($(obj).attr('title') == '启用') {
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title', '停用');
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!', {
-                    icon: 5,
-                    time: 1000
-                });
-
-            } else {
-                $(obj).attr('title', '启用');
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!', {
-                    icon: 5,
-                    time: 1000
-                });
+function project_del(obj) {
+    let project_id = $(obj).parent("td").parent("tr").children().eq(0).children(0).val();
+    let project_name = $(obj).parent("td").parent("tr").children().eq(1).text();
+    let project_desc = $(obj).parent("td").parent("tr").children().eq(7).text();
+    i_data = {
+        project_id: project_id,
+        project_name: project_name,
+        project_desc: project_desc
+    };
+    layer.confirm('确认要删除项目： ' + project_name + ' 吗？', function () {
+        //发异步删除数据
+        $.ajax({
+            type: "POST",
+            url: "/project/delProject",//提交数据接口
+            data: JSON.stringify(i_data),
+            dataType: "JSON",
+            success: function (data) {
+                if (data.flag) {
+                    $(obj).parents("tr").remove();
+                    layer.msg('删除成功!', {icon: 1, time: 1000});
+                }
             }
-
         });
-}
-
-/*用户-删除*/
-function member_del(obj, id) {
-    layer.confirm('确认要删除吗？',
-        function (index) {
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!', {
-                icon: 1,
-                time: 1000
-            });
-        });
+    });
 }
 
 function delAll(argument) {
+    var ids = [];
 
-    var data = tableCheck.getData();
-
-    layer.confirm('确认要删除吗？' + data,
-        function (index) {
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {
-                icon: 1
+    // 获取选中的id
+    $('tbody input').each(function () {
+        if ($(this).prop('checked')) {
+            ids.push($(this).val())
+        }
+    });
+    if (ids == "" || ids == null || ids == undefined) {
+        layer.msg('请选择删除项！', {icon: 1});
+    } else {
+        layer.confirm('确认要删除所需项吗？', function () {
+            $.ajax({
+                type: "POST",
+                url: "/project/delAllProject",//提交数据接口
+                data: JSON.stringify(ids),
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.flag) {
+                        //捉到所有被选中的，发异步进行删除
+                        layer.msg('删除成功', {icon: 1});
+                        $(".layui-form-checked").not('.header').parents('tr').remove();
+                    }
+                }
             });
-            $(".layui-form-checked").not('.header').parents('tr').remove();
         });
-}</script>
+    }
+
+}
+
+
+</script>
 
 </html>

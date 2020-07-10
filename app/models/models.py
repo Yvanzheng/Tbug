@@ -90,21 +90,33 @@ class State(db.Model):
 
 
 class Project(db.Model):
+    __tablename__ = 'project'
+
     p_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='项目ID')
     p_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False, comment='创建人ID')
     p_name = db.Column(db.String(256), unique=True, nullable=False, comment='项目名称')
     p_start_time = db.Column(db.TIMESTAMP, nullable=False, comment='开始时间')
     p_end_time = db.Column(db.TIMESTAMP, nullable=False, comment='截止时间')
     p_remarks = db.Column(db.String(256), unique=True, nullable=False, comment='项目描述')
-    p_state = db.Column(db.Integer, unique=True, nullable=False, comment='项目类型')
+    p_state = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='项目状态')
     p_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
+    to_user = db.relationship('User', backref=db.backref('p_item'))
+    to_state = db.relationship('State', backref=db.backref('p_state'))
 
-    __tablename__ = 'project'
-
-    def __repr__(self):
-        return '<Project %r>' % self.p_name
+    def __init__(self, p_create_user_id, p_name, p_start_time, p_end_time, p_remarks, p_state, p_create_time):
+        self.p_create_user_id = p_create_user_id
+        self.p_name = p_name
+        self.p_start_time = p_start_time
+        self.p_end_time = p_end_time
+        self.p_remarks = p_remarks
+        self.p_state = p_state
+        self.p_create_time = p_create_time
 
     def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
         db.session.add(self)
         db.session.commit()
 

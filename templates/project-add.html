@@ -28,15 +28,29 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="p_remarks" class="layui-form-label">开始时间</label>
+                <label for="p_remarks" class="layui-form-label">
+                    <span class="x-red">*</span>开始时间</label>
                 <div class="layui-input-inline">
-                    <input class="layui-input" placeholder="开始日" name="start" id="start">
+                    <input class="layui-input" required="" lay-verify="required" placeholder="开始日" name="start"
+                           id="start">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="p_remarks" class="layui-form-label">截止时间</label>
+                <label for="p_remarks" class="layui-form-label">
+                    <span class="x-red">*</span>截止时间</label>
                 <div class="layui-input-inline">
-                    <input class="layui-input" placeholder="截止日" name="end" id="end">
+                    <input class="layui-input" required="" lay-verify="required" placeholder="截止日" name="end" id="end">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="p_type" class="layui-form-label">
+                    <span class="x-red">*</span>项目状态</label>
+                <div class="layui-input-inline">
+                    <select name="p_state">
+                        {% for state in states %}
+                            <option value="{{ state.s_id }}">{{ state.s_value }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
@@ -46,19 +60,8 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="p_type" class="layui-form-label">
-                    <span class="x-red">*</span>项目状态</label>
-                <div class="layui-input-inline">
-                    <select id="p_type" name="p_type" class="valid">
-                        <option value="start">启用</option>
-                        <option value="stop">停止</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label"></label>
-                <input value="增加" lay-submit lay-filter="add" style="width:100%;" type="submit">
-                {#                <button class="layui-btn" lay-filter="add" lay-submit="">增加</button>#}
+                <button class="layui-btn" lay-filter="add" lay-submit="" type="submit">增加</button>
             </div>
         </form>
     </div>
@@ -87,12 +90,19 @@
             console.info(articleFrom);
             $.ajax({
                 type: "POST",
-                url: "/project/addProjects",//提交数据接口
+                url: "/project/addProject",//提交数据接口
                 data: articleFrom,
                 dataType: "JSON",
                 success: function (data) {
                     if (data.flag) {
-                        layer.alert("增加成功", { icon: 6},function(){
+                        layer.alert(data.value, {icon: 6}, function () {
+                            //关闭当前frame
+                            xadmin.close();
+                            // 可以对父窗口进行刷新
+                            xadmin.father_reload();
+                        })
+                    } else {
+                        layer.alert(data.value, {icon: 6}, function () {
                             //关闭当前frame
                             xadmin.close();
                             // 可以对父窗口进行刷新
@@ -103,7 +113,6 @@
             });
             return false;
         });
-
     });
 </script>
 <script>var _hmt = _hmt || [];
