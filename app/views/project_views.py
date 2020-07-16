@@ -11,7 +11,7 @@ from datetime import datetime
 from app.models.models import Project, User, State
 from app.utils.ch_login import is_login
 from app.utils.page_util import Pagination
-
+# from logs.log_util import logger
 project_blueprint = Blueprint('project', __name__)
 
 
@@ -50,8 +50,9 @@ def get_projects():
     pager_obj = Pagination(request.args.get("page", 1), len(li), request.path, request.args, per_page_count=10)
     projects = li[pager_obj.start:pager_obj.end]
     html = pager_obj.page_html()
-    states = State.query.filter(State.s_item_code == 8).all()
+    states = State.query.filter(State.s_item_code == 1).all()
     users = User.query.filter().all()
+    # logger.info(states)
     return render_template('project-list.html', html=html, projects=projects, states=states, users=users)
 
 
@@ -62,7 +63,7 @@ def add_project():
     进入添加页面，新建项目
     """
     if request.method == 'GET':
-        states = State.query.filter(State.s_item_code == 8).all()
+        states = State.query.filter(State.s_item_code == 1).all()
         return render_template('project-add.html', states=states)
     if request.method == 'POST':
         user_id = session.get('user_id')
@@ -78,9 +79,9 @@ def add_project():
         if data_dict['p_state'] == "":
             result = {"flag": False, "value": "项目状态不能为空！"}
         else:
-            project = Project.query.filter_by(p_name=data_dict['p_name'], p_state=data_dict['p_state']).first()
+            project = Project.query.filter_by(p_name=data_dict['p_name']).first()
             if project:
-                result = {"flag": False, "value": "状态为" + data_dict['p_state'] + "的项目" + data_dict['p_name'] + "已经存在！"}
+                result = {"flag": False, "value": "项目“" + data_dict['p_name'] + "”已经存在！"}
             else:
                 project = Project(p_name=data_dict['p_name'], p_create_user_id=user_id,
                                   p_start_time=data_dict['start'], p_end_time=data_dict['end'],
@@ -130,13 +131,13 @@ def edit_project(p_id):
     """
     if request.method == "GET":
         project = Project.query.filter_by(p_id=p_id).first()
-        states = State.query.filter(State.s_item_code == 8).all()
+        states = State.query.filter(State.s_item_code == 1).all()
         return render_template("project-edit.html", project=project, states=states)
 
 
 @project_blueprint.route('/updateProject/', methods=['GET', 'POST'])
 @is_login
-def update_state():
+def update_project():
     """
     确认进行修改项目
     """
@@ -144,10 +145,9 @@ def update_state():
     if request.method == 'POST':
         data_json = request.get_data().decode('utf-8')
         data_dict = json.loads(data_json)
-        project = Project.query.filter(Project.p_name == data_dict['p_name'], Project.p_state == data_dict['p_state'],
+        projects = Project.query.filter(Project.p_name == data_dict['p_name'], Project.p_state == data_dict['p_state'],
                                        Project.p_id != data_dict['p_id']).all()
-        print(project)
-        if project:
+        if len(projects) > 0:
             result = {"flag": False, "value": "项目已经存在！"}
             return result
         else:

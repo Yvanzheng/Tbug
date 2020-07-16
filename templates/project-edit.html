@@ -18,11 +18,11 @@
         <form class="layui-form">
             <div class="layui-form-item">
                 <label for="i_value" class="layui-form-label">
-                    <span class="x-red">*</span>项目名称</label>
+                    <span class="x-red"></span>项目名称</label>
                 <div class="layui-input-inline">
                     <input type="text" style="display: none;" id="p_id" value="{{ project.p_id }}" autocomplete="off"
                            class="layui-input">
-                    <input type="text" id="p_name" value="{{ project.p_name }}" autocomplete="off" class="layui-input">
+                    <input type="text" id="p_name" value="{{ project.p_name }}" autocomplete="off" class="layui-input" readonly>
                 </div>
             </div>
             <div class="layui-form-item">

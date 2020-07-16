@@ -15,3 +15,494 @@ INFO-2020-07-07 15:33:50,606-_internal-113-127.0.0.1 - - [07/Jul/2020 15:33:50] 
 INFO-2020-07-07 15:33:50,658-_internal-113-127.0.0.1 - - [07/Jul/2020 15:33:50] "[37mGET /user/welcome/ HTTP/1.1[0m" 200 -
 INFO-2020-07-07 15:33:50,737-_internal-113-127.0.0.1 - - [07/Jul/2020 15:33:50] "[37mGET /base/getStates/ HTTP/1.1[0m" 200 -
 INFO-2020-07-07 15:33:50,765-_internal-113-127.0.0.1 - - [07/Jul/2020 15:33:50] "[37mGET /base/getItems/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 14:58:41,218-_internal-113- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO-2020-07-16 14:58:48,780-_internal-113-127.0.0.1 - - [16/Jul/2020 14:58:48] "[37mGET /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 14:58:50,283-_internal-113-127.0.0.1 - - [16/Jul/2020 14:58:50] "[32mPOST /user/login HTTP/1.1[0m" 308 -
+INFO-2020-07-16 14:58:50,410-_internal-113-127.0.0.1 - - [16/Jul/2020 14:58:50] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 14:58:50,420-_internal-113-127.0.0.1 - - [16/Jul/2020 14:58:50] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 14:58:50,459-_internal-113-127.0.0.1 - - [16/Jul/2020 14:58:50] "[37mGET /user/welcome/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 14:58:50,535-_internal-113-127.0.0.1 - - [16/Jul/2020 14:58:50] "[37mGET /base/getItems/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 14:58:50,578-_internal-113-127.0.0.1 - - [16/Jul/2020 14:58:50] "[37mGET /base/getStates/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 14:58:50,598-project_views-55-[]
+INFO-2020-07-16 14:58:50,617-_internal-113-127.0.0.1 - - [16/Jul/2020 14:58:50] "[37mGET /project/getProjects/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:00:26,636-_internal-113- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO-2020-07-16 15:00:31,846-_internal-113-127.0.0.1 - - [16/Jul/2020 15:00:31] "[37mGET /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:00:33,088-_internal-113-127.0.0.1 - - [16/Jul/2020 15:00:33] "[32mPOST /user/login HTTP/1.1[0m" 308 -
+INFO-2020-07-16 15:00:33,216-_internal-113-127.0.0.1 - - [16/Jul/2020 15:00:33] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:00:33,227-_internal-113-127.0.0.1 - - [16/Jul/2020 15:00:33] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:00:33,265-_internal-113-127.0.0.1 - - [16/Jul/2020 15:00:33] "[37mGET /user/welcome/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:00:33,315-_internal-113-127.0.0.1 - - [16/Jul/2020 15:00:33] "[37mGET /base/getItems/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:00:33,358-_internal-113-127.0.0.1 - - [16/Jul/2020 15:00:33] "[37mGET /base/getStates/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:00:33,379-project_views-55-[<State 1>, <State 2>]
+INFO-2020-07-16 15:00:33,398-_internal-113-127.0.0.1 - - [16/Jul/2020 15:00:33] "[37mGET /project/getProjects/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:01:16,926-project_views-55-[<State 1>, <State 2>]
+INFO-2020-07-16 15:01:16,930-_internal-113-127.0.0.1 - - [16/Jul/2020 15:01:16] "[37mGET /project/getProjects/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:01:19,963-_internal-113-127.0.0.1 - - [16/Jul/2020 15:01:19] "[37mGET /project/addProject/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:01:44,940-_internal-113-127.0.0.1 - - [16/Jul/2020 15:01:44] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+INFO-2020-07-16 15:01:44,982-_internal-113-127.0.0.1 - - [16/Jul/2020 15:01:44] "[37mPOST /project/addProject/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:01:45,948-project_views-55-[<State 1>, <State 2>]
+INFO-2020-07-16 15:01:45,955-_internal-113-127.0.0.1 - - [16/Jul/2020 15:01:45] "[37mGET /project/getProjects/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:01:51,171-_internal-113-127.0.0.1 - - [16/Jul/2020 15:01:51] "[32mGET /project/addProject HTTP/1.1[0m" 308 -
+INFO-2020-07-16 15:01:51,191-_internal-113-127.0.0.1 - - [16/Jul/2020 15:01:51] "[37mGET /project/addProject/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:02:01,566-_internal-113-127.0.0.1 - - [16/Jul/2020 15:02:01] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+INFO-2020-07-16 15:02:01,583-_internal-113-127.0.0.1 - - [16/Jul/2020 15:02:01] "[37mPOST /project/addProject/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:02:13,956-_internal-113-127.0.0.1 - - [16/Jul/2020 15:02:13] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+INFO-2020-07-16 15:02:13,976-_internal-113-127.0.0.1 - - [16/Jul/2020 15:02:13] "[37mPOST /project/addProject/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:12:47,862-_internal-113- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO-2020-07-16 15:12:51,939-_internal-113-127.0.0.1 - - [16/Jul/2020 15:12:51] "[37mGET /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:12:53,313-_internal-113-127.0.0.1 - - [16/Jul/2020 15:12:53] "[32mPOST /user/login HTTP/1.1[0m" 308 -
+INFO-2020-07-16 15:12:53,444-_internal-113-127.0.0.1 - - [16/Jul/2020 15:12:53] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:12:53,456-_internal-113-127.0.0.1 - - [16/Jul/2020 15:12:53] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:12:53,499-_internal-113-127.0.0.1 - - [16/Jul/2020 15:12:53] "[37mGET /user/welcome/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:12:53,544-project_views-55-[<State 1>, <State 2>]
+INFO-2020-07-16 15:12:53,569-_internal-113-127.0.0.1 - - [16/Jul/2020 15:12:53] "[37mGET /project/getProjects/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:12:54,924-_internal-113-127.0.0.1 - - [16/Jul/2020 15:12:54] "[32mGET /project/addProject HTTP/1.1[0m" 308 -
+INFO-2020-07-16 15:12:54,950-_internal-113-127.0.0.1 - - [16/Jul/2020 15:12:54] "[37mGET /project/addProject/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:13:03,598-_internal-113-127.0.0.1 - - [16/Jul/2020 15:13:03] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:13:03,614-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 71, in add_project
+    data_dict = json.loads(data_json)
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+INFO-2020-07-16 15:13:03,643-_internal-113-127.0.0.1 - - [16/Jul/2020 15:13:03] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:13:04,640-_internal-113-127.0.0.1 - - [16/Jul/2020 15:13:04] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:13:04,650-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 71, in add_project
+    data_dict = json.loads(data_json)
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+INFO-2020-07-16 15:13:04,652-_internal-113-127.0.0.1 - - [16/Jul/2020 15:13:04] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:13:09,155-_internal-113-127.0.0.1 - - [16/Jul/2020 15:13:09] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:13:09,165-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 71, in add_project
+    data_dict = json.loads(data_json)
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+INFO-2020-07-16 15:13:09,168-_internal-113-127.0.0.1 - - [16/Jul/2020 15:13:09] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:13:13,217-_internal-113-127.0.0.1 - - [16/Jul/2020 15:13:13] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:13:13,227-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 71, in add_project
+    data_dict = json.loads(data_json)
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+INFO-2020-07-16 15:13:13,229-_internal-113-127.0.0.1 - - [16/Jul/2020 15:13:13] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:13:26,809-_internal-113-127.0.0.1 - - [16/Jul/2020 15:13:26] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:13:26,821-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 71, in add_project
+    data_dict = json.loads(data_json)
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+INFO-2020-07-16 15:13:26,823-_internal-113-127.0.0.1 - - [16/Jul/2020 15:13:26] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:15:46,717-_internal-113- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO-2020-07-16 15:15:49,839-_internal-113-127.0.0.1 - - [16/Jul/2020 15:15:49] "[37mGET /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:15:51,253-_internal-113-127.0.0.1 - - [16/Jul/2020 15:15:51] "[32mPOST /user/login HTTP/1.1[0m" 308 -
+INFO-2020-07-16 15:15:51,397-_internal-113-127.0.0.1 - - [16/Jul/2020 15:15:51] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:15:51,409-_internal-113-127.0.0.1 - - [16/Jul/2020 15:15:51] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:15:51,464-_internal-113-127.0.0.1 - - [16/Jul/2020 15:15:51] "[37mGET /user/welcome/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:15:51,604-project_views-55-[<State 1>, <State 2>]
+INFO-2020-07-16 15:15:51,632-_internal-113-127.0.0.1 - - [16/Jul/2020 15:15:51] "[37mGET /project/getProjects/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:15:53,955-_internal-113-127.0.0.1 - - [16/Jul/2020 15:15:53] "[32mGET /project/addProject HTTP/1.1[0m" 308 -
+INFO-2020-07-16 15:15:53,993-_internal-113-127.0.0.1 - - [16/Jul/2020 15:15:53] "[37mGET /project/addProject/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:16:03,586-_internal-113-127.0.0.1 - - [16/Jul/2020 15:16:03] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:16:03,610-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 71, in add_project
+    data_dict = json.loads(data_json)
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\__init__.py", line 348, in loads
+    return _default_decoder.decode(s)
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "D:\Users\zhengyufei\AppData\Local\Programs\Python\Python37-32\lib\json\decoder.py", line 355, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+INFO-2020-07-16 15:16:03,614-_internal-113-127.0.0.1 - - [16/Jul/2020 15:16:03] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:18:00,716-_internal-113-127.0.0.1 - - [16/Jul/2020 15:18:00] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:18:00,867-_internal-113-127.0.0.1 - - [16/Jul/2020 15:18:00] "[37mGET /user/welcome/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:18:00,914-project_views-55-[<State 1>, <State 2>]
+INFO-2020-07-16 15:18:00,920-_internal-113-127.0.0.1 - - [16/Jul/2020 15:18:00] "[37mGET /project/getProjects/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:18:03,473-_internal-113-127.0.0.1 - - [16/Jul/2020 15:18:03] "[32mGET /project/addProject HTTP/1.1[0m" 308 -
+INFO-2020-07-16 15:18:03,502-_internal-113-127.0.0.1 - - [16/Jul/2020 15:18:03] "[37mGET /project/addProject/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:18:14,376-_internal-113-127.0.0.1 - - [16/Jul/2020 15:18:14] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:18:14,399-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 84, in add_project
+    result = {"flag": False, "value": "状态为" + data_dict['state_value'] + "的项目" + data_dict['p_name'] + "已经存在！"}
+KeyError: 'state_value'
+INFO-2020-07-16 15:18:14,401-_internal-113-127.0.0.1 - - [16/Jul/2020 15:18:14] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:20:34,137-_internal-113- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO-2020-07-16 15:20:47,506-_internal-113-127.0.0.1 - - [16/Jul/2020 15:20:47] "[37mGET /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:20:48,812-_internal-113-127.0.0.1 - - [16/Jul/2020 15:20:48] "[32mPOST /user/login HTTP/1.1[0m" 308 -
+INFO-2020-07-16 15:20:48,947-_internal-113-127.0.0.1 - - [16/Jul/2020 15:20:48] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:20:48,958-_internal-113-127.0.0.1 - - [16/Jul/2020 15:20:48] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:20:49,010-_internal-113-127.0.0.1 - - [16/Jul/2020 15:20:49] "[37mGET /user/welcome/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:20:49,170-project_views-55-[<State 1>, <State 2>]
+INFO-2020-07-16 15:20:49,193-_internal-113-127.0.0.1 - - [16/Jul/2020 15:20:49] "[37mGET /project/getProjects/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:20:51,989-_internal-113-127.0.0.1 - - [16/Jul/2020 15:20:51] "[32mGET /project/addProject HTTP/1.1[0m" 308 -
+INFO-2020-07-16 15:20:52,016-_internal-113-127.0.0.1 - - [16/Jul/2020 15:20:52] "[37mGET /project/addProject/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:21:01,272-_internal-113-127.0.0.1 - - [16/Jul/2020 15:21:01] "[37mGET /project/addProject/?p_name=测试项目&start=&end=&p_remarks=&p_state=1 HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:21:14,606-_internal-113-127.0.0.1 - - [16/Jul/2020 15:21:14] "[37mGET /project/addProject/?p_name=测试项目&start=&end=&p_remarks=&p_state=1 HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:22:00,019-_internal-113-127.0.0.1 - - [16/Jul/2020 15:22:00] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:22:00,084-_internal-113-127.0.0.1 - - [16/Jul/2020 15:22:00] "[37mGET /user/welcome/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:22:00,142-project_views-55-[<State 1>, <State 2>]
+INFO-2020-07-16 15:22:00,149-_internal-113-127.0.0.1 - - [16/Jul/2020 15:22:00] "[37mGET /project/getProjects/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:22:02,272-_internal-113-127.0.0.1 - - [16/Jul/2020 15:22:02] "[37mGET /project/addProject/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:22:10,358-_internal-113-127.0.0.1 - - [16/Jul/2020 15:22:10] "[37mGET /project/addProject/?p_name=测试项目&start=&end=&p_remarks=&p_state=1 HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:23:02,991-_internal-113- * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+INFO-2020-07-16 15:23:05,555-_internal-113-127.0.0.1 - - [16/Jul/2020 15:23:05] "[37mGET /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:23:06,966-_internal-113-127.0.0.1 - - [16/Jul/2020 15:23:06] "[32mPOST /user/login HTTP/1.1[0m" 308 -
+INFO-2020-07-16 15:23:07,099-_internal-113-127.0.0.1 - - [16/Jul/2020 15:23:07] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:23:07,109-_internal-113-127.0.0.1 - - [16/Jul/2020 15:23:07] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:23:07,161-_internal-113-127.0.0.1 - - [16/Jul/2020 15:23:07] "[37mGET /user/welcome/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:23:07,230-project_views-55-[<State 1>, <State 2>]
+INFO-2020-07-16 15:23:07,258-_internal-113-127.0.0.1 - - [16/Jul/2020 15:23:07] "[37mGET /project/getProjects/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:23:09,745-_internal-113-127.0.0.1 - - [16/Jul/2020 15:23:09] "[37mGET /project/addProject/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:23:16,325-_internal-113-127.0.0.1 - - [16/Jul/2020 15:23:16] "[37mGET /project/addProject/?p_name=测试项目&start=&end=&p_remarks=&p_state=1 HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:24:52,249-_internal-113-127.0.0.1 - - [16/Jul/2020 15:24:52] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:24:52,387-_internal-113-127.0.0.1 - - [16/Jul/2020 15:24:52] "[37mGET /user/welcome/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:24:52,420-project_views-55-[<State 1>, <State 2>]
+INFO-2020-07-16 15:24:52,428-_internal-113-127.0.0.1 - - [16/Jul/2020 15:24:52] "[37mGET /project/getProjects/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:24:54,982-_internal-113-127.0.0.1 - - [16/Jul/2020 15:24:54] "[37mGET /project/addProject/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:24:59,337-_internal-113-127.0.0.1 - - [16/Jul/2020 15:24:59] "[37mGET /project/addProject/?p_name=测试项目&start=&end=&p_remarks=&p_state=1 HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:25:38,911-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:38] "[37mPOST /user/login/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:25:39,002-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:39] "[37mGET /user/welcome/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:25:39,151-project_views-55-[<State 1>, <State 2>]
+INFO-2020-07-16 15:25:39,159-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:39] "[37mGET /project/getProjects/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:25:42,025-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:42] "[37mGET /project/addProject/ HTTP/1.1[0m" 200 -
+INFO-2020-07-16 15:25:50,329-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:50] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:25:50,348-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 84, in add_project
+    result = {"flag": False, "value": "状态为" + data_dict['state_value'] + "的项目" + data_dict['p_name'] + "已经存在！"}
+KeyError: 'state_value'
+INFO-2020-07-16 15:25:50,352-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:50] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:25:51,395-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:51] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:25:51,414-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 84, in add_project
+    result = {"flag": False, "value": "状态为" + data_dict['state_value'] + "的项目" + data_dict['p_name'] + "已经存在！"}
+KeyError: 'state_value'
+INFO-2020-07-16 15:25:51,416-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:51] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:25:52,024-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:52] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:25:52,043-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 84, in add_project
+    result = {"flag": False, "value": "状态为" + data_dict['state_value'] + "的项目" + data_dict['p_name'] + "已经存在！"}
+KeyError: 'state_value'
+INFO-2020-07-16 15:25:52,047-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:52] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:25:52,277-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:52] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:25:52,295-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 84, in add_project
+    result = {"flag": False, "value": "状态为" + data_dict['state_value'] + "的项目" + data_dict['p_name'] + "已经存在！"}
+KeyError: 'state_value'
+INFO-2020-07-16 15:25:52,298-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:52] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:25:52,503-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:52] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:25:52,517-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 84, in add_project
+    result = {"flag": False, "value": "状态为" + data_dict['state_value'] + "的项目" + data_dict['p_name'] + "已经存在！"}
+KeyError: 'state_value'
+INFO-2020-07-16 15:25:52,519-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:52] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:25:52,740-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:52] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:25:52,757-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 84, in add_project
+    result = {"flag": False, "value": "状态为" + data_dict['state_value'] + "的项目" + data_dict['p_name'] + "已经存在！"}
+KeyError: 'state_value'
+INFO-2020-07-16 15:25:52,760-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:52] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:25:52,920-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:52] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:25:52,938-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 84, in add_project
+    result = {"flag": False, "value": "状态为" + data_dict['state_value'] + "的项目" + data_dict['p_name'] + "已经存在！"}
+KeyError: 'state_value'
+INFO-2020-07-16 15:25:52,941-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:52] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:25:53,075-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:53] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:25:53,092-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 84, in add_project
+    result = {"flag": False, "value": "状态为" + data_dict['state_value'] + "的项目" + data_dict['p_name'] + "已经存在！"}
+KeyError: 'state_value'
+INFO-2020-07-16 15:25:53,095-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:53] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:25:53,219-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:53] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:25:53,236-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 84, in add_project
+    result = {"flag": False, "value": "状态为" + data_dict['state_value'] + "的项目" + data_dict['p_name'] + "已经存在！"}
+KeyError: 'state_value'
+INFO-2020-07-16 15:25:53,239-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:53] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -
+INFO-2020-07-16 15:25:53,352-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:53] "[32mPOST /project/addProject HTTP/1.1[0m" 308 -
+ERROR-2020-07-16 15:25:53,374-app-1892-Exception on /project/addProject/ [POST]
+Traceback (most recent call last):
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "E:\Git_Bluetooth\pytest_interface\venv\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\utils\ch_login.py", line 17, in check_login
+    return func(*args, **kwargs)
+  File "E:\PycharmSpace\Flask_sys\sweep\app\views\project_views.py", line 84, in add_project
+    result = {"flag": False, "value": "状态为" + data_dict['state_value'] + "的项目" + data_dict['p_name'] + "已经存在！"}
+KeyError: 'state_value'
+INFO-2020-07-16 15:25:53,376-_internal-113-127.0.0.1 - - [16/Jul/2020 15:25:53] "[35m[1mPOST /project/addProject/ HTTP/1.1[0m" 500 -

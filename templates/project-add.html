@@ -31,14 +31,14 @@
                 <label for="p_remarks" class="layui-form-label">
                     <span class="x-red">*</span>开始时间</label>
                 <div class="layui-input-inline">
-                    <input class="layui-input" placeholder="开始日" name="start" id="start">
+                    <input class="layui-input" placeholder="开始日" required="" lay-verify="required" name="start" id="start">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label for="p_remarks" class="layui-form-label">
                     <span class="x-red">*</span>截止时间</label>
                 <div class="layui-input-inline">
-                    <input class="layui-input" placeholder="截止日" name="end" id="end">
+                    <input class="layui-input" placeholder="截止日" required="" lay-verify="required" name="end" id="end">
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
@@ -86,7 +86,6 @@
 
         form.on('submit(add)', function (data) {
             var articleFrom = JSON.stringify(data.field);//获取数据集合；
-            console.info(articleFrom);
             $.ajax({
                 type: "POST",
                 url: "/project/addProject",//提交数据接口

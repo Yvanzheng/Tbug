@@ -36,7 +36,7 @@ class Item(db.Model):
     i_create_user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, comment='创建人ID')
     i_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建时间')
     i_desc = db.Column(db.String(256), comment='分类描述')
-    to_user = db.relationship('User', backref=db.backref('items'))
+    to_user = db.relationship('User', backref=db.backref('i_user'))
 
     def __init__(self, i_value, i_create_user_id, i_create_time, i_desc):
         self.i_value = i_value
@@ -66,8 +66,8 @@ class State(db.Model):
     s_create_user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, comment='创建人ID')
     s_desc = db.Column(db.String(256), comment='分类描述')
     s_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建时间')
-    to_user = db.relationship('User', backref=db.backref('item'))
-    to_item = db.relationship('Item', backref=db.backref('state'))
+    to_user = db.relationship('User', backref=db.backref('s_user'))
+    to_item = db.relationship('Item', backref=db.backref('s_item'))
 
     def __init__(self, s_value, s_item_code, s_create_user_id, s_desc, s_create_time):
         self.s_value = s_value
@@ -100,8 +100,44 @@ class Project(db.Model):
     p_remarks = db.Column(db.String(256), unique=True, nullable=False, comment='项目描述')
     p_state = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='项目状态')
     p_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
-    to_user = db.relationship('User', backref=db.backref('p_item'))
+    to_user = db.relationship('User', backref=db.backref('p_user'))
     to_state = db.relationship('State', backref=db.backref('p_state'))
+
+    def __init__(self, p_create_user_id, p_name, p_start_time, p_end_time, p_remarks, p_state, p_create_time):
+        self.p_create_user_id = p_create_user_id
+        self.p_name = p_name
+        self.p_start_time = p_start_time
+        self.p_end_time = p_end_time
+        self.p_remarks = p_remarks
+        self.p_state = p_state
+        self.p_create_time = p_create_time
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class Module(db.Model):
+    __tablename__ = 'module'
+
+    m_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='模块ID')
+    m_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False, comment='创建人ID')
+    m_name = db.Column(db.String(256), unique=True, nullable=False, comment='模块名称')
+    m_in_project_id = db.Column(db.Integer, db.ForeignKey('project.p_id'), unique=True, nullable=False, comment='所属项目ID')
+    m_remarks = db.Column(db.String(256), unique=True, nullable=False, comment='模块描述')
+    m_state = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='模块状态')
+    m_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
+    to_user = db.relationship('User', backref=db.backref('m_user'))
+    to_state = db.relationship('State', backref=db.backref('m_state'))
+    to_project = db.relationship('Project', backref=db.backref('m_project'))
 
     def __init__(self, p_create_user_id, p_name, p_start_time, p_end_time, p_remarks, p_state, p_create_time):
         self.p_create_user_id = p_create_user_id
