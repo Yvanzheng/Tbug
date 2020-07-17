@@ -17,37 +17,37 @@
     <div class="layui-row">
         <form class="layui-form">
             <div class="layui-form-item">
-                <label for="i_value" class="layui-form-label">
-                    <span class="x-red"></span>项目名称</label>
+                <label for="m_name" class="layui-form-label">
+                    <span class="x-red"></span>模块名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" style="display: none;" id="p_id" value="{{ project.p_id }}" autocomplete="off"
+                    <input type="text" style="display: none;" id="m_id" value="{{ module.m_id }}" autocomplete="off"
                            class="layui-input">
-                    <input type="text" id="p_name" value="{{ project.p_name }}" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" id="m_name" value="{{ module.m_name }}" autocomplete="off" class="layui-input"
+                           readonly>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="p_remarks" class="layui-form-label">
-                    <span class="x-red">*</span>开始时间</label>
+                <label for="m_in_project" class="layui-form-label">
+                    <span class="x-red">*</span>所属项目</label>
                 <div class="layui-input-inline">
-                    <input class="layui-input" required="" lay-verify="required" placeholder="开始日" name="start"
-                           value="{{ project.p_start_time }}" id="start">
+                    <select name="m_in_project" id="m_in_project">
+                        {% for project in projects %}
+                            {% if project.p_id == module.m_in_project_id %}
+                                <option value="{{ project.p_id }}" selected="selected">{{ project.p_name }}</option>
+                            {% else %}
+                                <option value="{{ project.p_id }}">{{ project.p_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="p_remarks" class="layui-form-label">
-                    <span class="x-red">*</span>截止时间</label>
+                <label for="m_state" class="layui-form-label">
+                    <span class="x-red">*</span>模块状态</label>
                 <div class="layui-input-inline">
-                    <input class="layui-input" required="" lay-verify="required" placeholder="截止日" name="end"
-                           value="{{ project.p_end_time }}" id="end">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="p_type" class="layui-form-label">
-                    <span class="x-red">*</span>项目状态</label>
-                <div class="layui-input-inline">
-                    <select name="p_state" id="p_state">
+                    <select name="m_state" id="m_state">
                         {% for state in states %}
-                            {% if state.s_id == project.p_state %}
+                            {% if state.s_id == module.m_state %}
                                 <option value="{{ state.s_id }}" selected="selected">{{ state.s_value }}</option>
                             {% else %}
                                 <option value="{{ state.s_id }}">{{ state.s_value }}</option>
@@ -57,10 +57,10 @@
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
-                <label for="p_remarks" class="layui-form-label">项目描述</label>
+                <label for="m_remarks" class="layui-form-label">项目描述</label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" id="p_remarks" name="p_remarks"
-                              class="layui-textarea">{{ project.p_remarks }}</textarea>
+                    <textarea placeholder="请输入内容" id="m_remarks" name="m_remarks"
+                              class="layui-textarea">{{ module.m_remarks }}</textarea>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -94,17 +94,16 @@
             //监听提交
             form.on('submit(update)', function () {
                 in_data = {
-                    "p_id": $("#p_id").val(),
-                    "p_name": $("#p_name").val(),
-                    "start": $("#start").val(),
-                    "end": $("#end").val(),
-                    "p_state": $("#p_state").find("option:selected").val(),
-                    "p_remarks": $("#p_remarks").val()
+                    "m_id": $("#m_id").val(),
+                    "m_name": $("#m_name").val(),
+                    "m_in_project": $("#m_in_project").find("option:selected").val(),
+                    "m_state": $("#m_state").find("option:selected").val(),
+                    "m_remarks": $("#m_remarks").val()
                 };
                 var articleFrom = JSON.stringify(in_data);//获取数据集合
                 $.ajax({
                     type: "POST",
-                    url: "/project/updateProject",//提交数据接口
+                    url: "/module/updateModule",//提交数据接口
                     data: articleFrom,
                     dataType: "JSON",
                     success: function (data) {

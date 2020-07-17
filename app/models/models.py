@@ -139,14 +139,13 @@ class Module(db.Model):
     to_state = db.relationship('State', backref=db.backref('m_state'))
     to_project = db.relationship('Project', backref=db.backref('m_project'))
 
-    def __init__(self, p_create_user_id, p_name, p_start_time, p_end_time, p_remarks, p_state, p_create_time):
-        self.p_create_user_id = p_create_user_id
-        self.p_name = p_name
-        self.p_start_time = p_start_time
-        self.p_end_time = p_end_time
-        self.p_remarks = p_remarks
-        self.p_state = p_state
-        self.p_create_time = p_create_time
+    def __init__(self, m_create_user_id, m_name, m_in_project_id, m_remarks, m_state, m_create_time):
+        self.m_create_user_id = m_create_user_id
+        self.m_name = m_name
+        self.m_in_project_id = m_in_project_id
+        self.m_remarks = m_remarks
+        self.m_state = m_state
+        self.m_create_time = m_create_time
 
     def save(self):
         db.session.add(self)

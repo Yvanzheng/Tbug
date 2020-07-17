@@ -160,5 +160,5 @@ def update_project():
             project.p_state = data_dict['p_state']
             project.p_create_time = datetime.now()
             project.save()
-            result = {"flag": True, "value": "状态修改完成！"}
+            result = {"flag": True, "value": "项目修改完成！"}
             return result
