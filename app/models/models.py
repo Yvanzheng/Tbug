@@ -158,3 +158,38 @@ class Module(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+
+class Cases(db.Model):
+    __tablename__ = 'cases'
+
+    cs_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='用例集ID')
+    cs_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False, comment='创建人ID')
+    cs_name = db.Column(db.String(256), unique=True, nullable=False, comment='用例集名称')
+    cs_in_module_id = db.Column(db.Integer, db.ForeignKey('module.m_id'), unique=True, nullable=False, comment='所属模块ID')
+    cs_remarks = db.Column(db.String(256), unique=True, nullable=False, comment='用例集描述')
+    cs_state = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='用例集状态')
+    cs_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
+    to_user = db.relationship('User', backref=db.backref('cs_user'))
+    to_state = db.relationship('State', backref=db.backref('cs_state'))
+    to_module = db.relationship('Module', backref=db.backref('cs_module'))
+
+    def __init__(self, cs_create_user_id, cs_name, cs_in_module_id, cs_remarks, cs_state, cs_create_time):
+        self.cs_create_user_id = cs_create_user_id
+        self.cs_name = cs_name
+        self.cs_in_module_id = cs_in_module_id
+        self.cs_remarks = cs_remarks
+        self.cs_state = cs_state
+        self.cs_create_time = cs_create_time
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()

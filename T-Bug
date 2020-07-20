@@ -74,6 +74,20 @@ CREATE TABLE module
 ) COMMENT = '模块表';
 
 
+DROP TABLE
+  IF EXISTS cases;
 
-
+CREATE TABLE cases
+(
+  cs_id             INT PRIMARY KEY AUTO_INCREMENT COMMENT '用例集ID',
+  cs_create_user_id INT          NOT NULL COMMENT '创建人ID',
+  cs_name           VARCHAR(256) NOT NULL COMMENT '用例集名称',
+  cs_in_module_id   INT          NOT NULL COMMENT '所属模块',
+  cs_remarks        VARCHAR(256) NOT NULL COMMENT '用例集描述',
+  cs_state          INT          NOT NULL COMMENT '用例集状态',
+  cs_create_time    TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
+  FOREIGN KEY (cs_create_user_id) REFERENCES user (id),
+  FOREIGN KEY (cs_state) REFERENCES state (s_id),
+  FOREIGN KEY (cs_in_module_id) REFERENCES module (m_id)
+) COMMENT = '用例集表';
 

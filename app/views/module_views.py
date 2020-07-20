@@ -132,7 +132,7 @@ def edit_module(m_id):
     if request.method == "GET":
         module = Module.query.filter_by(m_id=m_id).first()
         states = State.query.filter(State.s_item_code == 2).all()
-        projects = Project.query.filter().all()
+        projects = Project.query.filter(Project.p_state == 1).all()
         return render_template("module-edit.html", module=module, states=states, projects=projects)
 
 

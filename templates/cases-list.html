@@ -16,7 +16,7 @@
 <body>
 <div class="x-nav">
             <span class="layui-breadcrumb">
-                <a href="">模块</a>
+                <a href="">用例集</a>
                 <a href=""><cite>详情</cite></a>
             </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
@@ -31,7 +31,7 @@
                 <div class="layui-card-body ">
                     <form method="post" class="layui-form layui-col-space5">
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input type="text" name="moduleName" placeholder="请输入模块名称" autocomplete="off"
+                            <input type="text" name="casesName" placeholder="请输入用例集名称" autocomplete="off"
                                    class="layui-input"></div>
                         <div class="layui-input-inline layui-show-xs-block">
                             <select name="user">
@@ -42,8 +42,8 @@
                             </select>
                         </div>
                         <div class="layui-input-inline layui-show-xs-block">
-                            <select name="module_state">
-                                <option value="">模块状态</option>
+                            <select name="state">
+                                <option value="">用例集状态</option>
                                 {% for state in states %}
                                     <option value="{{ state.s_id }}">{{ state.s_value }}</option>
                                 {% endfor %}
@@ -60,7 +60,7 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn" onclick="xadmin.open('创建模块','/module/addModule',500,500)">
+                    <button class="layui-btn" onclick="xadmin.open('创建模块','/cases/addCases',500,500)">
                         <i class="layui-icon"></i>创建
                     </button>
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
@@ -74,34 +74,34 @@
                             <th>
                                 <input type="checkbox" lay-filter="checkall" lay-skin="primary">
                             </th>
-                            <th>模块名称</th>
+                            <th>用例集名称</th>
                             <th>创建人</th>
-                            <th>所属项目</th>
-                            <th>模块状态</th>
+                            <th>所属模块</th>
+                            <th>用例集状态</th>
                             <th>创建时间</th>
-                            <th>模块描述</th>
+                            <th>用例集描述</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody id="itemVal">
-                        {% for module in modules %}
+                        {% for case in cases %}
                             <tr>
                                 <td>
-                                    <input type="checkbox" lay-skin="primary" name="id" value="{{ module.m_id }}">
+                                    <input type="checkbox" lay-skin="primary" name="id" value="{{ case.cs_id }}">
                                 </td>
-                                <td>{{ module.m_name }}</td>
-                                <td>{{ module.to_user.username }}</td>
-                                <td>{{ module.to_project.p_name }}</td>
-                                <td>{{ module.to_state.s_value }}</td>
-                                <td>{{ module.m_create_time }}</td>
-                                <td>{{ module.m_remarks }}</td>
+                                <td>{{ case.cs_name }}</td>
+                                <td>{{ case.to_user.username }}</td>
+                                <td>{{ case.to_module.m_name }}</td>
+                                <td>{{ case.to_state.s_value }}</td>
+                                <td>{{ case.cs_create_time }}</td>
+                                <td>{{ case.cs_remarks }}</td>
                                 <td class="td-manage">
-                                    <a title="编辑模块"
-                                       onclick="xadmin.open('编辑模块', '/module/editModule/'+{{ module.m_id }}, 600, 500)"
+                                    <a title="编辑用例集"
+                                       onclick="xadmin.open('编辑用例集', '/cases/editCases/'+{{ case.cs_id }}, 600, 500)"
                                        href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>
                                     </a>
-                                    <a title="删除模块" onclick="module_del(this)" href="javascript:;">
+                                    <a title="删除用例集" onclick="casea_del(this)" href="javascript:;">
                                         <i class="layui-icon">&#xe640;</i>
                                     </a>
                                 </td>
@@ -156,20 +156,18 @@
 
     });
 
-function module_del(obj) {
-    let m_id = $(obj).parent("td").parent("tr").children().eq(0).children(0).val();
-    let m_name = $(obj).parent("td").parent("tr").children().eq(1).text();
-    let m_desc = $(obj).parent("td").parent("tr").children().eq(6).text();
+function casea_del(obj) {
+    let cs_id = $(obj).parent("td").parent("tr").children().eq(0).children(0).val();
+    let cs_name = $(obj).parent("td").parent("tr").children().eq(1).text();
     i_data = {
-        m_id: m_id,
-        m_name: m_name,
-        m_desc: m_desc
+        cs_id: cs_id,
+        cs_name: cs_name
     };
-    layer.confirm('确认要删除模块： ' + m_name + ' 吗？', function () {
+    layer.confirm('确认要删除模块： ' + cs_name + ' 吗？', function () {
         //发异步删除数据
         $.ajax({
             type: "POST",
-            url: "/module/delModule",//提交数据接口
+            url: "/cases/delCases",//提交数据接口
             data: JSON.stringify(i_data),
             dataType: "JSON",
             success: function (data) {
@@ -197,7 +195,7 @@ function delAll(argument) {
         layer.confirm('确认要删除所需项吗？', function () {
             $.ajax({
                 type: "POST",
-                url: "/module/delAllModule",//提交数据接口
+                url: "/cases/delAllCases",//提交数据接口
                 data: JSON.stringify(ids),
                 dataType: "JSON",
                 success: function (data) {
