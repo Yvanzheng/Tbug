@@ -20,18 +20,18 @@
     <div class="layui-row">
         <form class="layui-form">
             <div class="layui-form-item">
-                <label for="cs_name" class="layui-form-label">
-                    <span class="x-red">*</span>用例集名称</label>
+                <label for="tk_name" class="layui-form-label">
+                    <span class="x-red">*</span>任务名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="cs_name" name="cs_name" required="" lay-verify="required" autocomplete="off"
+                    <input type="text" id="tk_name" name="tk_name" required="" lay-verify="required" autocomplete="off"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="cs_in_module" class="layui-form-label">
-                    <span class="x-red">*</span>所属模块</label>
+                <label for="tk_in_project_id" class="layui-form-label">
+                    <span class="x-red">*</span>所属项目</label>
                 <div class="layui-input-inline">
-                    <select name="cs_in_module">
+                    <select name="tk_in_project_id">
                         {% for module in modules %}
                             <option value="{{ module.m_id }}">{{ module.m_name }}</option>
                         {% endfor %}
@@ -39,10 +39,10 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="cs_state" class="layui-form-label">
-                    <span class="x-red">*</span>用例集状态</label>
+                <label for="tk_state" class="layui-form-label">
+                    <span class="x-red">*</span>任务状态</label>
                 <div class="layui-input-inline">
-                    <select name="cs_state">
+                    <select name="tk_state">
                         {% for state in states %}
                             <option value="{{ state.s_id }}">{{ state.s_value }}</option>
                         {% endfor %}
@@ -50,9 +50,9 @@
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
-                <label for="cs_remarks" class="layui-form-label">用例集描述</label>
+                <label for="tk_desc" class="layui-form-label">任务描述</label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" id="cs_remarks" name="cs_remarks" class="layui-textarea"></textarea>
+                    <textarea placeholder="请输入内容" id="tk_desc" name="tk_desc" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -67,19 +67,6 @@
         $ = layui.jquery;
         var form = layui.form,
             layer = layui.layer;
-
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
-        });
-
 
         form.on('submit(add)', function (data) {
             var articleFrom = JSON.stringify(data.field);//获取数据集合；

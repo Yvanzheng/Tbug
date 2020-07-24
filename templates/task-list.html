@@ -16,7 +16,7 @@
 <body>
 <div class="x-nav">
             <span class="layui-breadcrumb">
-                <a href="">用例集</a>
+                <a href="">任务</a>
                 <a href=""><cite>详情</cite></a>
             </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
@@ -31,8 +31,17 @@
                 <div class="layui-card-body ">
                     <form method="post" class="layui-form layui-col-space5">
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input type="text" name="casesName" placeholder="请输入用例集名称" autocomplete="off"
-                                   class="layui-input"></div>
+                            <input type="text" name="casesName" placeholder="任务名称" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                        <div class="layui-inline layui-show-xs-block">
+                            <select name="task_state">
+                                <option value="">任务状态</option>
+                                {% for state in states %}
+                                    <option value="{{ state.s_id }}">{{ state.s_value }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                         <div class="layui-input-inline layui-show-xs-block">
                             <select name="user">
                                 <option value="">创建人</option>
@@ -42,10 +51,10 @@
                             </select>
                         </div>
                         <div class="layui-input-inline layui-show-xs-block">
-                            <select name="state">
-                                <option value="">用例集状态</option>
-                                {% for state in states %}
-                                    <option value="{{ state.s_id }}">{{ state.s_value }}</option>
+                            <select name="project">
+                                <option value="">项目名称</option>
+                                {% for project in projects %}
+                                    <option value="{{ project.p_id }}">{{ project.p_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -60,7 +69,7 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn" onclick="xadmin.open('创建用例集','/cases/addCases',500,500)">
+                    <button class="layui-btn" onclick="xadmin.open('创建任务','/task/addCases',500,500)">
                         <i class="layui-icon"></i>创建
                     </button>
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
@@ -70,43 +79,71 @@
                 <div class="layui-card-body ">
                     <table class="layui-table layui-form">
                         <thead>
+                        <thead>
                         <tr>
-                            <th>
+                            <th width="10%">
                                 <input type="checkbox" lay-filter="checkall" lay-skin="primary">
                             </th>
-                            <th>用例集名称</th>
-                            <th>创建人</th>
-                            <th>所属模块</th>
-                            <th>用例集状态</th>
-                            <th>创建时间</th>
-                            <th>用例集描述</th>
-                            <th>操作</th>
+                            <th width="10%">任务名称</th>
+                            <th width="10%">所属项目</th>
+                            <th width="10%">任务状态</th>
+                            <th width="20%">任务描述</th>
+                            <th width="10%">创建人</th>
+                            <th width="10%">创建时间</th>
+                            <th width="20%">操作</th>
                         </tr>
                         </thead>
-                        <tbody id="itemVal">
-                        {% for case in cases %}
-                            <tr>
-                                <td>
-                                    <input type="checkbox" lay-skin="primary" name="id" value="{{ case.cs_id }}">
-                                </td>
-                                <td>{{ case.cs_name }}</td>
-                                <td>{{ case.to_user.username }}</td>
-                                <td>{{ case.to_module.m_name }}</td>
-                                <td>{{ case.to_state.s_value }}</td>
-                                <td>{{ case.cs_create_time }}</td>
-                                <td>{{ case.cs_remarks }}</td>
-                                <td class="td-manage">
-                                    <a title="编辑用例集"
-                                       onclick="xadmin.open('编辑用例集', '/cases/editCases/'+{{ case.cs_id }}, 600, 500)"
-                                       href="javascript:;">
-                                        <i class="layui-icon">&#xe642;</i>
-                                    </a>
-                                    <a title="删除用例集" onclick="casea_del(this)" href="javascript:;">
-                                        <i class="layui-icon">&#xe640;</i>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
+                        <tbody class="x-cate">
+                        <tr>
+                            <td>
+                                <input type="checkbox" lay-skin="primary" name="id" value="">
+                            </td>
+                            <td>testcase001</td>
+                            <td>测试项目001</td>
+                            <td>已完成</td>
+                            <td>用例描述001002003</td>
+                            <td>root</td>
+                            <td>2020-7-22</td>
+                            <td class="td-manage">
+                                <a onclick="member_stop(this,'10001')" href="javascript:;" title="启用">
+                                    <i class="layui-icon">&#xe601;</i>
+                                </a>
+                                <a title="详情" onclick="xadmin.open('详情','order-view.html')" href="javascript:;">
+                                    <i class="layui-icon">&#xe63c;</i>
+                                </a>
+                                <a title="编辑" onclick="xadmin.open('编辑','role-add.html')" href="javascript:;">
+                                    <i class="layui-icon">&#xe642;</i>
+                                </a>
+                                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                                    <i class="layui-icon">&#xe640;</i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" lay-skin="primary" name="id" value="">
+                            </td>
+                            <td>testcase001</td>
+                            <td>测试项目001</td>
+                            <td>执行中</td>
+                            <td>用例描述001002003</td>
+                            <td>root</td>
+                            <td>2020-7-22</td>
+                            <td class="td-manage">
+                                <a onclick="member_stop(this,'10001')" href="javascript:;" title="启用">
+                                    <i class="layui-icon">&#xe601;</i>
+                                </a>
+                                <a title="详情" onclick="xadmin.open('详情','order-view.html')" href="javascript:;">
+                                    <i class="layui-icon">&#xe63c;</i>
+                                </a>
+                                <a title="编辑" onclick="xadmin.open('编辑','role-add.html')" href="javascript:;">
+                                    <i class="layui-icon">&#xe642;</i>
+                                </a>
+                                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                                    <i class="layui-icon">&#xe640;</i>
+                                </a>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

@@ -136,17 +136,29 @@ def get_states():
     """
     获取所有状态信息 分页查询
     """
-    stateName = ''
+    states = ''
+    if request.method == 'GET':
+        states = State.query.filter().all()
     if request.method == 'POST':
         stateName = request.form.get('stateName')
-    states = State.query.filter(State.s_value.like("%" + stateName + "%") if stateName is not None else "").all()
+        itemId = request.form.get('itemName')
+        if stateName == "" and itemId == "":
+            states = State.query.filter().all()
+        else:
+            filterList = []
+            if stateName != "":
+                filterList.append(State.s_value.like("%" + stateName + "%"))
+            if itemId != "":
+                filterList.append(State.s_item_code == itemId)
+            states = State.query.filter(*filterList).all()
     li = []
     for i in range(0, len(states)):
         li.append(states[i])
     pager_obj = Pagination(request.args.get("page", 1), len(li), request.path, request.args, per_page_count=10)
     states = li[pager_obj.start:pager_obj.end]
+    items = Item.query.filter().all()
     html = pager_obj.page_html()
-    return render_template('state-list.html', html=html, states=states)
+    return render_template('state-list.html', html=html, states=states, items=items)
 
 
 @base_blueprint.route('/addState/', methods=['GET', 'POST'])

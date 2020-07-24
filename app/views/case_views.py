@@ -199,7 +199,7 @@ def get_case():
     states = State.query.filter(State.s_item_code == 4).all()
     users = User.query.filter().all()
     # logger.info(states)
-    return render_template('cases-list.html', html=html, cases=cases, states=states, users=users)
+    return render_template('case-list.html', html=html, cases=cases, states=states, users=users)
 
 
 @case_blueprint.route('/addCase/', methods=['GET', 'POST'])
@@ -211,7 +211,7 @@ def add_case():
     if request.method == 'GET':
         states = State.query.filter(State.s_item_code == 4).all()
         modules = Module.query.filter(Module.m_state == 3).all()
-        return render_template('cases-add.html', states=states, modules=modules)
+        return render_template('case-add.html', states=states, modules=modules)
     if request.method == 'POST':
         user_id = session.get('user_id')
         data_json = request.get_data().decode('utf-8')
@@ -278,7 +278,7 @@ def edit_case(cs_id):
         cases = Cases.query.filter_by(cs_id=cs_id).first()
         states = State.query.filter(State.s_item_code == 4).all()
         modules = Module.query.filter(Module.m_state == 3).all()
-        return render_template("cases-edit.html", cases=cases, states=states, modules=modules)
+        return render_template("case-edit.html", cases=cases, states=states, modules=modules)
 
 
 @case_blueprint.route('/updateCase/', methods=['GET', 'POST'])
