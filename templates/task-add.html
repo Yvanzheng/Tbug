@@ -20,16 +20,24 @@
     <div class="layui-row">
         <form class="layui-form">
             <div class="layui-form-item">
-                <label for="tk_name" class="layui-form-label">
-                    <span class="x-red">*</span>任务名称</label>
+                <label for="tk_name" class="layui-form-label"><span class="x-red">*</span>任务名称</label>
                 <div class="layui-input-inline">
                     <input type="text" id="tk_name" name="tk_name" required="" lay-verify="required" autocomplete="off"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="tk_in_project_id" class="layui-form-label">
-                    <span class="x-red">*</span>所属项目</label>
+                <label for="tk_state" class="layui-form-label"><span class="x-red">*</span>任务状态</label>
+                <div class="layui-input-inline">
+                    <select name="tk_state">
+                        {% for state in states %}
+                            <option value="{{ state.s_id }}">{{ state.s_value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="tk_in_project_id" class="layui-form-label"><span class="x-red">*</span>所属项目</label>
                 <div class="layui-input-inline">
                     <select name="tk_in_project_id">
                         {% for module in modules %}
@@ -39,14 +47,39 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="tk_state" class="layui-form-label">
-                    <span class="x-red">*</span>任务状态</label>
+                <label for="tk_do_module" class="layui-form-label"><span class="x-red">*</span>执行模块</label>
                 <div class="layui-input-inline">
-                    <select name="tk_state">
-                        {% for state in states %}
-                            <option value="{{ state.s_id }}">{{ state.s_value }}</option>
-                        {% endfor %}
-                    </select>
+                    <table class="layui-table layui-input-block">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="like1[write]" lay-skin="primary" lay-filter="father"
+                                       title="用户管理">
+                            </td>
+                            <td>
+                                <div class="layui-input-block">
+                                    <input name="id[]" lay-skin="primary" type="checkbox" title="用户停用" value="2">
+                                    <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="用户删除">
+                                    <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="用户修改">
+                                    <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="用户改密">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="文章管理"
+                                       lay-filter="father">
+                            </td>
+                            <td>
+                                <div class="layui-input-block">
+                                    <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="文章添加">
+                                    <input name="id[]" lay-skin="primary" type="checkbox" value="2" title="文章删除">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">

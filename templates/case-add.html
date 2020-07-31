@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>T-Bug</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/font.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/xadmin.css') }}">
+    <script type="text/javascript" src="{{ url_for('static',filename='lib/layui/layui.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/xadmin.js') }}" charset="utf-8"></script>
+    <script src="{{ url_for('static',filename='js/jquery.min.js') }}" charset="utf-8"></script>
+</head>
+
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>用例名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="tc_name" name="tc_name" required="" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>接口地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="tc_url" name="tc_url" required="" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">关联用例</label>
+                <div class="layui-input-inline">
+                    <select name="tc_link_case">
+                        <option value="">--</option>
+                        {% for testcase in testcases %}
+                            <option value="{{ testcase.tc_id }}">{{ testcase.tc_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>请求方式</label>
+                <div class="layui-input-inline">
+                    <select name="tc_req_method">
+                        {% for method in methods %}
+                            <option value="{{ method.s_id }}">{{ method.s_value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>参数类型</label>
+                <div class="layui-input-inline">
+                    <select name="tc_param_type">
+                        {% for param_type in param_types %}
+                            <option value="{{ param_type.s_id }}">{{ param_type.s_value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>返回码</label>
+                <div class="layui-input-inline">
+                    <select name="tc_status_code">
+                        {% for rep_code in rep_codes %}
+                            <option value="{{ rep_code.s_id }}">{{ rep_code.s_value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">请求参数</label>
+                <div class="layui-input-inline">
+                    <textarea placeholder="{data1:{data1:value2;......}}" id="tc_param" name="tc_param"
+                              class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>预期结果</label>
+                <div class="layui-input-inline">
+                    <textarea placeholder="{key1:value1;key2:value2;......}" id="tc_except" name="tc_except"
+                              class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用例描述</label>
+                <div class="layui-input-inline">
+                    <textarea placeholder="请输入用例描述" id="tc_desc" name="tc_desc" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">数据库验证</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="tc_sql_code" lay-filter="sql_tests" value="0" title="否" checked="checked">
+                    <input type="radio" name="tc_sql_code" lay-filter="sql_tests" value="1" title="是">
+                </div>
+            </div>
+            <div class="layui-form-item" id="sql_d" style="display: none;">
+                <label class="layui-form-label">sql语句</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="tc_sql_data" name="tc_sql_data" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item" id="sql_e" style="display: none;">
+                <label class="layui-form-label">sql期望</label>
+                <div class="layui-input-inline">
+                    <textarea placeholder="{key1:value1;key2:value2;......}" id="tc_sql_except" name="tc_sql_except"
+                              class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_repass" class="layui-form-label"></label>
+                <button class="layui-btn" lay-filter="add" lay-submit="" type="submit">增加</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>layui.use(['form', 'layer', 'laydate', 'element'], function () {
+    $ = layui.jquery;
+    var form = layui.form,
+        layer = layui.layer,
+        laydate = layui.laydate;
+
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#start' //指定元素
+    });
+
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#end' //指定元素
+    });
+
+    form.on('radio(sql_tests)', function (data) {
+        var level = data.value;
+        if (level == 1) {
+            $("#sql_d").show();
+            $("#sql_e").show();
+        } else {
+            $("#sql_d").hide();
+            $("#sql_e").hide();
+        }
+    });
+
+    form.on('submit(add)', function (data) {
+        var articleFrom = JSON.stringify(data.field);//获取数据集合；
+        $.ajax({
+            type: "POST",
+            url: "/cases/addTestCase",//提交数据接口
+            data: articleFrom,
+            dataType: "JSON",
+            success: function (data) {
+                if (data.flag) {
+                    layer.alert(data.value, {icon: 6}, function () {
+                        //关闭当前frame
+                        xadmin.close();
+                        // 可以对父窗口进行刷新
+                        xadmin.father_reload();
+                    })
+                } else {
+                    layer.alert(data.value, {icon: 6}, function () {
+                        //关闭当前frame
+                        xadmin.close();
+                        xadmin.end();
+                        // 可以对父窗口进行刷新
+                        xadmin.father_reload();
+                    })
+                }
+            }
+        });
+        return false;});
+});
+
+</script>
+<script>var _hmt = _hmt || [];
+(function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();</script>
+</body>
+
+</html>

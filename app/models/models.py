@@ -131,7 +131,8 @@ class Module(db.Model):
     m_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='模块ID')
     m_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False, comment='创建人ID')
     m_name = db.Column(db.String(256), unique=True, nullable=False, comment='模块名称')
-    m_in_project_id = db.Column(db.Integer, db.ForeignKey('project.p_id'), unique=True, nullable=False, comment='所属项目ID')
+    m_in_project_id = db.Column(db.Integer, db.ForeignKey('project.p_id'), unique=True, nullable=False,
+                                comment='所属项目ID')
     m_remarks = db.Column(db.String(256), unique=True, nullable=False, comment='模块描述')
     m_state = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='模块状态')
     m_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
@@ -164,7 +165,8 @@ class Cases(db.Model):
     __tablename__ = 'cases'
 
     cs_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='用例集ID')
-    cs_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False, comment='创建人ID')
+    cs_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False,
+                                  comment='创建人ID')
     cs_name = db.Column(db.String(256), unique=True, nullable=False, comment='用例集名称')
     cs_in_module_id = db.Column(db.Integer, db.ForeignKey('module.m_id'), unique=True, nullable=False, comment='所属模块ID')
     cs_remarks = db.Column(db.String(256), unique=True, nullable=False, comment='用例集描述')
@@ -181,6 +183,60 @@ class Cases(db.Model):
         self.cs_remarks = cs_remarks
         self.cs_state = cs_state
         self.cs_create_time = cs_create_time
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class Testcase(db.Model):
+    __tablename__ = 'testcase'
+
+    tc_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='用例ID')
+    tc_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False,
+                                  comment='创建人ID')
+    tc_name = db.Column(db.String(256), unique=True, nullable=False, comment='用例名称')
+    tc_url = db.Column(db.String(256), unique=True, nullable=False, comment='接口地址')
+    tc_param = db.Column(db.String(256), unique=True, nullable=False, comment='请求参数')
+    tc_param_type = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='参数类型')
+    tc_req_method = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='请求方式')
+    tc_status_code = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='返回码')
+    tc_except = db.Column(db.String(256), unique=True, nullable=False, comment='预期结果')
+    tc_link_case = db.Column(db.Integer, db.ForeignKey('testcase.tc_id'), unique=True, nullable=False, comment='关联用例')
+    tc_sql_code = db.Column(db.Integer, comment='数据库判断码')
+    tc_sql_data = db.Column(db.String(256), unique=True, nullable=False, comment='数据库查询语句')
+    tc_sql_except = db.Column(db.String(256), unique=True, nullable=False, comment='数据库预期结果')
+    tc_desc = db.Column(db.String(256), unique=True, nullable=False, comment='用例描述')
+    tc_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
+    to_user = db.relationship('User', backref=db.backref('tc_user'))
+    to_state_param = db.relationship('State', foreign_keys=tc_param_type)
+    to_state_method = db.relationship('State', foreign_keys=tc_req_method)
+    to_state_code = db.relationship('State', foreign_keys=tc_status_code)
+
+    def __init__(self, tc_create_user_id, tc_name, tc_url, tc_param, tc_param_type, tc_req_method, tc_status_code,
+                 tc_except, tc_link_case, tc_sql_code, tc_sql_data, tc_sql_except, tc_desc, tc_create_time):
+        self.tc_create_user_id = tc_create_user_id
+        self.tc_name = tc_name
+        self.tc_url = tc_url
+        self.tc_param = tc_param
+        self.tc_param_type = tc_param_type
+        self.tc_req_method = tc_req_method
+        self.tc_status_code = tc_status_code
+        self.tc_except = tc_except
+        self.tc_link_case = tc_link_case
+        self.tc_sql_code = tc_sql_code
+        self.tc_sql_data = tc_sql_data
+        self.tc_sql_except = tc_sql_except
+        self.tc_desc = tc_desc
+        self.tc_create_time = tc_create_time
 
     def save(self):
         db.session.add(self)

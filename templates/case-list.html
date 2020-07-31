@@ -30,21 +30,13 @@
                 <div class="layui-card-body ">
                     <form method="post" class="layui-form layui-col-space5">
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input type="text" name="casesName" placeholder="请输入用例名称" autocomplete="off"
+                            <input type="text" name="testcaseName" placeholder="请输入用例名称" autocomplete="off"
                                    class="layui-input"></div>
                         <div class="layui-input-inline layui-show-xs-block">
                             <select name="user">
                                 <option value="">创建人</option>
                                 {% for user in users %}
                                     <option value="{{ user.id }}">{{ user.username }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="layui-input-inline layui-show-xs-block">
-                            <select name="state">
-                                <option value="">用例状态</option>
-                                {% for state in states %}
-                                    <option value="{{ state.s_id }}">{{ state.s_value }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -59,7 +51,7 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn" onclick="xadmin.open('创建用例','/cases/addCase',500,500)">
+                    <button class="layui-btn" onclick="xadmin.open('创建用例','/cases/addTestCase',450,550)">
                         <i class="layui-icon"></i>创建
                     </button>
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
@@ -70,92 +62,81 @@
                     <table class="layui-table layui-form">
                         <thead>
                         <tr>
-                            <th>
+                            <th width="5%">
                                 <input type="checkbox" lay-filter="checkall" lay-skin="primary">
                             </th>
-                            <th>用例名称</th>
-                            <th>所属用例集</th>
-                            <th>创建人</th>
-                            <th>创建时间</th>
-                            <th>用例描述</th>
-                            <th>是否执行</th>
-                            <th>操作</th>
+                            <th width="10%">用例名称</th>
+                            <th width="30%">用例描述</th>
+                            <th width="10%">创建人</th>
+                            <th width="15%">创建时间</th>
+                            <th width="30%">操作</th>
+                        </tr>
                         </thead>
                         <tbody class="x-cate">
-                        <tr cate-id='1' fid='0'>
-                            <td>
-                                <input type="checkbox" name="" lay-skin="primary">
-                            </td>
-                            <td>
-                                <i class="layui-icon x-show" status='true'>&#xe623;</i>
-                                testcase001
-                            </td>
-                            <td>
-                                testcases001
-                            </td>
-                            <td>root</td>
-                            <td>2020-7-22</td>
-                            <td>用例描述001002003</td>
-                            <td>
-                                <input type="checkbox" name="switch" lay-text="开启|停用" checked="" lay-skin="switch">
-                            </td>
-                            <td class="td-manage">
-                                <button class="layui-btn layui-btn layui-btn-xs"
-                                        onclick="xadmin.open('编辑','admin-edit.html')"><i class="layui-icon">&#xe642;</i>编辑
-                                </button>
-                                <button class="layui-btn-danger layui-btn layui-btn-xs"
-                                        onclick="member_del(this,'要删除的id')" href="javascript:;"><i class="layui-icon">&#xe640;</i>删除
-                                </button>
-                            </td>
-                        </tr>
-                        <tr cate-id='2' fid='1'>
-                            <td>接口地址</td>
-                            <td>htp://www.baidu.com</td>
-                            <td>Headers</td>
-                            <td>headers11</td>
-                            <td>Cookies</td>
-                            <td>cookies11</td>
-                            <td>请求方式</td>
-                            <td>get</td>
-                        </tr>
-                        <tr cate-id='2' fid='1'>
-                            <td>请求参数</td>
-                            <td>参数1</td>
-                            <td>参数类型</td>
-                            <td>string</td>
-                            <td>StatusCode</td>
-                            <td>200</td>
-                            <td>预期结果</td>
-                            <td>预期001111</td>
-                        </tr>
-                        <tr cate-id='2' fid='1'>
-                            <td>
-                                是否关联用例
-                            </td>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <i class="layui-icon x-show" status='true'>&#xe623;</i>是
-                            </td>
-                        </tr>
-                        <tr cate-id='3' fid='1'>
-                            <td>
-                                是否数据库验证
-                            </td>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <i class="layui-icon x-show" status='true'>&#xe623;</i>是
-                            </td>
-                        </tr>
-                        <tr cate-id='4' fid='2'>
-                            <td>关联用例</td>
-                            <td>2-1</td>
-                            <td>关联字段</td>
-                            <td>code</td>
-                        </tr>
-                        <tr cate-id='5' fid='3'>
-                            <td>执行Sql</td>
-                            <td>select * from user;</td>
-                            <td>期望值</td>
-                            <td>username</td>
-                        </tr>
+                        {% for case in caselist %}
+                            <tr cate-id='{{ loop.index0 }}-1' fid='0' style="font-weight: bold;">
+                                <td>
+                                    <input type="checkbox" lay-skin="primary" name="id" value="{{ case.tc_id }}">
+                                </td>
+                                <td>
+                                    <i class="layui-icon x-show" status='true'>&#xe623;</i>
+                                    {{ case.tc_name }}
+                                </td>
+                                <td>
+                                    {{ case.tc_desc }}
+                                </td>
+                                <td>{{ case.to_user.username }}</td>
+                                <td>{{ case.tc_create_time }}</td>
+                                <td class="td-manage">
+                                    <button class="layui-btn layui-btn layui-btn-xs"
+                                            onclick="xadmin.open('编辑','/cases/editTestCase/'+{{ case.tc_id }}, 450, 550)">
+                                        <i class="layui-icon">&#xe642;</i>编辑
+                                    </button>
+                                    <button class="layui-btn-danger layui-btn layui-btn-xs"
+                                            onclick="testcase_del(this,'要删除的id')" href="javascript:;">
+                                        <i class="layui-icon">&#xe640;</i>删除
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr fid='{{ loop.index0 }}-1'>
+                                <td rowspan="8">详情</td>
+                                <td>接口地址</td>
+                                <td colspan="4">{{ case.tc_url }}</td>
+                            </tr>
+                            <tr fid='{{ loop.index0 }}-1'>
+                                <td>请求参数</td>
+                                <td colspan="4">{{ case.tc_param }}</td>
+                            </tr>
+                            <tr fid='{{ loop.index0 }}-1'>
+                                <td>参数类型</td>
+                                <td colspan="4">{{ case.to_state_param.s_value }}</td>
+                            </tr>
+                            <tr fid='{{ loop.index0 }}-1'>
+                                <td>请求方式</td>
+                                <td colspan="4">{{ case.to_state_method.s_value }}</td>
+                            </tr>
+                            <tr fid='{{ loop.index0 }}-1'>
+                                <td>返回码</td>
+                                <td colspan="4">{{ case.to_state_code.s_value }}</td>
+                            </tr>
+                            <tr fid='{{ loop.index0 }}-1'>
+                                <td>预期结果</td>
+                                <td colspan="4">{{ case.tc_except }}</td>
+                            </tr>
+                            <tr fid='{{ loop.index0 }}-1'>
+                                <td>关联用例</td>
+                                <td colspan="4">{{ case.parent_name }}</td>
+                            </tr>
+                            <tr fid='{{ loop.index0 }}-1'>
+                                <td>数据库校验</td>
+                                {% if case.tc_sql_code==1 %}
+                                    <td colspan="4">是 <br>Sql语句：{{ case.tc_sql_data }} <br> 期望：{{ case.tc_sql_except }}
+                                    </td>
+                                {% else %}
+                                    <td colspan="4">否</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -177,24 +158,34 @@
     </div>
 </div>
 <script>
-    layui.use(['form'], function () {
-        form = layui.form;
+    layui.use(['form', 'laydate'], function () {
+        var laydate = layui.laydate;
+        var form = layui.form;
+
+        laydate.render({
+            elem: '#start'
+        });
+
+        laydate.render({
+            elem: '#end'
+        });
+
+        // 监听全选
+        form.on('checkbox(checkall)', function (data) {
+
+            if (data.elem.checked) {
+                $('tbody input').prop('checked', true);
+            } else {
+                $('tbody input').prop('checked', false);
+            }
+            form.render('checkbox');
+        });
+
     });
 
-    /*用户-删除*/
-    function member_del(obj, id) {
-        layer.confirm('确认要删除吗？', function (index) {
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!', {icon: 1, time: 1000});
-        });
-    }
-
-    // 分类展开收起的分类的逻辑
-    //
+    {#用例展开收起的逻辑#}
     $(function () {
         $("tbody.x-cate tr[fid!='0']").hide();
-        // 栏目多级显示效果
         $('.x-show').click(function () {
             if ($(this).attr('status') == 'true') {
                 $(this).html('&#xe625;');
@@ -202,26 +193,70 @@
                 cateId = $(this).parents('tr').attr('cate-id');
                 $("tbody tr[fid=" + cateId + "]").show();
             } else {
-                cateIds = [];
                 $(this).html('&#xe623;');
                 $(this).attr('status', 'true');
                 cateId = $(this).parents('tr').attr('cate-id');
-                getCateId(cateId);
-                for (var i in cateIds) {
-                    $("tbody tr[cate-id=" + cateIds[i] + "]").hide().find('.x-show').html('&#xe623;').attr('status', 'true');
-                }
+                $("tbody tr[fid=" + cateId + "]").hide();
             }
         })
     });
 
-    var cateIds = [];
+    {#用例删除#}
 
-    function getCateId(cateId) {
-        $("tbody tr[fid=" + cateId + "]").each(function (index, el) {
-            id = $(el).attr('cate-id');
-            cateIds.push(id);
-            getCateId(id);
+    function testcase_del(obj) {
+        let tc_id = $(obj).parent("td").parent("tr").children().eq(0).children(0).val();
+        let tc_name = $(obj).parent("td").parent("tr").children().eq(1).text();
+        i_data = {
+            tc_id: tc_id,
+            tc_name: tc_name
+        };
+        layer.confirm('确认要删除用例:' + tc_name + ' 吗？', function () {
+            //发异步删除数据
+            $.ajax({
+                type: "POST",
+                url: "/cases/delTestCase",//提交数据接口
+                data: JSON.stringify(i_data),
+                dataType: "JSON",
+                success: function (data) {
+                    if (data.flag) {
+                        $(obj).parents("tr").remove();
+                        layer.msg('删除成功!', {icon: 1, time: 1000});
+                    }
+                }
+            });
         });
+    }
+
+    {#批量删除用例#}
+
+    function delAll(argument) {
+        var ids = [];
+
+        // 获取选中的id
+        $('tbody input').each(function () {
+            if ($(this).prop('checked')) {
+                ids.push($(this).val())
+            }
+        });
+        if (ids == "" || ids == null || ids == undefined) {
+            layer.msg('请选择删除项！', {icon: 1});
+        } else {
+            layer.confirm('确认要删除所需项吗？', function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/cases/delTestCases",//提交数据接口
+                    data: JSON.stringify(ids),
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data.flag) {
+                            //捉到所有被选中的，发异步进行删除
+                            layer.msg('删除成功', {icon: 1});
+                            $(".layui-form-checked").not('.header').parents('tr').remove();
+                        }
+                    }
+                });
+            });
+        }
     }
 
 </script>

@@ -87,15 +87,25 @@ IF EXISTS testcase;
 
 CREATE TABLE testcase (
 	tc_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '用例ID',
-	tc_create_user_id INT NOT NULL COMMENT '创建人ID',
 	tc_name VARCHAR (256) NOT NULL COMMENT '用例名称',
-	tc_in_module_id INT NOT NULL COMMENT '所属用例集',
-	tc_remarks VARCHAR (256) NOT NULL COMMENT '用例描述',
-	tc_state INT NOT NULL COMMENT '用例状态',
+	tc_create_user_id INT NOT NULL COMMENT '创建人ID',
+	tc_url VARCHAR (256) NOT NULL COMMENT '接口地址',
+	tc_param VARCHAR (256) COMMENT '请求参数',
+	tc_param_type INT NOT NULL COMMENT '参数类型',
+	tc_req_method INT NOT NULL COMMENT '请求方式',
+	tc_status_code INT NOT NULL COMMENT '返回码',
+	tc_except VARCHAR (256) NOT NULL COMMENT '预期结果',
+	tc_link_case INT COMMENT '关联用例',
+	tc_sql_code INT COMMENT '数据库状态码',
+	tc_sql_data VARCHAR (256) COMMENT '数据库查询语句',
+	tc_sql_except VARCHAR (256) COMMENT '数据库预期结果',
+	tc_desc VARCHAR (256) COMMENT '用例描述',
 	tc_create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
-	FOREIGN KEY (cs_create_user_id) REFERENCES USER (id),
-	FOREIGN KEY (cs_state) REFERENCES state (s_id),
-	FOREIGN KEY (cs_in_module_id) REFERENCES module (m_id)
+	FOREIGN KEY (tc_create_user_id) REFERENCES USER (id),
+ 	FOREIGN KEY (tc_param_type) REFERENCES state (s_id),
+	FOREIGN KEY (tc_req_method) REFERENCES state (s_id),
+	FOREIGN KEY (tc_status_code) REFERENCES state (s_id),
+ 	FOREIGN KEY (tc_link_case) REFERENCES testcase (tc_id)
 ) COMMENT = '用例表';
 
 DROP TABLE
@@ -113,12 +123,9 @@ CREATE TABLE task (
 	tk_create_user_id INT NOT NULL COMMENT '创建人ID',
 	tk_create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
 	FOREIGN KEY (tk_create_user_id) REFERENCES USER (id),
-	FOREIGN KEY (tk_state) REFERENCES state (s_id),
+	FOREIGN KEY (tk_in_project_id) REFERENCES project (p_id),
+	FOREIGN KEY (tk_state) REFERENCES state (s_id)
 ) COMMENT = '任务表';
-
-
-
-
 
 
 
