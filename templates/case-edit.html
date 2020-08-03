@@ -40,7 +40,7 @@
                 <label class="layui-form-label">关联用例</label>
                 <div class="layui-input-inline">
                     <select name="tc_link_case" id="tc_link_case">
-                        <option value="">--</option>
+                        <option value="-1">--</option>
                         {% for pcase in parentcases %}
                             {% if pcase.tc_id == testcase.tc_link_case %}
                                 <option value="{{ pcase.tc_id }}" selected="selected">{{ pcase.tc_name }}</option>
@@ -199,7 +199,7 @@
                     "tc_desc": $("#tc_desc").text(),
                     "tc_sql_code": $('input[name="tc_sql_code"]:checked').val(),
                     "tc_sql_data": $("#tc_sql_data").val(),
-                    "tc_sql_except": $("#tc_sql_except").text()
+                    "tc_sql_except": $("#tc_sql_except").val()
                 };
                 console.info(in_data);
                 var articleFrom = JSON.stringify(in_data);//获取数据集合

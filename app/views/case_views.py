@@ -32,19 +32,22 @@ def get_cases():
         end = request.form.get('end')
         state = request.form.get('state')
         user = request.form.get('user')
-        if casesName == "" and state == "" and start == "" and end == "" and user == "":
+        casesInModule = request.form.get('casesInModule')
+        if casesName == "" and state == "" and start == "" and end == "" and user == "" and casesInModule == "":
             cases = Cases.query.filter().all()
         else:
             filterList = []
             if casesName != "":
-                filterList.append(Module.m_name.like("%" + casesName + "%"))
+                filterList.append(Cases.cs_name.like("%" + casesName + "%"))
             if user != "":
-                filterList.append(Module.m_create_user_id == user)
+                filterList.append(Cases.cs_create_user_id == user)
+            if casesInModule != "":
+                filterList.append(Cases.cs_in_module_id == casesInModule)
             if state != "":
-                filterList.append(Module.m_state == state)
+                filterList.append(Cases.cs_state == state)
             if start != "" and end != "":
-                filterList.append(Module.m_create_time.__gt__(start))
-                filterList.append(Module.m_create_time.__lt__(end))
+                filterList.append(Cases.cs_create_time.__gt__(start))
+                filterList.append(Cases.cs_create_time.__lt__(end))
             cases = Cases.query.filter(*filterList).all()
     li = []
     for i in range(0, len(cases)):
@@ -54,8 +57,9 @@ def get_cases():
     html = pager_obj.page_html()
     states = State.query.filter(State.s_item_code == 4).all()
     users = User.query.filter().all()
+    modules = Module.query.filter().all()
     # logger.info(states)
-    return render_template('cases-list.html', html=html, cases=cases, states=states, users=users)
+    return render_template('cases-list.html', html=html, cases=cases, states=states, users=users, modules=modules)
 
 
 @case_blueprint.route('/addCases/', methods=['GET', 'POST'])
@@ -159,9 +163,6 @@ def update_cases():
         return result
 
 
-# 用例集相关 end
-
-
 # 用例相关 start
 @case_blueprint.route('/getTestCase/', methods=['GET', 'POST'])
 @is_login
@@ -200,14 +201,13 @@ def get_test_case():
             if start != "" and end != "":
                 filterList.append(Testcase.tc_create_time.__gt__(start))
                 filterList.append(Testcase.tc_create_time.__lt__(end))
-            caselist = session.query().filter(*filterList).all()
+            caselist = Testcase.query.filter(*filterList).all()
             for case in caselist:
                 testcase = Testcase.query.filter(Testcase.tc_id == case.tc_link_case).first()
                 if testcase is not None:
                     case.parent_name = testcase.tc_name
                 else:
                     case.parent_name = "无"
-
     li = []
     for i in range(0, len(caselist)):
         li.append(caselist[i])
@@ -226,9 +226,9 @@ def add_test_case():
     2、POST 新建用例
     """
     if request.method == 'GET':
-        methods = State.query.filter(State.s_item_code == 3).all()
-        param_types = State.query.filter(State.s_item_code == 2).all()
-        rep_codes = State.query.filter(State.s_item_code == 4).all()
+        methods = State.query.filter(State.s_item_code == 6).all()
+        param_types = State.query.filter(State.s_item_code == 7).all()
+        rep_codes = State.query.filter(State.s_item_code == 8).all()
         testcases = Testcase.query.filter().all()
         return render_template('case-add.html', methods=methods, testcases=testcases, param_types=param_types,
                                rep_codes=rep_codes)
@@ -314,9 +314,9 @@ def edit_test_case(tc_id):
     """
     if request.method == "GET":
         testcase = Testcase.query.filter_by(tc_id=tc_id).first()
-        methods = State.query.filter(State.s_item_code == 3).all()
-        param_types = State.query.filter(State.s_item_code == 2).all()
-        rep_codes = State.query.filter(State.s_item_code == 4).all()
+        methods = State.query.filter(State.s_item_code == 6).all()
+        param_types = State.query.filter(State.s_item_code == 7).all()
+        rep_codes = State.query.filter(State.s_item_code == 8).all()
         parentcases = Testcase.query.filter().all()
         return render_template('case-edit.html', testcase=testcase, parentcases=parentcases, methods=methods,
                                param_types=param_types, rep_codes=rep_codes)
@@ -343,11 +343,14 @@ def update_test_case():
         testcase.tc_except = data_dict['tc_except']
         testcase.tc_link_case = data_dict['tc_link_case']
         testcase.tc_sql_code = data_dict['tc_sql_code']
-        testcase.tc_sql_data = data_dict['tc_sql_data']
-        testcase.tc_sql_except = data_dict['tc_sql_except'],
-        testcase.tc_desc = data_dict['tc_desc'],
+        if data_dict['tc_sql_code'] == "0":
+            testcase.tc_sql_data = ""
+            testcase.tc_sql_except = ""
+        else:
+            testcase.tc_sql_data = data_dict['tc_sql_data']
+            testcase.tc_sql_except = data_dict['tc_sql_except']
+        testcase.tc_desc = data_dict['tc_desc']
         testcase.tc_create_time = datetime.now()
         testcase.save()
         result = {"flag": True, "value": "用例修改成功！"}
         return result
-# 用例相关 end

@@ -42,6 +42,14 @@
                             </select>
                         </div>
                         <div class="layui-input-inline layui-show-xs-block">
+                            <select name="casesInModule">
+                                <option value="">所属模块</option>
+                                {% for module in modules %}
+                                    <option value="{{ module.m_id }}">{{ module.m_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="layui-input-inline layui-show-xs-block">
                             <select name="state">
                                 <option value="">用例集状态</option>
                                 {% for state in states %}

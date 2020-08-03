@@ -57,6 +57,9 @@
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除
                     </button>
+{#                    <button class="layui-btn" onclick="xadmin.open('导入用例','/cases/leadTestCase',450,550)">#}
+{#                        <i class="layui-icon"></i>导入#}
+{#                    </button>#}
                 </div>
                 <div class="layui-card-body ">
                     <table class="layui-table layui-form">
@@ -101,39 +104,39 @@
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td rowspan="8">详情</td>
                                 <td>接口地址</td>
-                                <td colspan="4">{{ case.tc_url }}</td>
+                                <td colspan="5">{{ case.tc_url }}</td>
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>请求参数</td>
-                                <td colspan="4">{{ case.tc_param }}</td>
+                                <td colspan="5">{{ case.tc_param }}</td>
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>参数类型</td>
-                                <td colspan="4">{{ case.to_state_param.s_value }}</td>
+                                <td colspan="5">{{ case.to_state_param.s_value }}</td>
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>请求方式</td>
-                                <td colspan="4">{{ case.to_state_method.s_value }}</td>
+                                <td colspan="5">{{ case.to_state_method.s_value }}</td>
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>返回码</td>
-                                <td colspan="4">{{ case.to_state_code.s_value }}</td>
+                                <td colspan="5">{{ case.to_state_code.s_value }}</td>
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>预期结果</td>
-                                <td colspan="4">{{ case.tc_except }}</td>
+                                <td colspan="5">{{ case.tc_except }}</td>
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>关联用例</td>
-                                <td colspan="4">{{ case.parent_name }}</td>
+                                <td colspan="5">{{ case.parent_name }}</td>
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>数据库校验</td>
                                 {% if case.tc_sql_code==1 %}
-                                    <td colspan="4">是 <br>Sql语句：{{ case.tc_sql_data }} <br> 期望：{{ case.tc_sql_except }}
+                                    <td colspan="5">是 <br>Sql语句：{{ case.tc_sql_data }} <br> 期望：{{ case.tc_sql_except }}
                                     </td>
                                 {% else %}
-                                    <td colspan="4">否</td>
+                                    <td colspan="5">否</td>
                                 {% endif %}
                             </tr>
                         {% endfor %}
@@ -183,7 +186,7 @@
 
     });
 
-    {#用例展开收起的逻辑#}
+    //用例展开收起的逻辑
     $(function () {
         $("tbody.x-cate tr[fid!='0']").hide();
         $('.x-show').click(function () {
@@ -201,8 +204,7 @@
         })
     });
 
-    {#用例删除#}
-
+    //用例删除
     function testcase_del(obj) {
         let tc_id = $(obj).parent("td").parent("tr").children().eq(0).children(0).val();
         let tc_name = $(obj).parent("td").parent("tr").children().eq(1).text();
@@ -227,8 +229,7 @@
         });
     }
 
-    {#批量删除用例#}
-
+    //批量删除用例
     function delAll(argument) {
         var ids = [];
 

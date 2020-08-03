@@ -39,7 +39,7 @@
                 <label class="layui-form-label">关联用例</label>
                 <div class="layui-input-inline">
                     <select name="tc_link_case">
-                        <option value="">--</option>
+                        <option value="-1">--</option>
                         {% for testcase in testcases %}
                             <option value="{{ testcase.tc_id }}">{{ testcase.tc_name }}</option>
                         {% endfor %}
