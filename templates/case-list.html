@@ -41,6 +41,14 @@
                             </select>
                         </div>
                         <div class="layui-input-inline layui-show-xs-block">
+                            <select name="tc_in_module_id">
+                                <option value="">所属模块</option>
+                                {% for module in modules %}
+                                    <option value="{{ module.m_id }}">{{ module.m_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="layui-input-inline layui-show-xs-block">
                             <input class="layui-input" placeholder="起始日期" name="start" id="start"></div>
                         <div class="layui-input-inline layui-show-xs-block">
                             <input class="layui-input" placeholder="截止日期" name="end" id="end"></div>
@@ -69,7 +77,8 @@
                                 <input type="checkbox" lay-filter="checkall" lay-skin="primary">
                             </th>
                             <th width="10%">用例名称</th>
-                            <th width="30%">用例描述</th>
+                            <th width="10%">所属模块</th>
+                            <th width="20%">用例描述</th>
                             <th width="10%">创建人</th>
                             <th width="15%">创建时间</th>
                             <th width="30%">操作</th>
@@ -84,6 +93,9 @@
                                 <td>
                                     <i class="layui-icon x-show" status='true'>&#xe623;</i>
                                     {{ case.tc_name }}
+                                </td>
+                                <td>
+                                    {{ case.to_module.m_name }}
                                 </td>
                                 <td>
                                     {{ case.tc_desc }}
@@ -104,23 +116,23 @@
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td rowspan="8">详情</td>
                                 <td>接口地址</td>
-                                <td colspan="5">{{ case.tc_url }}</td>
+                                <td colspan="6">{{ case.tc_url }}</td>
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>请求参数</td>
-                                <td colspan="5">{{ case.tc_param }}</td>
+                                <td colspan="6">{{ case.tc_param }}</td>
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>参数类型</td>
-                                <td colspan="5">{{ case.to_state_param.s_value }}</td>
+                                <td colspan="6">{{ case.to_state_param.s_value }}</td>
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>请求方式</td>
-                                <td colspan="5">{{ case.to_state_method.s_value }}</td>
+                                <td colspan="6">{{ case.to_state_method.s_value }}</td>
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>返回码</td>
-                                <td colspan="5">{{ case.to_state_code.s_value }}</td>
+                                <td colspan="6">{{ case.to_state_code.s_value }}</td>
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>预期结果</td>
@@ -128,15 +140,15 @@
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>关联用例</td>
-                                <td colspan="5">{{ case.parent_name }}</td>
+                                <td colspan="6">{{ case.parent_name }}</td>
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>数据库校验</td>
                                 {% if case.tc_sql_code==1 %}
-                                    <td colspan="5">是 <br>Sql语句：{{ case.tc_sql_data }} <br> 期望：{{ case.tc_sql_except }}
+                                    <td colspan="6">是 <br>Sql语句：{{ case.tc_sql_data }} <br> 期望：{{ case.tc_sql_except }}
                                     </td>
                                 {% else %}
-                                    <td colspan="5">否</td>
+                                    <td colspan="6">否</td>
                                 {% endif %}
                             </tr>
                         {% endfor %}

@@ -1,130 +1,139 @@
 DROP TABLE
-IF EXISTS USER;
+  IF EXISTS USER;
 
-CREATE TABLE USER (
-	id INT PRIMARY KEY AUTO_INCREMENT COMMENT '用户编号',
-	username VARCHAR (256) NOT NULL COMMENT '用户名称',
-	PASSWORD VARCHAR (256) NOT NULL COMMENT '用户密码',
-	type enum ('0', '1', '2', '3') DEFAULT '0' NOT NULL COMMENT '用户类型，0普通用户1项目经理2项目主管3管理员，默认为0'
+CREATE TABLE USER
+(
+  id       INT PRIMARY KEY AUTO_INCREMENT COMMENT '用户编号',
+  username VARCHAR(256)                          NOT NULL COMMENT '用户名称',
+  PASSWORD VARCHAR(256)                          NOT NULL COMMENT '用户密码',
+  type     enum ('0', '1', '2', '3') DEFAULT '0' NOT NULL COMMENT '用户类型，0普通用户1项目经理2项目主管3管理员，默认为0'
 ) COMMENT = '用户表';
 
 DROP TABLE
-IF EXISTS item;
+  IF EXISTS item;
 
-CREATE TABLE item (
-	i_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '分类ID',
-	i_value VARCHAR (10) NOT NULL COMMENT '分类值',
-	i_create_user_id INT NOT NULL COMMENT '创建人ID',
-	i_create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-	i_desc VARCHAR (256) NOT NULL COMMENT '描述',
-	FOREIGN KEY (i_create_user_id) REFERENCES USER (id)
+CREATE TABLE item
+(
+  i_id             INT PRIMARY KEY AUTO_INCREMENT COMMENT '分类ID',
+  i_value          VARCHAR(10)  NOT NULL COMMENT '分类值',
+  i_create_user_id INT          NOT NULL COMMENT '创建人ID',
+  i_create_time    TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  i_desc           VARCHAR(256) NOT NULL COMMENT '描述',
+  FOREIGN KEY (i_create_user_id) REFERENCES USER (id)
 ) COMMENT = '分类表';
 
 DROP TABLE
-IF EXISTS state;
+  IF EXISTS state;
 
-CREATE TABLE state (
-	s_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '状态ID',
-	s_value VARCHAR (10) NOT NULL COMMENT '状态值',
-	s_item_code INT NOT NULL COMMENT '分类',
-	s_create_user_id INT NOT NULL COMMENT '创建人ID',
-	s_desc VARCHAR (256) NOT NULL COMMENT '描述',
-	s_create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-	FOREIGN KEY (s_item_code) REFERENCES item (i_id),
-	FOREIGN KEY (s_create_user_id) REFERENCES USER (id)
+CREATE TABLE state
+(
+  s_id             INT PRIMARY KEY AUTO_INCREMENT COMMENT '状态ID',
+  s_value          VARCHAR(10)  NOT NULL COMMENT '状态值',
+  s_item_code      INT          NOT NULL COMMENT '分类',
+  s_create_user_id INT          NOT NULL COMMENT '创建人ID',
+  s_desc           VARCHAR(256) NOT NULL COMMENT '描述',
+  s_create_time    TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  FOREIGN KEY (s_item_code) REFERENCES item (i_id),
+  FOREIGN KEY (s_create_user_id) REFERENCES USER (id)
 ) COMMENT = '状态表';
 
 DROP TABLE
-IF EXISTS project;
+  IF EXISTS project;
 
-CREATE TABLE project (
-	p_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '项目ID',
-	p_create_user_id INT NOT NULL COMMENT '创建人ID',
-	p_name VARCHAR (256) NOT NULL COMMENT '项目名称',
-	p_start_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '开始时间',
-	p_end_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '截止时间',
-	p_remarks VARCHAR (256) NOT NULL COMMENT '项目描述',
-	p_state INT NOT NULL COMMENT '项目状态',
-	p_create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
-	FOREIGN KEY (p_create_user_id) REFERENCES USER (id),
-	FOREIGN KEY (p_state) REFERENCES state (s_id)
+CREATE TABLE project
+(
+  p_id             INT PRIMARY KEY AUTO_INCREMENT COMMENT '项目ID',
+  p_create_user_id INT          NOT NULL COMMENT '创建人ID',
+  p_name           VARCHAR(256) NOT NULL COMMENT '项目名称',
+  p_start_time     TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '开始时间',
+  p_end_time       TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '截止时间',
+  p_remarks        VARCHAR(256) NOT NULL COMMENT '项目描述',
+  p_state          INT          NOT NULL COMMENT '项目状态',
+  p_create_time    TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
+  FOREIGN KEY (p_create_user_id) REFERENCES USER (id),
+  FOREIGN KEY (p_state) REFERENCES state (s_id)
 ) COMMENT = '项目表';
 
 DROP TABLE
-IF EXISTS module;
+  IF EXISTS module;
 
-CREATE TABLE module (
-	m_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '模块ID',
-	m_create_user_id INT NOT NULL COMMENT '创建人ID',
-	m_name VARCHAR (256) NOT NULL COMMENT '模块名称',
-	m_in_project_id INT NOT NULL COMMENT '所属项目',
-	m_remarks VARCHAR (256) NOT NULL COMMENT '模块描述',
-	m_state INT NOT NULL COMMENT '模块状态',
-	m_create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
-	FOREIGN KEY (m_create_user_id) REFERENCES USER (id),
-	FOREIGN KEY (m_state) REFERENCES state (s_id),
-	FOREIGN KEY (m_in_project_id) REFERENCES project (p_id)
+CREATE TABLE module
+(
+  m_id             INT PRIMARY KEY AUTO_INCREMENT COMMENT '模块ID',
+  m_create_user_id INT          NOT NULL COMMENT '创建人ID',
+  m_name           VARCHAR(256) NOT NULL COMMENT '模块名称',
+  m_in_project_id  INT          NOT NULL COMMENT '所属项目',
+  m_remarks        VARCHAR(256) NOT NULL COMMENT '模块描述',
+  m_state          INT          NOT NULL COMMENT '模块状态',
+  m_create_time    TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
+  FOREIGN KEY (m_create_user_id) REFERENCES USER (id),
+  FOREIGN KEY (m_state) REFERENCES state (s_id),
+  FOREIGN KEY (m_in_project_id) REFERENCES project (p_id)
 ) COMMENT = '模块表';
 
 DROP TABLE
-IF EXISTS cases;
+  IF EXISTS testcase;
 
-CREATE TABLE cases (
-	cs_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '用例集ID',
-	cs_create_user_id INT NOT NULL COMMENT '创建人ID',
-	cs_name VARCHAR (256) NOT NULL COMMENT '用例集名称',
-	cs_in_module_id INT NOT NULL COMMENT '所属模块',
-	cs_remarks VARCHAR (256) NOT NULL COMMENT '用例集描述',
-	cs_state INT NOT NULL COMMENT '用例集状态',
-	cs_create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
-	FOREIGN KEY (cs_create_user_id) REFERENCES USER (id),
-	FOREIGN KEY (cs_state) REFERENCES state (s_id),
-	FOREIGN KEY (cs_in_module_id) REFERENCES module (m_id)
-) COMMENT = '用例集表';
-
-DROP TABLE
-IF EXISTS testcase;
-
-CREATE TABLE testcase (
-	tc_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '用例ID',
-	tc_name VARCHAR (256) NOT NULL COMMENT '用例名称',
-	tc_create_user_id INT NOT NULL COMMENT '创建人ID',
-	tc_url VARCHAR (256) NOT NULL COMMENT '接口地址',
-	tc_param VARCHAR (256) COMMENT '请求参数',
-	tc_param_type INT NOT NULL COMMENT '参数类型',
-	tc_req_method INT NOT NULL COMMENT '请求方式',
-	tc_status_code INT NOT NULL COMMENT '返回码',
-	tc_except VARCHAR (256) NOT NULL COMMENT '预期结果',
-	tc_link_case INT COMMENT '关联用例',
-	tc_sql_code INT COMMENT '数据库状态码',
-	tc_sql_data VARCHAR (256) COMMENT '数据库查询语句',
-	tc_sql_except VARCHAR (256) COMMENT '数据库预期结果',
-	tc_desc VARCHAR (256) COMMENT '用例描述',
-	tc_create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
-	FOREIGN KEY (tc_create_user_id) REFERENCES USER (id),
- 	FOREIGN KEY (tc_param_type) REFERENCES state (s_id),
-	FOREIGN KEY (tc_req_method) REFERENCES state (s_id),
-	FOREIGN KEY (tc_status_code) REFERENCES state (s_id),
- 	FOREIGN KEY (tc_link_case) REFERENCES testcase (tc_id)
+CREATE TABLE testcase
+(
+  tc_id             INT PRIMARY KEY AUTO_INCREMENT COMMENT '用例ID',
+  tc_name           VARCHAR(256) NOT NULL COMMENT '用例名称',
+  tc_create_user_id INT          NOT NULL COMMENT '创建人ID',
+  tc_in_module_id   INT          NOT NULL COMMENT '所属模块',
+  tc_url            VARCHAR(256) NOT NULL COMMENT '接口地址',
+  tc_param          VARCHAR(256) NOT NULL COMMENT '请求参数',
+  tc_param_type     INT          NOT NULL COMMENT '参数类型',
+  tc_req_method     INT          NOT NULL COMMENT '请求方式',
+  tc_status_code    INT          NOT NULL COMMENT '返回码',
+  tc_except         VARCHAR(256) NOT NULL COMMENT '预期结果',
+  tc_link_case      INT          NOT NULL COMMENT '关联用例',
+  tc_sql_code       INT          NOT NULL COMMENT '数据库状态码',
+  tc_sql_data       VARCHAR(256) NOT NULL COMMENT '数据库查询语句',
+  tc_sql_except     VARCHAR(256) NOT NULL COMMENT '数据库预期结果',
+  tc_desc           VARCHAR(256) NOT NULL COMMENT '用例描述',
+  tc_create_time    TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
+  FOREIGN KEY (tc_create_user_id) REFERENCES USER (id),
+  FOREIGN KEY (tc_in_module_id) REFERENCES module (m_id),
+  FOREIGN KEY (tc_param_type) REFERENCES state (s_id),
+  FOREIGN KEY (tc_req_method) REFERENCES state (s_id),
+  FOREIGN KEY (tc_status_code) REFERENCES state (s_id)
 ) COMMENT = '用例表';
 
 DROP TABLE
-IF EXISTS task;
+  IF EXISTS cases;
 
-CREATE TABLE task (
-	tk_id INT PRIMARY KEY AUTO_INCREMENT COMMENT '任务ID',
-	tk_name VARCHAR (256) NOT NULL COMMENT '任务名称',
-	tk_in_project_id INT NOT NULL COMMENT '所属项目',
-	tk_do_module VARCHAR (256) NOT NULL COMMENT '执行模块',
-	tk_do_cases VARCHAR (256) NOT NULL COMMENT '执行用例集',
-	tk_do_tsetcases VARCHAR (256) NOT NULL COMMENT '执行用例',
-	tk_state INT NOT NULL COMMENT '任务状态',
-	tk_desc VARCHAR (256) NOT NULL COMMENT '任务描述',
-	tk_create_user_id INT NOT NULL COMMENT '创建人ID',
-	tk_create_time TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
-	FOREIGN KEY (tk_create_user_id) REFERENCES USER (id),
-	FOREIGN KEY (tk_in_project_id) REFERENCES project (p_id),
-	FOREIGN KEY (tk_state) REFERENCES state (s_id)
+CREATE TABLE cases
+(
+  cs_id             INT PRIMARY KEY AUTO_INCREMENT COMMENT '用例集ID',
+  cs_create_user_id INT          NOT NULL COMMENT '创建人ID',
+  cs_name           VARCHAR(256) NOT NULL COMMENT '用例集名称',
+  cs_in_module_id   INT          NOT NULL COMMENT '所属模块',
+  cs_do_cases       VARCHAR(256) NOT NULL COMMENT '执行用例',
+  cs_remarks        VARCHAR(256) NOT NULL COMMENT '用例集描述',
+  cs_create_time    TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
+  FOREIGN KEY (cs_create_user_id) REFERENCES USER (id),
+  FOREIGN KEY (cs_in_module_id) REFERENCES module (m_id)
+) COMMENT = '用例集表';
+
+
+DROP TABLE
+  IF EXISTS task;
+
+CREATE TABLE task
+(
+  tk_id             INT PRIMARY KEY AUTO_INCREMENT COMMENT '任务ID',
+  tk_name           VARCHAR(256) NOT NULL COMMENT '任务名称',
+  tk_in_project_id  INT          NOT NULL COMMENT '所属项目',
+  tk_do_module      VARCHAR(256) NOT NULL COMMENT '执行模块',
+  tk_do_cases       VARCHAR(256) NOT NULL COMMENT '执行用例集',
+  tk_do_tsetcases   VARCHAR(256) NOT NULL COMMENT '执行用例',
+  tk_state          INT          NOT NULL COMMENT '任务状态',
+  tk_desc           VARCHAR(256) NOT NULL COMMENT '任务描述',
+  tk_create_user_id INT          NOT NULL COMMENT '创建人ID',
+  tk_create_time    TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
+  FOREIGN KEY (tk_create_user_id) REFERENCES USER (id),
+  FOREIGN KEY (tk_in_project_id) REFERENCES project (p_id),
+  FOREIGN KEY (tk_state) REFERENCES state (s_id)
 ) COMMENT = '任务表';
 
 

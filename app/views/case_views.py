@@ -30,10 +30,9 @@ def get_cases():
         casesName = request.form.get('casesName')
         start = request.form.get('start')
         end = request.form.get('end')
-        state = request.form.get('state')
         user = request.form.get('user')
         casesInModule = request.form.get('casesInModule')
-        if casesName == "" and state == "" and start == "" and end == "" and user == "" and casesInModule == "":
+        if casesName == "" and start == "" and end == "" and user == "" and casesInModule == "":
             cases = Cases.query.filter().all()
         else:
             filterList = []
@@ -43,8 +42,6 @@ def get_cases():
                 filterList.append(Cases.cs_create_user_id == user)
             if casesInModule != "":
                 filterList.append(Cases.cs_in_module_id == casesInModule)
-            if state != "":
-                filterList.append(Cases.cs_state == state)
             if start != "" and end != "":
                 filterList.append(Cases.cs_create_time.__gt__(start))
                 filterList.append(Cases.cs_create_time.__lt__(end))
@@ -55,11 +52,10 @@ def get_cases():
     pager_obj = Pagination(request.args.get("page", 1), len(li), request.path, request.args, per_page_count=10)
     cases = li[pager_obj.start:pager_obj.end]
     html = pager_obj.page_html()
-    states = State.query.filter(State.s_item_code == 4).all()
     users = User.query.filter().all()
     modules = Module.query.filter().all()
     # logger.info(states)
-    return render_template('cases-list.html', html=html, cases=cases, states=states, users=users, modules=modules)
+    return render_template('cases-list.html', html=html, cases=cases, users=users, modules=modules)
 
 
 @case_blueprint.route('/addCases/', methods=['GET', 'POST'])
@@ -184,7 +180,8 @@ def get_test_case():
         start = request.form.get('start')
         end = request.form.get('end')
         user = request.form.get('user')
-        if testcaseName == "" and start == "" and end == "" and user == "":
+        tc_in_module_id = request.form.get('tc_in_module_id')
+        if testcaseName == "" and start == "" and end == "" and user == "" and tc_in_module_id == "":
             caselist = Testcase.query.filter().all()
             for case in caselist:
                 testcase = Testcase.query.filter(Testcase.tc_id == case.tc_link_case).first()
@@ -198,6 +195,8 @@ def get_test_case():
                 filterList.append(Testcase.tc_name.like("%" + testcaseName + "%"))
             if user != "":
                 filterList.append(Testcase.tc_create_user_id == user)
+            if tc_in_module_id != "":
+                filterList.append(Testcase.tc_in_module_id == tc_in_module_id)
             if start != "" and end != "":
                 filterList.append(Testcase.tc_create_time.__gt__(start))
                 filterList.append(Testcase.tc_create_time.__lt__(end))
@@ -215,7 +214,8 @@ def get_test_case():
     caselist = li[pager_obj.start:pager_obj.end]
     html = pager_obj.page_html()
     users = User.query.filter().all()
-    return render_template('case-list.html', html=html, caselist=caselist, users=users)
+    modules = Module.query.filter().all()
+    return render_template('case-list.html', html=html, caselist=caselist, users=users, modules=modules)
 
 
 @case_blueprint.route('/addTestCase/', methods=['GET', 'POST'])
@@ -230,8 +230,9 @@ def add_test_case():
         param_types = State.query.filter(State.s_item_code == 7).all()
         rep_codes = State.query.filter(State.s_item_code == 8).all()
         testcases = Testcase.query.filter().all()
+        modules = Module.query.filter().all()
         return render_template('case-add.html', methods=methods, testcases=testcases, param_types=param_types,
-                               rep_codes=rep_codes)
+                               rep_codes=rep_codes, modules=modules)
     if request.method == 'POST':
         user_id = session.get('user_id')
         data_json = request.get_data().decode('utf-8')
@@ -249,8 +250,10 @@ def add_test_case():
             result = {"flag": False, "value": "请求方式不能为空！"}
         elif data_dict['tc_status_code'] == "":
             result = {"flag": False, "value": "返回码不能为空！"}
-        if data_dict['tc_sql_code'] == "":
+        elif data_dict['tc_sql_code'] == "":
             result = {"flag": False, "value": "数据库验证不能为空！"}
+        elif data_dict['tc_in_module_id'] == "":
+            result = {"flag": False, "value": "所属模块不能为空！"}
         else:
             testcase = Testcase.query.filter_by(tc_name=data_dict['tc_name']).first()
             if testcase:
@@ -260,6 +263,7 @@ def add_test_case():
                                     tc_create_user_id=user_id,
                                     tc_url=data_dict['tc_url'],
                                     tc_param=data_dict['tc_param'],
+                                    tc_in_module_id=data_dict['tc_in_module_id'],
                                     tc_param_type=data_dict['tc_param_type'],
                                     tc_req_method=data_dict['tc_req_method'],
                                     tc_status_code=data_dict['tc_status_code'],
@@ -317,9 +321,10 @@ def edit_test_case(tc_id):
         methods = State.query.filter(State.s_item_code == 6).all()
         param_types = State.query.filter(State.s_item_code == 7).all()
         rep_codes = State.query.filter(State.s_item_code == 8).all()
-        parentcases = Testcase.query.filter().all()
+        parentcases = Testcase.query.filter(Testcase.tc_id != tc_id).all()
+        modules = Module.query.filter().all()
         return render_template('case-edit.html', testcase=testcase, parentcases=parentcases, methods=methods,
-                               param_types=param_types, rep_codes=rep_codes)
+                               param_types=param_types, rep_codes=rep_codes, modules=modules)
 
 
 @case_blueprint.route('/updateTestCase/', methods=['GET', 'POST'])
@@ -334,6 +339,7 @@ def update_test_case():
         data_dict = json.loads(data_json)
         testcase = Testcase.query.filter_by(tc_id=data_dict['tc_id']).first()
         testcase.tc_name = data_dict['tc_name']
+        testcase.tc_in_module_id = data_dict['tc_in_module_id']
         testcase.tc_create_user_id = user_id
         testcase.tc_url = data_dict['tc_url']
         testcase.tc_param = data_dict['tc_param']

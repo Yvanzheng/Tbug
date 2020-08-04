@@ -48,6 +48,17 @@
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">
+                    <span class="x-red">*</span>所属模块</label>
+                <div class="layui-input-inline">
+                    <select name="tc_in_module_id">
+                        {% for module in modules %}
+                            <option value="{{ module.m_id }}">{{ module.m_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
                     <span class="x-red">*</span>请求方式</label>
                 <div class="layui-input-inline">
                     <select name="tc_req_method">

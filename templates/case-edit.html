@@ -29,6 +29,21 @@
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">
+                    <span class="x-red">*</span>所属模块</label>
+                <div class="layui-input-inline">
+                    <select name="tc_in_module_id" id="tc_in_module_id">
+                        {% for module in modules %}
+                            {% if module.m_id == testcase.tc_in_module_id %}
+                                <option value="{{ module.m_id }}" selected="selected">{{ module.m_name }}</option>
+                            {% else %}
+                                <option value="{{ module.m_id }}">{{ module.m_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
                     <span class="x-red">*</span>接口地址</label>
                 <div class="layui-input-inline">
                     <input type="text" id="tc_url" name="tc_url" value="{{ testcase.tc_url }}" required=""
@@ -190,18 +205,18 @@
                     "tc_id": $("#tc_id").val(),
                     "tc_name": $("#tc_name").val(),
                     "tc_url": $("#tc_url").val(),
+                    "tc_in_module_id": $("#tc_in_module_id").find("option:selected").val(),
                     "tc_link_case": $("#tc_link_case").find("option:selected").val(),
                     "tc_req_method": $("#tc_req_method").find("option:selected").val(),
                     "tc_param_type": $("#tc_param_type").find("option:selected").val(),
                     "tc_status_code": $("#tc_status_code").find("option:selected").val(),
-                    "tc_param": $("#tc_param").text(),
-                    "tc_except": $("#tc_except").text(),
-                    "tc_desc": $("#tc_desc").text(),
+                    "tc_param": $("#tc_param").val(),
+                    "tc_except": $("#tc_except").val(),
+                    "tc_desc": $("#tc_desc").val(),
                     "tc_sql_code": $('input[name="tc_sql_code"]:checked').val(),
                     "tc_sql_data": $("#tc_sql_data").val(),
                     "tc_sql_except": $("#tc_sql_except").val()
                 };
-                console.info(in_data);
                 var articleFrom = JSON.stringify(in_data);//获取数据集合
                 $.ajax({
                     type: "POST",

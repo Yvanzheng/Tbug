@@ -4,7 +4,7 @@
 # @Author : YvanZheng 
 # @File : user_models.py
 # @Software: PyCharm
-# @Note : user数据库模型
+# @Note : 数据库模型
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -161,28 +161,49 @@ class Module(db.Model):
         db.session.commit()
 
 
-class Cases(db.Model):
-    __tablename__ = 'cases'
+class Testcase(db.Model):
+    __tablename__ = 'testcase'
 
-    cs_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='用例集ID')
-    cs_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False,
+    tc_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='用例ID')
+    tc_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False,
                                   comment='创建人ID')
-    cs_name = db.Column(db.String(256), unique=True, nullable=False, comment='用例集名称')
-    cs_in_module_id = db.Column(db.Integer, db.ForeignKey('module.m_id'), unique=True, nullable=False, comment='所属模块ID')
-    cs_remarks = db.Column(db.String(256), unique=True, nullable=False, comment='用例集描述')
-    cs_state = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='用例集状态')
-    cs_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
-    to_user = db.relationship('User', backref=db.backref('cs_user'))
-    to_state = db.relationship('State', backref=db.backref('cs_state'))
-    to_module = db.relationship('Module', backref=db.backref('cs_module'))
+    tc_name = db.Column(db.String(256), unique=True, nullable=False, comment='用例名称')
+    tc_url = db.Column(db.String(256), unique=True, nullable=False, comment='接口地址')
+    tc_param = db.Column(db.String(256), unique=True, nullable=False, comment='请求参数')
+    tc_in_module_id = db.Column(db.Integer, db.ForeignKey('module.m_id'), unique=True, nullable=False, comment='所属模块')
+    tc_param_type = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='参数类型')
+    tc_req_method = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='请求方式')
+    tc_status_code = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='返回码')
+    tc_except = db.Column(db.String(256), unique=True, nullable=False, comment='预期结果')
+    tc_link_case = db.Column(db.Integer, unique=True, nullable=False, comment='关联用例')
+    tc_sql_code = db.Column(db.Integer, unique=True, nullable=False, comment='数据库判断码')
+    tc_sql_data = db.Column(db.String(256), unique=True, nullable=False, comment='数据库查询语句')
+    tc_sql_except = db.Column(db.String(256), unique=True, nullable=False, comment='数据库预期结果')
+    tc_desc = db.Column(db.String(256), unique=True, nullable=False, comment='用例描述')
+    tc_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
+    to_user = db.relationship('User', backref=db.backref('tc_user'))
+    to_module = db.relationship('Module', foreign_keys=tc_in_module_id)
+    to_state_param = db.relationship('State', foreign_keys=tc_param_type)
+    to_state_method = db.relationship('State', foreign_keys=tc_req_method)
+    to_state_code = db.relationship('State', foreign_keys=tc_status_code)
 
-    def __init__(self, cs_create_user_id, cs_name, cs_in_module_id, cs_remarks, cs_state, cs_create_time):
-        self.cs_create_user_id = cs_create_user_id
-        self.cs_name = cs_name
-        self.cs_in_module_id = cs_in_module_id
-        self.cs_remarks = cs_remarks
-        self.cs_state = cs_state
-        self.cs_create_time = cs_create_time
+    def __init__(self, tc_create_user_id, tc_name, tc_url, tc_param, tc_in_module_id, tc_param_type, tc_req_method, tc_status_code,
+                 tc_except, tc_link_case, tc_sql_code, tc_sql_data, tc_sql_except, tc_desc, tc_create_time):
+        self.tc_create_user_id = tc_create_user_id
+        self.tc_name = tc_name
+        self.tc_url = tc_url
+        self.tc_param = tc_param
+        self.tc_in_module_id = tc_in_module_id
+        self.tc_param_type = tc_param_type
+        self.tc_req_method = tc_req_method
+        self.tc_status_code = tc_status_code
+        self.tc_except = tc_except
+        self.tc_link_case = tc_link_case
+        self.tc_sql_code = tc_sql_code
+        self.tc_sql_data = tc_sql_data
+        self.tc_sql_except = tc_sql_except
+        self.tc_desc = tc_desc
+        self.tc_create_time = tc_create_time
 
     def save(self):
         db.session.add(self)
@@ -197,46 +218,26 @@ class Cases(db.Model):
         db.session.commit()
 
 
-class Testcase(db.Model):
-    __tablename__ = 'testcase'
+class Cases(db.Model):
+    __tablename__ = 'cases'
 
-    tc_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='用例ID')
-    tc_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False,
-                                  comment='创建人ID')
-    tc_name = db.Column(db.String(256), unique=True, nullable=False, comment='用例名称')
-    tc_url = db.Column(db.String(256), unique=True, nullable=False, comment='接口地址')
-    tc_param = db.Column(db.String(256), unique=True, nullable=False, comment='请求参数')
-    tc_param_type = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='参数类型')
-    tc_req_method = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='请求方式')
-    tc_status_code = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='返回码')
-    tc_except = db.Column(db.String(256), unique=True, nullable=False, comment='预期结果')
-    tc_link_case = db.Column(db.Integer, unique=True, nullable=False, comment='关联用例')
-    tc_sql_code = db.Column(db.Integer, unique=True, nullable=False, comment='数据库判断码')
-    tc_sql_data = db.Column(db.String(256), unique=True, nullable=False, comment='数据库查询语句')
-    tc_sql_except = db.Column(db.String(256), unique=True, nullable=False, comment='数据库预期结果')
-    tc_desc = db.Column(db.String(256), unique=True, nullable=False, comment='用例描述')
-    tc_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
-    to_user = db.relationship('User', backref=db.backref('tc_user'))
-    to_state_param = db.relationship('State', foreign_keys=tc_param_type)
-    to_state_method = db.relationship('State', foreign_keys=tc_req_method)
-    to_state_code = db.relationship('State', foreign_keys=tc_status_code)
+    cs_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='用例集ID')
+    cs_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False, comment='创建人ID')
+    cs_name = db.Column(db.String(256), unique=True, nullable=False, comment='用例集名称')
+    cs_in_module_id = db.Column(db.Integer, db.ForeignKey('module.m_id'), unique=True, nullable=False, comment='所属模块ID')
+    cs_remarks = db.Column(db.String(256), unique=True, nullable=False, comment='用例集描述')
+    cs_do_cases = db.Column(db.String(256), unique=True, nullable=False, comment='执行用例')
+    cs_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
+    to_user = db.relationship('User', backref=db.backref('cs_user'))
+    to_module = db.relationship('Module', backref=db.backref('cs_module'))
 
-    def __init__(self, tc_create_user_id, tc_name, tc_url, tc_param, tc_param_type, tc_req_method, tc_status_code,
-                 tc_except, tc_link_case, tc_sql_code, tc_sql_data, tc_sql_except, tc_desc, tc_create_time):
-        self.tc_create_user_id = tc_create_user_id
-        self.tc_name = tc_name
-        self.tc_url = tc_url
-        self.tc_param = tc_param
-        self.tc_param_type = tc_param_type
-        self.tc_req_method = tc_req_method
-        self.tc_status_code = tc_status_code
-        self.tc_except = tc_except
-        self.tc_link_case = tc_link_case
-        self.tc_sql_code = tc_sql_code
-        self.tc_sql_data = tc_sql_data
-        self.tc_sql_except = tc_sql_except
-        self.tc_desc = tc_desc
-        self.tc_create_time = tc_create_time
+    def __init__(self, cs_create_user_id, cs_name, cs_in_module_id, cs_remarks, cs_do_cases, cs_create_time):
+        self.cs_create_user_id = cs_create_user_id
+        self.cs_name = cs_name
+        self.cs_in_module_id = cs_in_module_id
+        self.cs_remarks = cs_remarks
+        self.cs_do_cases = cs_do_cases
+        self.cs_create_time = cs_create_time
 
     def save(self):
         db.session.add(self)
