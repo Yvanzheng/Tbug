@@ -16,8 +16,8 @@
 <body>
 <div class="x-nav">
             <span class="layui-breadcrumb">
-                <a href="">用例集</a>
-                <a href=""><cite>详情</cite></a>
+                <a href="">SOAP</a>
+                <a href=""><cite>服务</cite></a>
             </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
        onclick="location.reload()" title="刷新">
@@ -31,21 +31,14 @@
                 <div class="layui-card-body ">
                     <form method="post" class="layui-form layui-col-space5">
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input type="text" name="casesName" placeholder="请输入用例集名称" autocomplete="off"
-                                   class="layui-input"></div>
+                            <input type="text" name="methodName" placeholder="SOAP方法名" autocomplete="off"
+                                   class="layui-input">
+                        </div>
                         <div class="layui-input-inline layui-show-xs-block">
                             <select name="user">
                                 <option value="">创建人</option>
                                 {% for user in users %}
                                     <option value="{{ user.id }}">{{ user.username }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="layui-input-inline layui-show-xs-block">
-                            <select name="casesInModule">
-                                <option value="">所属模块</option>
-                                {% for module in modules %}
-                                    <option value="{{ module.m_id }}">{{ module.m_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -60,7 +53,7 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn" onclick="xadmin.open('创建用例集','/cases/addCases',500,500)">
+                    <button class="layui-btn" onclick="xadmin.open('创建用例','/soap/addMethod',350,260)">
                         <i class="layui-icon"></i>创建
                     </button>
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
@@ -70,38 +63,34 @@
                 <div class="layui-card-body ">
                     <table class="layui-table layui-form">
                         <thead>
+                        <thead>
                         <tr>
-                            <th>
+                            <th width="10%">
                                 <input type="checkbox" lay-filter="checkall" lay-skin="primary">
                             </th>
-                            <th>用例集名称</th>
-                            <th>创建人</th>
-                            <th>所属模块</th>
-                            <th>执行用例</th>
-                            <th>创建时间</th>
-                            <th>用例集描述</th>
-                            <th>操作</th>
+                            <th width="25%">Soap方法</th>
+                            <th width="15%">Soap名称</th>
+                            <th width="10%">创建人</th>
+                            <th width="20%">创建时间</th>
+                            <th width="20%">操作</th>
                         </tr>
                         </thead>
-                        <tbody id="itemVal">
-                        {% for case in cases %}
+                        <tbody class="x-cate">
+                        {% for method in methods %}
                             <tr>
                                 <td>
-                                    <input type="checkbox" lay-skin="primary" name="id" value="{{ case.cs_id }}">
+                                    <input type="checkbox" lay-skin="primary" name="id" value="{{ method.md_id }}">
                                 </td>
-                                <td>{{ case.cs_name }}</td>
-                                <td>{{ case.to_user.username }}</td>
-                                <td>{{ case.to_module.m_name }}</td>
-                                <td>{{ case.cs_do_cases }}</td>
-                                <td>{{ case.cs_create_time }}</td>
-                                <td>{{ case.cs_remarks }}</td>
+                                <td>{{ method.md_method }}</td>
+                                <td>{{ method.md_name }}</td>
+                                <td>{{ method.to_user.username }}</td>
+                                <td>{{ method.md_create_time }}</td>
                                 <td class="td-manage">
-                                    <a title="编辑用例集"
-                                       onclick="xadmin.open('编辑用例集', '/cases/editMethod/'+{{ case.cs_id }}, 600, 500)"
-                                       href="javascript:;">
-                                        <i class="layui-icon">&#xe642;</i>
-                                    </a>
-                                    <a title="删除用例集" onclick="casea_del(this)" href="javascript:;">
+                                    {# <a title="编辑" onclick="xadmin.open('编辑用例集', '/soap/editMethod/'+{{ method.md_id }}, 350, 250)"#}
+                                    {#    href="javascript:;">#}
+                                    {#    <i class="layui-icon">&#xe642;</i>#}
+                                    {# </a>#}
+                                    <a title="删除" onclick="method_del(this,'要删除的id')" href="javascript:;">
                                         <i class="layui-icon">&#xe640;</i>
                                     </a>
                                 </td>
@@ -156,18 +145,18 @@
 
     });
 
-function casea_del(obj) {
-    let cs_id = $(obj).parent("td").parent("tr").children().eq(0).children(0).val();
-    let cs_name = $(obj).parent("td").parent("tr").children().eq(1).text();
+function method_del(obj) {
+    let md_id = $(obj).parent("td").parent("tr").children().eq(0).children(0).val();
+    let md_method = $(obj).parent("td").parent("tr").children().eq(1).text();
     i_data = {
-        cs_id: cs_id,
-        cs_name: cs_name
+        md_id: md_id,
+        md_name: md_method
     };
-    layer.confirm('确认要删除用例集： ' + cs_name + ' 吗？', function () {
+    layer.confirm('确认要删除注册方法： ' + md_method + ' 吗？', function () {
         //发异步删除数据
         $.ajax({
             type: "POST",
-            url: "/cases/delCases",//提交数据接口
+            url: "/soap/delMethod",//提交数据接口
             data: JSON.stringify(i_data),
             dataType: "JSON",
             success: function (data) {
@@ -195,7 +184,7 @@ function delAll(argument) {
         layer.confirm('确认要删除所需项吗？', function () {
             $.ajax({
                 type: "POST",
-                url: "/cases/delAllCases",//提交数据接口
+                url: "/soap/delAllMethods",//提交数据接口
                 data: JSON.stringify(ids),
                 dataType: "JSON",
                 success: function (data) {

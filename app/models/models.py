@@ -187,7 +187,8 @@ class Testcase(db.Model):
     to_state_method = db.relationship('State', foreign_keys=tc_req_method)
     to_state_code = db.relationship('State', foreign_keys=tc_status_code)
 
-    def __init__(self, tc_create_user_id, tc_name, tc_url, tc_param, tc_in_module_id, tc_param_type, tc_req_method, tc_status_code,
+    def __init__(self, tc_create_user_id, tc_name, tc_url, tc_param, tc_in_module_id, tc_param_type, tc_req_method,
+                 tc_status_code,
                  tc_except, tc_link_case, tc_sql_code, tc_sql_data, tc_sql_except, tc_desc, tc_create_time):
         self.tc_create_user_id = tc_create_user_id
         self.tc_name = tc_name
@@ -222,7 +223,8 @@ class Cases(db.Model):
     __tablename__ = 'cases'
 
     cs_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='用例集ID')
-    cs_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False, comment='创建人ID')
+    cs_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False,
+                                  comment='创建人ID')
     cs_name = db.Column(db.String(256), unique=True, nullable=False, comment='用例集名称')
     cs_in_module_id = db.Column(db.Integer, db.ForeignKey('module.m_id'), unique=True, nullable=False, comment='所属模块ID')
     cs_remarks = db.Column(db.String(256), unique=True, nullable=False, comment='用例集描述')
@@ -238,6 +240,73 @@ class Cases(db.Model):
         self.cs_remarks = cs_remarks
         self.cs_do_cases = cs_do_cases
         self.cs_create_time = cs_create_time
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class Methods(db.Model):
+    __tablename__ = 'methods'
+
+    md_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='SOAP服务ID')
+    md_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False,
+                                  comment='创建人ID')
+    md_name = db.Column(db.String(256), unique=True, nullable=False, comment='SOAP方法名称')
+    md_method = db.Column(db.String(256), unique=True, nullable=False, comment='SOAP注册方法')
+    md_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
+    to_user = db.relationship('User', backref=db.backref('md_user'))
+
+    def __init__(self, md_create_user_id, md_name, md_method, md_create_time):
+        self.md_create_user_id = md_create_user_id
+        self.md_name = md_name
+        self.md_method = md_method
+        self.md_create_time = md_create_time
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class Soap(db.Model):
+    __tablename__ = 'soap'
+
+    soap_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='SOAP服务ID')
+    soap_method = db.Column(db.String(256), unique=True, nullable=False, comment='接口名')
+    soap_call_timing = db.Column(db.String(256), unique=True, nullable=False, comment='调用时机')
+    soap_pmara = db.Column(db.String(256), unique=True, nullable=False, comment='入参示例')
+    soap_except = db.Column(db.String(256), unique=True, nullable=False, comment='响应示例')
+    soap_rusult = db.Column(db.String(256), unique=True, nullable=False, comment='返回结果')
+    soap_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False,
+                                    comment='创建人ID')
+    soap_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
+    to_user = db.relationship('User', backref=db.backref('soap_user'))
+
+    def __init__(self, soap_method, soap_call_timing, soap_pmara, soap_except, soap_rusult, soap_create_user_id,
+                 soap_create_time):
+        self.soap_method = soap_method
+        self.soap_call_timing = soap_call_timing
+        self.soap_pmara = soap_pmara
+        self.soap_except = soap_except
+        self.soap_rusult = soap_rusult
+        self.soap_create_user_id = soap_create_user_id
+        self.soap_create_time = soap_create_time
 
     def save(self):
         db.session.add(self)

@@ -136,8 +136,51 @@ CREATE TABLE task
   FOREIGN KEY (tk_state) REFERENCES state (s_id)
 ) COMMENT = '任务表';
 
+DROP TABLE
+  IF EXISTS methods;
+
+CREATE TABLE methods
+(
+  md_id             INT PRIMARY KEY AUTO_INCREMENT COMMENT 'SOAP注册方法ID',
+  md_name           VARCHAR(256) NOT NULL COMMENT 'SOAP方法名称',
+  md_method         VARCHAR(256) NOT NULL COMMENT 'SOAP注册方法',
+  md_create_user_id INT          NOT NULL COMMENT '创建人ID',
+  md_create_time    TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
+  FOREIGN KEY (md_create_user_id) REFERENCES USER (id)
+) COMMENT = 'soap注册方法表';
 
 
+DROP TABLE
+  IF EXISTS spaptask;
+
+CREATE TABLE soaptask
+(
+  soap_tk_id             INT PRIMARY KEY AUTO_INCREMENT COMMENT '任务ID',
+  soap_tk_name           VARCHAR(256) NOT NULL COMMENT '任务名称',
+  soap_tk_desc           VARCHAR(256) NOT NULL COMMENT '任务描述',
+  soap_tk_create_user_id INT          NOT NULL COMMENT '创建人ID',
+  soap_tk_create_time    TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
+  FOREIGN KEY (soap_tk_create_user_id) REFERENCES USER (id)
+) COMMENT = '任务表';
+
+
+DROP TABLE
+  IF EXISTS soap;
+
+CREATE TABLE soap
+(
+  soap_id             INT PRIMARY KEY AUTO_INCREMENT COMMENT 'SOAP服务ID',
+  soap_method         VARCHAR(256) NOT NULL COMMENT '接口名',
+  soap_call_timing    VARCHAR(256) NOT NULL COMMENT '调用时机',
+  soap_pmara          VARCHAR(256) NOT NULL COMMENT '入参示例',
+  soap_except         VARCHAR(256) NOT NULL COMMENT '响应示例',
+  soap_rusult         VARCHAR(256) NOT NULL COMMENT '返回结果',
+  soap_create_user_id INT          NOT NULL COMMENT '创建人ID',
+  soap_create_time    TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建/修改时间',
+  soap_in_task        int          NOT NULL COMMENT '所属任务',
+  FOREIGN KEY (soap_create_user_id) REFERENCES USER (id),
+  FOREIGN KEY (soap_in_task) REFERENCES soaptask (soap_tk_id)
+) COMMENT = 'soap任务详情表';
 
 
 

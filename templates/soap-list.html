@@ -16,7 +16,7 @@
 <body>
 <div class="x-nav">
             <span class="layui-breadcrumb">
-                <a href="">用例集</a>
+                <a href="">任务</a>
                 <a href=""><cite>详情</cite></a>
             </span>
     <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
@@ -31,21 +31,18 @@
                 <div class="layui-card-body ">
                     <form method="post" class="layui-form layui-col-space5">
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input type="text" name="casesName" placeholder="请输入用例集名称" autocomplete="off"
-                                   class="layui-input"></div>
+                            <input type="text" name="soap_method" placeholder="接口名" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                        <div class="layui-input-inline layui-show-xs-block">
+                            <input type="text" name="soap_call_timing" placeholder="调用时机" autocomplete="off"
+                                   class="layui-input">
+                        </div>
                         <div class="layui-input-inline layui-show-xs-block">
                             <select name="user">
                                 <option value="">创建人</option>
                                 {% for user in users %}
                                     <option value="{{ user.id }}">{{ user.username }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="layui-input-inline layui-show-xs-block">
-                            <select name="casesInModule">
-                                <option value="">所属模块</option>
-                                {% for module in modules %}
-                                    <option value="{{ module.m_id }}">{{ module.m_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -60,48 +57,52 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn" onclick="xadmin.open('创建用例集','/cases/addCases',500,500)">
+                    <button class="layui-btn" onclick="xadmin.open('创建soap信息','/soap/addSoap',600,600)">
                         <i class="layui-icon"></i>创建
                     </button>
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除
                     </button>
+                    <button class="layui-btn layui-btn-danger" onclick="upSoap()">
+                        <i class="layui-icon"></i>上传
+                    </button>
                 </div>
                 <div class="layui-card-body ">
                     <table class="layui-table layui-form">
                         <thead>
+                        <thead>
                         <tr>
-                            <th>
+                            <th width="5%">
                                 <input type="checkbox" lay-filter="checkall" lay-skin="primary">
                             </th>
-                            <th>用例集名称</th>
-                            <th>创建人</th>
-                            <th>所属模块</th>
-                            <th>执行用例</th>
-                            <th>创建时间</th>
-                            <th>用例集描述</th>
-                            <th>操作</th>
+                            <th width="10%">接口名</th>
+                            <th width="5%">调用时机</th>
+                            <th width="25%">入参示例</th>
+                            <th width="25%">期望值</th>
+                            <th width="5%">创建人</th>
+                            <th width="10%">创建时间</th>
+                            <th width="15%">操作</th>
                         </tr>
                         </thead>
-                        <tbody id="itemVal">
-                        {% for case in cases %}
+                        <tbody class="x-cate">
+                        {% for soap in soaps %}
                             <tr>
                                 <td>
-                                    <input type="checkbox" lay-skin="primary" name="id" value="{{ case.cs_id }}">
+                                    <input type="checkbox" lay-skin="primary" name="id" value="{{ soap.soap_id }}">
                                 </td>
-                                <td>{{ case.cs_name }}</td>
-                                <td>{{ case.to_user.username }}</td>
-                                <td>{{ case.to_module.m_name }}</td>
-                                <td>{{ case.cs_do_cases }}</td>
-                                <td>{{ case.cs_create_time }}</td>
-                                <td>{{ case.cs_remarks }}</td>
+                                <td>{{ soap.soap_method }}</td>
+                                <td>{{ soap.soap_call_timing }}</td>
+                                <td>{{ soap.soap_pmara }}</td>
+                                <td>{{ soap.soap_except }}</td>
+                                <td>{{ soap.to_user.username }}</td>
+                                <td>{{ soap.soap_create_time }}</td>
                                 <td class="td-manage">
-                                    <a title="编辑用例集"
-                                       onclick="xadmin.open('编辑用例集', '/cases/editMethod/'+{{ case.cs_id }}, 600, 500)"
+                                    <a title="编辑"
+                                       onclick="xadmin.open('编辑', '/soap/editSoap/'+{{ soap.soap_id }}, 600, 550)"
                                        href="javascript:;">
                                         <i class="layui-icon">&#xe642;</i>
                                     </a>
-                                    <a title="删除用例集" onclick="casea_del(this)" href="javascript:;">
+                                    <a title="删除" onclick="soap_del(this,'要删除的id')" href="javascript:;">
                                         <i class="layui-icon">&#xe640;</i>
                                     </a>
                                 </td>
@@ -153,21 +154,20 @@
             }
             form.render('checkbox');
         });
-
     });
 
-function casea_del(obj) {
-    let cs_id = $(obj).parent("td").parent("tr").children().eq(0).children(0).val();
-    let cs_name = $(obj).parent("td").parent("tr").children().eq(1).text();
+function soap_del(obj) {
+    let soap_id = $(obj).parent("td").parent("tr").children().eq(0).children(0).val();
+    let soap_method = $(obj).parent("td").parent("tr").children().eq(1).text();
     i_data = {
-        cs_id: cs_id,
-        cs_name: cs_name
+        soap_id: soap_id,
+        soap_method: soap_method
     };
-    layer.confirm('确认要删除用例集： ' + cs_name + ' 吗？', function () {
+    layer.confirm('确认要删除接口名： ' + soap_method + ' 吗？', function () {
         //发异步删除数据
         $.ajax({
             type: "POST",
-            url: "/cases/delCases",//提交数据接口
+            url: "/soap/delSoap",//提交数据接口
             data: JSON.stringify(i_data),
             dataType: "JSON",
             success: function (data) {
@@ -195,7 +195,7 @@ function delAll(argument) {
         layer.confirm('确认要删除所需项吗？', function () {
             $.ajax({
                 type: "POST",
-                url: "/cases/delAllCases",//提交数据接口
+                url: "/soap/delAllSoaps",//提交数据接口
                 data: JSON.stringify(ids),
                 dataType: "JSON",
                 success: function (data) {
@@ -210,6 +210,30 @@ function delAll(argument) {
     }
 }
 
+
+function upSoap() {
+    let soap_id = $(obj).parent("td").parent("tr").children().eq(0).children(0).val();
+    let soap_method = $(obj).parent("td").parent("tr").children().eq(1).text();
+    i_data = {
+        soap_id: soap_id,
+        soap_method: soap_method
+    };
+    layer.confirm('确认要删除接口名： ' + soap_method + ' 吗？', function () {
+        //发异步删除数据
+        $.ajax({
+            type: "POST",
+            url: "/soap/delSoap",//提交数据接口
+            data: JSON.stringify(i_data),
+            dataType: "JSON",
+            success: function (data) {
+                if (data.flag) {
+                    $(obj).parents("tr").remove();
+                    layer.msg('删除成功!', {icon: 1, time: 1000});
+                }
+            }
+        });
+    });
+}
 
 </script>
 

@@ -17,6 +17,7 @@ from app.views.base_views import base_blueprint
 from app.views.module_views import module_blueprint
 from app.views.case_views import case_blueprint
 from app.views.task_views import task_blueprint
+from app.views.soap_views import soap_blueprint
 from app.models.models import db
 
 
@@ -36,6 +37,7 @@ def create_app():
     app.register_blueprint(blueprint=module_blueprint, url_prefix='/module')
     app.register_blueprint(blueprint=case_blueprint, url_prefix='/cases')
     app.register_blueprint(blueprint=task_blueprint, url_prefix='/task')
+    app.register_blueprint(blueprint=soap_blueprint, url_prefix='/soap')
 
     # 数据库连接信息
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:123456@127.0.0.1:3306/tbug'

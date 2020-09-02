@@ -65,9 +65,13 @@ def add_cases():
     进入添加用例集，新建用例集
     """
     if request.method == 'GET':
-        states = State.query.filter(State.s_item_code == 4).all()
-        modules = Module.query.filter(Module.m_state == 3).all()
-        return render_template('cases-add.html', states=states, modules=modules)
+        modules = Module.query.filter().all()
+        testcases = Testcase.query.filter().all()
+        result = Testcase.query.join(Module, Testcase.tc_in_module_id == Module.m_id).filter().all()
+
+        for re in result:
+            print(re)
+        return render_template('cases-add.html', modules=modules, testcases=testcases)
     if request.method == 'POST':
         user_id = session.get('user_id')
         data_json = request.get_data().decode('utf-8')
@@ -85,7 +89,7 @@ def add_cases():
                 result = {"flag": False, "value": "用例集“" + data_dict['cs_name'] + "”已经存在！"}
             else:
                 cases = Cases(cs_name=data_dict['cs_name'], cs_create_user_id=user_id,
-                              cs_remarks=data_dict['cs_remarks'], cs_state=data_dict['cs_state'],
+                              cs_remarks=data_dict['cs_remarks'],
                               cs_in_module_id=data_dict['cs_in_module'],
                               cs_create_time=datetime.now())
                 cases.save()
