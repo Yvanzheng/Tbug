@@ -57,34 +57,34 @@
                     </form>
                 </div>
                 <div class="layui-card-header">
-                    <button class="layui-btn" onclick="xadmin.open('创建soap信息','/soap/addSoap',600,600)">
+                    <button class="layui-btn" onclick="xadmin.open('创建soap信息','/soap/addSoap',600,550)">
                         <i class="layui-icon"></i>创建
+                    </button>
+                    <button class="layui-btn" onclick="xadmin.open('上传', '/soap/upSoap/', 300, 150)">
+                        <i class="layui-icon">&#xe67c;</i>上传
                     </button>
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除
                     </button>
-                    <button class="layui-btn layui-btn-danger" onclick="upSoap()">
-                        <i class="layui-icon"></i>上传
-                    </button>
                 </div>
                 <div class="layui-card-body ">
-                    <table class="layui-table layui-form">
+                    <table class="layui-table layui-form" style="table-layout:fixed;">
                         <thead>
                         <thead>
                         <tr>
                             <th width="5%">
                                 <input type="checkbox" lay-filter="checkall" lay-skin="primary">
                             </th>
-                            <th width="10%">接口名</th>
+                            <th width="5%">接口名</th>
                             <th width="5%">调用时机</th>
-                            <th width="25%">入参示例</th>
-                            <th width="25%">期望值</th>
+                            <th width="30%">入参示例</th>
+                            <th width="30%">期望值</th>
                             <th width="5%">创建人</th>
-                            <th width="10%">创建时间</th>
-                            <th width="15%">操作</th>
+                            <th width="15%">创建时间</th>
+                            <th width="5%">操作</th>
                         </tr>
                         </thead>
-                        <tbody class="x-cate">
+                        <tbody class="x-cate" style="width:100%">
                         {% for soap in soaps %}
                             <tr>
                                 <td>
@@ -92,9 +92,9 @@
                                 </td>
                                 <td>{{ soap.soap_method }}</td>
                                 <td>{{ soap.soap_call_timing }}</td>
-                                <td>{{ soap.soap_pmara }}</td>
-                                <td>{{ soap.soap_except }}</td>
-                                <td>{{ soap.to_user.username }}</td>
+                                <td style="white-space:nowrap; text-overflow: ellipsis; overflow: hidden;" title="{{ soap.soap_pmara }}">{{ soap.soap_pmara }}</td>
+                                <td style="white-space:nowrap; text-overflow: ellipsis; overflow: hidden;" title="{{ soap.soap_except }}">{{ soap.soap_except }}</td>
+                                <td style="white-space:nowrap; text-overflow: ellipsis; overflow: hidden;" title="{{ soap.to_user.username }}">{{ soap.to_user.username }}</td>
                                 <td>{{ soap.soap_create_time }}</td>
                                 <td class="td-manage">
                                     <a title="编辑"
@@ -210,30 +210,6 @@ function delAll(argument) {
     }
 }
 
-
-function upSoap() {
-    let soap_id = $(obj).parent("td").parent("tr").children().eq(0).children(0).val();
-    let soap_method = $(obj).parent("td").parent("tr").children().eq(1).text();
-    i_data = {
-        soap_id: soap_id,
-        soap_method: soap_method
-    };
-    layer.confirm('确认要删除接口名： ' + soap_method + ' 吗？', function () {
-        //发异步删除数据
-        $.ajax({
-            type: "POST",
-            url: "/soap/delSoap",//提交数据接口
-            data: JSON.stringify(i_data),
-            dataType: "JSON",
-            success: function (data) {
-                if (data.flag) {
-                    $(obj).parents("tr").remove();
-                    layer.msg('删除成功!', {icon: 1, time: 1000});
-                }
-            }
-        });
-    });
-}
 
 </script>
 

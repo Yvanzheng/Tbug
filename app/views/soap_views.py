@@ -7,11 +7,12 @@
 # @Note : soap views 交互层
 
 from flask import Blueprint, render_template, request, session
-import json
+import json, xlrd, os
 from datetime import datetime
 from app.models.models import User, Methods, Soap
 from app.utils.ch_login import is_login
 from app.utils.page_util import Pagination
+from app.soap.soap_test import read_xsls
 
 soap_blueprint = Blueprint('soap', __name__)
 
@@ -289,3 +290,39 @@ def update_soap():
         soap.save()
         result = {"flag": True, "value": "修改成功！"}
     return result
+
+
+@soap_blueprint.route('/upSoap/', methods=['GET', 'POST'])
+@is_login
+def up_soap():
+    """
+    通过上传soap数据
+    """
+    if request.method == 'GET':
+        return render_template("soap-up.html")
+    if request.method == 'POST':
+        data = []
+        file = request.files['file']
+        f = file.read()  # 文件内容
+        data_xsls = xlrd.open_workbook(file_contents=f)
+        sheet_name = data_xsls.sheets()[0]  # 进入第一张表
+        sheet_name1 = data_xsls.sheet_by_index(0)  # sheet索引从0开始
+        count_nrows = sheet_name.nrows  # 获取总行数
+        count_nocls = sheet_name.ncols  # 获得总列数
+        line_value = sheet_name.row_values(0)  # Excel表头
+        for i in range(1, count_nrows):
+            data_val = {}
+            for j in range(0, count_nocls):
+                data_val[line_value[j]] = sheet_name1.cell(i, j).value
+            data.append(data_val)
+        user_id = session.get('user_id')
+        for dt in data:
+            print('接口名' + dt["接口名"])
+            print('调用时机' + dt["调用时机"])
+            print('入参示例' + dt["入参示例"])
+            print('响应示例' + dt["响应示例"])
+            soap = Soap(soap_method=dt["接口名"], soap_create_user_id=user_id,
+                        soap_call_timing=dt["调用时机"], soap_pmara=dt["入参示例"],
+                        soap_except=dt["响应示例"], soap_rusult='', soap_create_time=datetime.now())
+            soap.save()
+        return "数据导入成功"

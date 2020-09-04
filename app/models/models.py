@@ -290,9 +290,9 @@ class Soap(db.Model):
     soap_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='SOAP服务ID')
     soap_method = db.Column(db.String(256), unique=True, nullable=False, comment='接口名')
     soap_call_timing = db.Column(db.String(256), unique=True, nullable=False, comment='调用时机')
-    soap_pmara = db.Column(db.String(256), unique=True, nullable=False, comment='入参示例')
-    soap_except = db.Column(db.String(256), unique=True, nullable=False, comment='响应示例')
-    soap_rusult = db.Column(db.String(256), unique=True, nullable=False, comment='返回结果')
+    soap_pmara = db.Column(db.Text, unique=True, nullable=False, comment='入参示例')
+    soap_except = db.Column(db.Text, unique=True, nullable=False, comment='响应示例')
+    soap_rusult = db.Column(db.Text, unique=True, nullable=False, comment='返回结果')
     soap_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False,
                                     comment='创建人ID')
     soap_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
