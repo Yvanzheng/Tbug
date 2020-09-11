@@ -1,6 +1,4 @@
-<!DOCTYPE html>
 <html class="x-admin-sm">
-
 <head>
     <meta charset="UTF-8">
     <title>T-Bug</title>
@@ -11,19 +9,21 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='css/xadmin.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='formSelects-v4/formSelects-v4.css') }}">
     <script type="text/javascript" src="{{ url_for('static',filename='lib/layui/layui.all.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='lib/layui/layui.js') }}"></script>
     <script src="{{ url_for('static',filename='js/xadmin.js') }}" charset="utf-8"></script>
     <script src="{{ url_for('static',filename='js/jquery.min.js') }}" charset="utf-8"></script>
     <script src="{{ url_for('static',filename='formSelects-v4/src/formSelects-v4.js') }}" charset="utf-8"></script>
 </head>
-
 <body>
 <div class="layui-fluid">
     <div class="layui-row">
         <form class="layui-form">
             <div class="layui-form-item">
-                <label for="tk_name" class="layui-form-label"><span class="x-red">*</span>任务名称</label>
+                <label for="i_value" class="layui-form-label">任务名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="tk_name" name="tk_name" required="" lay-verify="required" autocomplete="off"
+                    <input type="text" style="display: none;" id="tk_id" name="tk_id" value="{{ task.tk_id }}" autocomplete="off"
+                           class="layui-input">
+                    <input type="text" id="tk_name" name="tk_name" readonly value="{{ task.tk_name }}" autocomplete="off"
                            class="layui-input">
                 </div>
             </div>
@@ -33,7 +33,11 @@
                     <select name="tk_in_project_id" id="tk_in_project_id" lay-filter="tk_in_project_id"
                             xm-select="tk_in_project_id" xm-select-type="1">
                         {% for project in projects %}
-                            <option value="{{ project.p_id }}">{{ project.p_name }}</option>
+                            {% if project.p_id==task.tk_in_project_id %}
+                                <option value="{{ project.p_id }}" selected>{{ project.p_name }}</option>
+                            {% else %}
+                                <option value="{{ project.p_id }}">{{ project.p_name }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
@@ -42,9 +46,19 @@
                 <label for="tk_in_project_id" class="layui-form-label"><span class="x-red">*</span>项目类型</label>
                 <div class="layui-input-block">
                     <select name="tk_type" id="tk_type" lay-filter="tk_type" xm-select="tk_type" xm-select-type="1">
-                        <option value="0">一般任务</option>
-                        <option value="1">定时任务</option>
-                        <option value="2">SOAP任务</option>
+                        {% if task.tk_type == "0" %}
+                            <option value="0" selected>一般任务</option>
+                            <option value="1">定时任务</option>
+                            <option value="2">SOAP任务</option>
+                        {% elif task.tk_type == "1" %}
+                            <option value="1" selected>定时任务</option>
+                            <option value="0">一般任务</option>
+                            <option value="2">SOAP任务</option>
+                        {% elif task.tk_type == "2" %}
+                            <option value="2" selected>SOAP任务</option>
+                            <option value="0">一般任务</option>
+                            <option value="1">定时任务</option>
+                        {% endif %}
                     </select>
                 </div>
             </div>
@@ -61,68 +75,70 @@
             <div class="layui-form-item layui-form-text">
                 <label for="tk_desc" class="layui-form-label">任务描述</label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" id="tk_desc" name="tk_desc" class="layui-textarea"></textarea>
+                    <textarea id="tk_desc" name="tk_desc" class="layui-textarea">{{ task.tk_desc }}</textarea>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label for="L_repass" class="layui-form-label"></label>
-                <button class="layui-btn" lay-filter="add" lay-submit="" type="submit">增加</button>
+                <label for="L_repass" class="layui-form-label">
+                </label>
+                <button class="layui-btn" lay-filter="update" lay-submit="" type="submit">
+                    确定
+                </button>
             </div>
         </form>
     </div>
 </div>
 <script>
+    li = [];
+    {% for case in  cases %}
+        li.push({{ case }});
+    {% endfor %}
+    console.info(li);
     layui.use(['form', 'layer', 'laydate'],
         function () {
             $ = layui.jquery;
             var form = layui.form;
             var formSelects = layui.formSelects;
-            form.render();
-            formSelects.value('select');
-            formSelects.value('select', 'all');
-            formSelects.value('select', 'val');
-            formSelects.value('select', 'valStr');
-            formSelects.value('select', 'name');
-            formSelects.value('select', 'nameStr');
+            form.render('select', li);;
+            formSelects.value('select', li, true);
         });
 </script>
-<script>layui.use(['form', 'layer', 'laydate'],
-    function () {
-        $ = layui.jquery;
-        var form = layui.form,
-            layer = layui.layer;
+<script>
+    layui.use(['form', 'layer'],
+        function () {
+            $ = layui.jquery;
+            var form = layui.form,
+                layer = layui.layer;
 
-        form.on('submit(add)', function (data) {
-            var articleFrom = JSON.stringify(data.field);//获取数据集合；
-            console.info(articleFrom);
-            $.ajax({
-                type: "POST",
-                url: "/task/addTask",//提交数据接口
-                data: articleFrom,
-                dataType: "JSON",
-                success: function (data) {
-                    if (data.flag) {
-                        layer.alert(data.value, {icon: 6}, function () {
-                            //关闭当前frame
-                            xadmin.close();
-                            // 可以对父窗口进行刷新
-                            xadmin.father_reload();
-                        })
-                    } else {
-                        layer.alert(data.value, {icon: 6}, function () {
-                            //关闭当前frame
-                            {#xadmin.close();#}
-                            xadmin.end();
-                            // 可以对父窗口进行刷新
-                            {#xadmin.father_reload();#}
-                        })
+            //监听提交
+            form.on('submit(update)', function (data) {
+                var articleFrom = JSON.stringify(data.field);//获取数据集合
+                $.ajax({
+                    type: "POST",
+                    url: "/task/updateTask",//提交数据接口
+                    data: articleFrom,
+                    dataType: "JSON",
+                    success: function (data) {
+                        if (data.flag) {
+                            layer.alert(data.value, {icon: 6}, function () {
+                                //关闭当前frame
+                                xadmin.close();
+                                // 可以对父窗口进行刷新
+                                xadmin.father_reload();
+                            })
+                        } else {
+                            layer.alert(data.value, {icon: 6}, function () {
+                                //关闭当前frame
+                                xadmin.close();
+                                // 可以对父窗口进行刷新
+                                xadmin.father_reload();
+                            })
+                        }
                     }
-                }
+                });
+                return false;
             });
-            return false;
-        });
-    });
-</script>
+        });</script>
 <script>var _hmt = _hmt || [];
 (function () {
     var hm = document.createElement("script");
@@ -131,5 +147,4 @@
     s.parentNode.insertBefore(hm, s);
 })();</script>
 </body>
-
 </html>

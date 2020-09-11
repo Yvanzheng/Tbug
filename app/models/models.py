@@ -319,3 +319,39 @@ class Soap(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+
+class Task(db.Model):
+    __tablename__ = 'task'
+
+    tk_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='任务ID')
+    tk_name = db.Column(db.String(256), unique=True, nullable=False, comment='任务名称')
+    tk_in_project_id = db.Column(db.Integer, db.ForeignKey('project.p_id'), unique=True, nullable=False, comment='所属项目ID')
+    tk_do_tsetcases = db.Column(db.String(1024), unique=True, nullable=False, comment='执行用例')
+    tk_desc = db.Column(db.String(256), unique=True, nullable=False, comment='任务描述')
+    tk_type = db.Column(db.String(256), unique=True, nullable=False, comment='任务类型')
+    tk_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False, comment='创建人ID')
+    tk_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
+    to_user = db.relationship('User', backref=db.backref('tk_user'))
+    to_project = db.relationship('Project', backref=db.backref('tk_project'))
+
+    def __init__(self, tk_name, tk_in_project_id, tk_do_tsetcases, tk_desc, tk_type, tk_create_user_id, tk_create_time):
+        self.tk_name = tk_name
+        self.tk_in_project_id = tk_in_project_id
+        self.tk_do_tsetcases = tk_do_tsetcases
+        self.tk_desc = tk_desc
+        self.tk_type = tk_type
+        self.tk_create_user_id = tk_create_user_id
+        self.tk_create_time = tk_create_time
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()

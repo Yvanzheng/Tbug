@@ -75,10 +75,11 @@
                             <th width="5%">
                                 <input type="checkbox" lay-filter="checkall" lay-skin="primary">
                             </th>
-                            <th width="5%">接口名</th>
-                            <th width="5%">调用时机</th>
-                            <th width="30%">入参示例</th>
-                            <th width="30%">期望值</th>
+                            <th width="5%">用例ID</th>
+                            <th width="15%">接口名</th>
+                            <th width="10%">调用时机</th>
+                            <th width="20%">入参示例</th>
+                            <th width="20%">期望值</th>
                             <th width="5%">创建人</th>
                             <th width="15%">创建时间</th>
                             <th width="5%">操作</th>
@@ -90,6 +91,7 @@
                                 <td>
                                     <input type="checkbox" lay-skin="primary" name="id" value="{{ soap.soap_id }}">
                                 </td>
+                                <td>{{ soap.soap_id }}</td>
                                 <td>{{ soap.soap_method }}</td>
                                 <td>{{ soap.soap_call_timing }}</td>
                                 <td style="white-space:nowrap; text-overflow: ellipsis; overflow: hidden;" title="{{ soap.soap_pmara }}">{{ soap.soap_pmara }}</td>

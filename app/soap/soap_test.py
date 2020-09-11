@@ -31,6 +31,7 @@ def read_xsls(xlsx_path):
 def get_datas(data):
     method = ""  # 方法名
     pmara = ""  # 参数
+    excepts = ""  # 响应示例
     list = []  # 接口数据集合
     for dt in data:
         dict = {}  # 接口 key:value
@@ -39,51 +40,43 @@ def get_datas(data):
                 method = dt[k]
             if k == "入参示例":
                 pmara = dt[k]
+            if k == "响应示例":
+                excepts = dt[k]
             dict[method] = pmara
+            dict[excepts] = excepts
         list.append(dict)
     return list
-
-
-def set_method(data):
-    li = []  # 接口数据集合
-    method = ""
-    for dt in data:
-        for k in dt:
-            if k == "接口名":
-                method = dt[k]
-        li.append(method)
-        li = list(set(li))
-    file = open("soap_regiest.py", encoding="utf-8", mode="a")
-    for method in li:
-        file.write('        if key == "' + method + '":\n'
-                   '            result = client.service.' + method + '(pmara)\n'
-                   '            print(result)\n'
-                   '            return result\n')
-    file.close()
 
 
 def soap_req(data,custId):
     for li in data:
         url = ""
         pmara = ""
+        res_except = ""
         for key in li:
             if key == "接口名":
                 url = li[key]
+                print("接口名："+li[key])
             if key == "入参示例":
                 pmara = update_custId(li[key], custId)
-        soap_reg.choose(url, pmara)
+            if key == "响应示例":
+                print("响应示例："+li[key])
+        result = soap_reg.choose(url, pmara)
+        print(str(result) == res_except)
+        if str(result) == res_except:
+            print("通过")
+        else:
+            print("失败")
 
 
 def update_custId(data, custId):
     data = data[0:(data.find('<cust_id>'))+18]+custId+data[data.find('</cust_id>')-3:]
-    print("请求参数：\n"+data)
+    # print("请求参数：\n"+data)
     return data
 
 
 if __name__ == '__main__':
     excel_path = os.getcwd() + '/data/soap_test.xlsx'
     data = read_xsls(excel_path)
-    # print(data)
-    # set_method(data)
-    cust_id = soap_login.SimulateUserLogin("18883773158", "123456")
+    cust_id = soap_login.SimulateUserLoginJson("wyz123@dangdang.com", "123123")
     soap_req(data, cust_id)

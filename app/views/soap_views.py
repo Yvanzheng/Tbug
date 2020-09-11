@@ -12,7 +12,7 @@ from datetime import datetime
 from app.models.models import User, Methods, Soap
 from app.utils.ch_login import is_login
 from app.utils.page_util import Pagination
-from app.soap.soap_test import read_xsls
+from app.utils.soap_util import set_method
 
 soap_blueprint = Blueprint('soap', __name__)
 

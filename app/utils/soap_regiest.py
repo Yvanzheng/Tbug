@@ -6,6 +6,7 @@
 # @Software: PyCharm
 # @Note : 方法名注册服务方法
 from suds.client import Client
+import subprocess
 
 url = "http://10.3.253.194:8383/webservice-api/order_flow_mobile?wsdl"
 client = Client(url)
@@ -15,23 +16,6 @@ client = Client(url)
 
 
 class soap_regiest:
-
-    def set_method(data):
-        li = []  # 接口数据集合
-        method = ""
-        for dt in data:
-            for k in dt:
-                if k == "接口名":
-                    method = dt[k]
-            li.append(method)
-            li = list(set(li))
-        file = open("soap_regiest.py", encoding="utf-8", mode="a")
-        for method in li:
-            file.write('        if key == "' + method + '":\n'
-                       '            result = client.service.' + method + '(pmara)\n'
-                       '            print(result)\n'
-                       '            return result\n')
-        file.close()
 
     def choose(key, pmara):
         # print("注册服务方法")
