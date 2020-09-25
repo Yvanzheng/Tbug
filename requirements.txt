@@ -128,7 +128,7 @@ queued==2019.12.24
 queues==0.6.3
 redis==3.5.2
 request==2019.4.13
-requests==2.18.4
+requests==2.20.0
 requests-toolbelt==0.9.1
 robotframework==3.1.2
 sh==1.13.1
