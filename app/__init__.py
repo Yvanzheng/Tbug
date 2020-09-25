@@ -9,8 +9,7 @@
 import os
 
 import redis
-from flask import Flask
-
+from flask import Flask, Request
 from app.views.user_views import user_blueprint
 from app.views.project_views import project_blueprint
 from app.views.base_views import base_blueprint
@@ -27,6 +26,8 @@ def create_app():
     templates_dir = os.path.join(BASE_DIR, 'templates')
 
     app = Flask(__name__, static_folder=static_dir, template_folder=templates_dir)
+    app.config['MAX_CONTENT_LENGTH'] = 512 * 1024 * 1024
+
     # 热部署
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True

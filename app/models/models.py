@@ -167,19 +167,22 @@ class Testcase(db.Model):
     tc_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='用例ID')
     tc_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False,
                                   comment='创建人ID')
-    tc_name = db.Column(db.String(256), unique=True, nullable=False, comment='用例名称')
-    tc_url = db.Column(db.String(256), unique=True, nullable=False, comment='接口地址')
-    tc_param = db.Column(db.String(256), unique=True, nullable=False, comment='请求参数')
+    tc_name = db.Column(db.Text, unique=True, nullable=False, comment='用例名称')
+    tc_url = db.Column(db.String(512), unique=True, nullable=False, comment='接口地址')
+    tc_param = db.Column(db.Text, unique=True, nullable=False, comment='请求参数')
     tc_in_module_id = db.Column(db.Integer, db.ForeignKey('module.m_id'), unique=True, nullable=False, comment='所属模块')
     tc_param_type = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='参数类型')
     tc_req_method = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='请求方式')
     tc_status_code = db.Column(db.Integer, db.ForeignKey('state.s_id'), unique=True, nullable=False, comment='返回码')
-    tc_except = db.Column(db.String(256), unique=True, nullable=False, comment='预期结果')
+    tc_except = db.Column(db.Text, unique=True, nullable=False, comment='预期结果')
     tc_link_case = db.Column(db.Integer, unique=True, nullable=False, comment='关联用例')
+    tc_link_val = db.Column(db.Text, unique=True, nullable=False, comment='关联字段')
     tc_sql_code = db.Column(db.Integer, unique=True, nullable=False, comment='数据库判断码')
+    tc_sql_host = db.Column(db.String(256), unique=True, nullable=False, comment='数据库地址')
+    tc_sql_database = db.Column(db.String(256), unique=True, nullable=False, comment='数据库库名')
     tc_sql_data = db.Column(db.String(256), unique=True, nullable=False, comment='数据库查询语句')
-    tc_sql_except = db.Column(db.String(256), unique=True, nullable=False, comment='数据库预期结果')
-    tc_desc = db.Column(db.String(256), unique=True, nullable=False, comment='用例描述')
+    tc_sql_except = db.Column(db.Text, unique=True, nullable=False, comment='数据库校验字段')
+    tc_desc = db.Column(db.Text, unique=True, nullable=False, comment='用例描述')
     tc_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
     to_user = db.relationship('User', backref=db.backref('tc_user'))
     to_module = db.relationship('Module', foreign_keys=tc_in_module_id)
@@ -188,8 +191,8 @@ class Testcase(db.Model):
     to_state_code = db.relationship('State', foreign_keys=tc_status_code)
 
     def __init__(self, tc_create_user_id, tc_name, tc_url, tc_param, tc_in_module_id, tc_param_type, tc_req_method,
-                 tc_status_code,
-                 tc_except, tc_link_case, tc_sql_code, tc_sql_data, tc_sql_except, tc_desc, tc_create_time):
+                 tc_status_code, tc_except, tc_link_case,tc_link_val, tc_sql_code, tc_sql_data, tc_sql_except, tc_sql_host,
+                 tc_sql_database, tc_desc, tc_create_time):
         self.tc_create_user_id = tc_create_user_id
         self.tc_name = tc_name
         self.tc_url = tc_url
@@ -200,9 +203,12 @@ class Testcase(db.Model):
         self.tc_status_code = tc_status_code
         self.tc_except = tc_except
         self.tc_link_case = tc_link_case
+        self.tc_link_val = tc_link_val
         self.tc_sql_code = tc_sql_code
         self.tc_sql_data = tc_sql_data
         self.tc_sql_except = tc_sql_except
+        self.tc_sql_host = tc_sql_host
+        self.tc_sql_database = tc_sql_database
         self.tc_desc = tc_desc
         self.tc_create_time = tc_create_time
 
@@ -326,11 +332,13 @@ class Task(db.Model):
 
     tk_id = db.Column(db.Integer, autoincrement=True, primary_key=True, comment='任务ID')
     tk_name = db.Column(db.String(256), unique=True, nullable=False, comment='任务名称')
-    tk_in_project_id = db.Column(db.Integer, db.ForeignKey('project.p_id'), unique=True, nullable=False, comment='所属项目ID')
+    tk_in_project_id = db.Column(db.Integer, db.ForeignKey('project.p_id'), unique=True, nullable=False,
+                                 comment='所属项目ID')
     tk_do_tsetcases = db.Column(db.String(1024), unique=True, nullable=False, comment='执行用例')
     tk_desc = db.Column(db.String(256), unique=True, nullable=False, comment='任务描述')
     tk_type = db.Column(db.String(256), unique=True, nullable=False, comment='任务类型')
-    tk_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False, comment='创建人ID')
+    tk_create_user_id = db.Column(db.String(256), db.ForeignKey('user.id'), unique=True, nullable=False,
+                                  comment='创建人ID')
     tk_create_time = db.Column(db.TIMESTAMP, nullable=False, comment='创建/修改时间')
     to_user = db.relationship('User', backref=db.backref('tk_user'))
     to_project = db.relationship('Project', backref=db.backref('tk_project'))

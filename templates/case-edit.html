@@ -145,15 +145,29 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="layui-form-item" id="sql_d" style="display: none;">
+            <div class="layui-form-item" id="tc_sql_host" style="display: none;">
+                <label class="layui-form-label">数据库地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="tc_sql_host" name="tc_sql_host" autocomplete="off" class="layui-input"
+                           value="{{ testcase.tc_sql_host }}">
+                </div>
+            </div>
+            <div class="layui-form-item" id="tc_sql_database" style="display: none;">
+                <label class="layui-form-label">数据库库名</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="tc_sql_database" name="tc_sql_database" autocomplete="off"
+                           class="layui-input" value="{{ tc_sql_database }}">
+                </div>
+            </div>
+            <div class="layui-form-item" id="tc_sql_data" style="display: none;">
                 <label class="layui-form-label">sql语句</label>
                 <div class="layui-input-inline">
                     <input type="text" id="tc_sql_data" name="tc_sql_data" autocomplete="off" class="layui-input"
                            value="{{ testcase.tc_sql_data }}">
                 </div>
             </div>
-            <div class="layui-form-item" id="sql_e" style="display: none;">
-                <label class="layui-form-label">sql期望</label>
+            <div class="layui-form-item" id="tc_sql_except" style="display: none;">
+                <label class="layui-form-label">校验字段</label>
                 <div class="layui-input-inline">
                     <textarea id="tc_sql_except" name="tc_sql_except"
                               class="layui-textarea">{{ testcase.tc_sql_except }}</textarea>
@@ -191,11 +205,15 @@
             form.on('radio(sql_tests)', function (data) {
                 var level = data.value;
                 if (level == 1) {
-                    $("#sql_d").show();
-                    $("#sql_e").show();
+                    $("#tc_sql_data").show();
+                    $("#tc_sql_except").show();
+                    $("#tc_sql_host").show();
+                    $("#tc_sql_database").show();
                 } else {
-                    $("#sql_d").hide();
-                    $("#sql_e").hide();
+                    $("#tc_sql_data").hide();
+                    $("#tc_sql_except").hide();
+                    $("#tc_sql_host").hide();
+                    $("#tc_sql_database").hide();
                 }
             });
 

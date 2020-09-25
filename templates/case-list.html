@@ -145,10 +145,14 @@
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>数据库校验</td>
                                 {% if case.tc_sql_code==1 %}
-                                    <td colspan="6">是 <br>Sql语句：{{ case.tc_sql_data }} <br> 期望：{{ case.tc_sql_except }}
+                                    <td colspan="6">是否校验：是
+                                        <br>数据库IP：{{ case.tc_sql_host }}
+                                        <br>表名：{{ case.tc_sql_database }}
+                                        <br>Sql语句：{{ case.tc_sql_data }}
+                                        <br> 校验字段：{{ case.tc_sql_except }}
                                     </td>
                                 {% else %}
-                                    <td colspan="6">否</td>
+                                    <td colspan="6">是否校验：否</td>
                                 {% endif %}
                             </tr>
                         {% endfor %}

@@ -239,8 +239,7 @@ def add_test_case():
                                rep_codes=rep_codes, modules=modules)
     if request.method == 'POST':
         user_id = session.get('user_id')
-        data_json = request.get_data().decode('utf-8')
-        data_dict = json.loads(data_json)
+        data_dict = request.get_json()
         result = ""
         if data_dict['tc_name'] == "":
             result = {"flag": False, "value": "用例名称不能为空！"}
@@ -273,9 +272,12 @@ def add_test_case():
                                     tc_status_code=data_dict['tc_status_code'],
                                     tc_except=data_dict['tc_except'],
                                     tc_link_case=data_dict['tc_link_case'],
+                                    tc_link_val=data_dict['tc_link_val'],
                                     tc_sql_code=data_dict['tc_sql_code'],
                                     tc_sql_data=data_dict['tc_sql_data'],
                                     tc_sql_except=data_dict['tc_sql_except'],
+                                    tc_sql_host=data_dict['tc_sql_host'],
+                                    tc_sql_database=data_dict['tc_sql_database'],
                                     tc_desc=data_dict['tc_desc'],
                                     tc_create_time=datetime.now())
                 testcase.save()
@@ -356,9 +358,15 @@ def update_test_case():
         if data_dict['tc_sql_code'] == "0":
             testcase.tc_sql_data = ""
             testcase.tc_sql_except = ""
+            testcase.tc_sql_code = ""
+            testcase.tc_sql_host = ""
+            testcase.tc_sql_database = ""
         else:
             testcase.tc_sql_data = data_dict['tc_sql_data']
             testcase.tc_sql_except = data_dict['tc_sql_except']
+            testcase.tc_sql_code = data_dict['tc_sql_code']
+            testcase.tc_sql_host = data_dict['tc_sql_host']
+            testcase.tc_sql_database = data_dict['tc_sql_database']
         testcase.tc_desc = data_dict['tc_desc']
         testcase.tc_create_time = datetime.now()
         testcase.save()
