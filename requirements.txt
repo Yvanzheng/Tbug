@@ -161,7 +161,7 @@ typing-extensions==3.7.4.2
 URLEncoder==1.1
 urllib-ext==2020.5.1
 urllib2-prior-auth==0.2.0
-urllib3==1.22
+urllib3==1.24.2
 user-api==0.6.0
 utils==1.0.1
 Varas==1.1
