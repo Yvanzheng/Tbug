@@ -191,8 +191,8 @@ class Testcase(db.Model):
     to_state_code = db.relationship('State', foreign_keys=tc_status_code)
 
     def __init__(self, tc_create_user_id, tc_name, tc_url, tc_param, tc_in_module_id, tc_param_type, tc_req_method,
-                 tc_status_code, tc_except, tc_link_case,tc_link_val, tc_sql_code, tc_sql_data, tc_sql_except, tc_sql_host,
-                 tc_sql_database, tc_desc, tc_create_time):
+                 tc_status_code, tc_except, tc_link_case, tc_link_val, tc_sql_code, tc_sql_host, tc_sql_database,
+                 tc_sql_data, tc_sql_except, tc_desc, tc_create_time):
         self.tc_create_user_id = tc_create_user_id
         self.tc_name = tc_name
         self.tc_url = tc_url
@@ -205,10 +205,10 @@ class Testcase(db.Model):
         self.tc_link_case = tc_link_case
         self.tc_link_val = tc_link_val
         self.tc_sql_code = tc_sql_code
-        self.tc_sql_data = tc_sql_data
-        self.tc_sql_except = tc_sql_except
         self.tc_sql_host = tc_sql_host
         self.tc_sql_database = tc_sql_database
+        self.tc_sql_data = tc_sql_data
+        self.tc_sql_except = tc_sql_except
         self.tc_desc = tc_desc
         self.tc_create_time = tc_create_time
 

@@ -10,6 +10,7 @@
           content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/font.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/xadmin.css') }}">
+    <link rel="shortcut icon" href="#">
     <script type="text/javascript" src="{{ url_for('static',filename='lib/layui/layui.js') }}"></script>
     <script src="{{ url_for('static',filename='js/xadmin.js') }}" charset="utf-8"></script>
     <script src="{{ url_for('static',filename='js/jquery.min.js') }}" charset="utf-8"></script>
@@ -31,21 +32,19 @@
                 <label for="cs_in_module" class="layui-form-label">
                     <span class="x-red">*</span>所属模块</label>
                 <div class="layui-input-inline">
-                    <select name="cs_in_module" id="cs_in_module">
+                    <select name="cs_in_module" lay-filter="cs_in_module">
                         {% for module in modules %}
                             <option value="{{ module.m_id }}">{{ module.m_name }}</option>
                         {% endfor %}
                     </select>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <label for="cs_state" class="layui-form-label">执行用例</label>
-                <div class="layui-input-inline" id="do_testcase">
-                    {#                    {% for testcase in testcases %}#}
-                    {#                        {% if testcase.tc_in_module_id == testcase.tc_param_type %}#}
-                    {#                            <input name="id[]" lay-skin="primary" type="checkbox" value="{{ testcases.tc_id }}" title="{{ testcase.tc_name }}">#}
-                    {#                        {% endif %}#}
-                    {#                    {% endfor %}#}
+            <div class="layui-form-item" id="div_do_testcase">
+                <label for="do_testcase" class="layui-form-label">执行用例</label>
+                <div class="layui-input-inline">
+                    <select xm-select="select" name="do_testcase" id="do_testcase">
+                        {# 模块下的用例 #}
+                    </select>
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
@@ -80,6 +79,9 @@
                 elem: '#end' //指定元素
             });
 
+            form.on('select(cs_in_module)', function (data) {
+                $("#do_testcase").append("<option value='"+data+"'>"+text+"</option>");
+            });
 
             form.on('submit(add)', function (data) {
                 var articleFrom = JSON.stringify(data.field);//获取数据集合；
@@ -110,16 +112,6 @@
                 return false;
             });
         });
-
-    $(function () {
-        $('#cs_in_module').change(function () {
-            {% for testcase in testcases %}
-            if ($("#cs_in_module").find("option:selected").val() == testcase.tc_in_module_id){
-                $("#do_testcase").append("<input name=\"id[]\" lay-skin=\"primary\" type=\"checkbox\" value=\"{{ testcases.tc_id }}\" title=\"{{ testcase.tc_name }}\">")
-            }
-            {% endfor %}
-        });
-    });
 </script>
 <script>var _hmt = _hmt || [];
 (function () {

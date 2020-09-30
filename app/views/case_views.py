@@ -68,9 +68,6 @@ def add_cases():
         modules = Module.query.filter().all()
         testcases = Testcase.query.filter().all()
         result = Testcase.query.join(Module, Testcase.tc_in_module_id == Module.m_id).filter().all()
-
-        for re in result:
-            print(re)
         return render_template('cases-add.html', modules=modules, testcases=testcases)
     if request.method == 'POST':
         user_id = session.get('user_id')
@@ -354,21 +351,15 @@ def update_test_case():
         testcase.tc_status_code = data_dict['tc_status_code']
         testcase.tc_except = data_dict['tc_except']
         testcase.tc_link_case = data_dict['tc_link_case']
+        testcase.tc_link_val = data_dict['tc_link_val']
         testcase.tc_sql_code = data_dict['tc_sql_code']
-        if data_dict['tc_sql_code'] == "0":
-            testcase.tc_sql_data = ""
-            testcase.tc_sql_except = ""
-            testcase.tc_sql_code = ""
-            testcase.tc_sql_host = ""
-            testcase.tc_sql_database = ""
-        else:
-            testcase.tc_sql_data = data_dict['tc_sql_data']
-            testcase.tc_sql_except = data_dict['tc_sql_except']
-            testcase.tc_sql_code = data_dict['tc_sql_code']
-            testcase.tc_sql_host = data_dict['tc_sql_host']
-            testcase.tc_sql_database = data_dict['tc_sql_database']
+        testcase.tc_sql_data = data_dict['tc_sql_data']
+        testcase.tc_sql_except = data_dict['tc_sql_except']
+        testcase.tc_sql_code = data_dict['tc_sql_code']
+        testcase.tc_sql_host = data_dict['tc_sql_host']
+        testcase.tc_sql_database = data_dict['tc_sql_database']
         testcase.tc_desc = data_dict['tc_desc']
         testcase.tc_create_time = datetime.now()
         testcase.save()
-        result = {"flag": True, "value": "用例修改成功！"}
-        return result
+    result = {"flag": True, "value": "用例修改成功！"}
+    return result

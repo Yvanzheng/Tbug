@@ -54,7 +54,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">关联用例</label>
                 <div class="layui-input-inline">
-                    <select name="tc_link_case" id="tc_link_case">
+                    <select name="tc_link_case" lay-filter="tc_link_case" id="tc_link_case">
                         <option value="-1">--</option>
                         {% for pcase in parentcases %}
                             {% if pcase.tc_id == testcase.tc_link_case %}
@@ -66,6 +66,23 @@
                     </select>
                 </div>
             </div>
+            {% if testcase.tc_link_case != -1 %}
+                <div class="layui-form-item" id="div_tc_link_val">
+                    <label class="layui-form-label">关联字段</label>
+                    <div class="layui-input-inline">
+                    <textarea id="tc_link_val" name="tc_link_val"
+                              class="layui-textarea">{{ testcase.tc_link_val }}</textarea>
+                    </div>
+                </div>
+            {% else %}
+                <div class="layui-form-item" id="div_tc_link_val" style="display: none;">
+                    <label class="layui-form-label">关联字段</label>
+                    <div class="layui-input-inline">
+                    <textarea id="tc_link_val" name="tc_link_val"
+                              class="layui-textarea">{{ testcase.tc_link_val }}</textarea>
+                    </div>
+                </div>
+            {% endif %}
             <div class="layui-form-item">
                 <label class="layui-form-label">
                     <span class="x-red">*</span>请求方式</label>
@@ -133,7 +150,7 @@
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">数据库验证</label>
-                <div class="layui-input-inline" name="tc_sql_code" id="tc_sql_code">
+                <div class="layui-input-inline" id="tc_sql_code">
                     {% if testcase.tc_sql_code==1 %}
                         <input type="radio" name="tc_sql_code" lay-filter="sql_tests" value="1" title="是"
                                checked="checked">
@@ -145,34 +162,65 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="layui-form-item" id="tc_sql_host" style="display: none;">
-                <label class="layui-form-label">数据库地址</label>
-                <div class="layui-input-inline">
-                    <input type="text" id="tc_sql_host" name="tc_sql_host" autocomplete="off" class="layui-input"
-                           value="{{ testcase.tc_sql_host }}">
+            {% if testcase.tc_sql_code==1 %}
+                <div class="layui-form-item" id="div_tc_sql_host">
+                    <label class="layui-form-label">数据库地址</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="tc_sql_host" name="tc_sql_host" autocomplete="off" class="layui-input"
+                               value="{{ testcase.tc_sql_host }}">
+                    </div>
                 </div>
-            </div>
-            <div class="layui-form-item" id="tc_sql_database" style="display: none;">
-                <label class="layui-form-label">数据库库名</label>
-                <div class="layui-input-inline">
-                    <input type="text" id="tc_sql_database" name="tc_sql_database" autocomplete="off"
-                           class="layui-input" value="{{ tc_sql_database }}">
+                <div class="layui-form-item" id="div_tc_sql_database">
+                    <label class="layui-form-label">数据库库名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="tc_sql_database" name="tc_sql_database" autocomplete="off"
+                               class="layui-input" value="{{ testcase.tc_sql_database }}">
+                    </div>
                 </div>
-            </div>
-            <div class="layui-form-item" id="tc_sql_data" style="display: none;">
-                <label class="layui-form-label">sql语句</label>
-                <div class="layui-input-inline">
-                    <input type="text" id="tc_sql_data" name="tc_sql_data" autocomplete="off" class="layui-input"
-                           value="{{ testcase.tc_sql_data }}">
+                <div class="layui-form-item" id="div_tc_sql_data">
+                    <label class="layui-form-label">sql语句</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="tc_sql_data" name="tc_sql_data" autocomplete="off" class="layui-input"
+                               value="{{ testcase.tc_sql_data }}">
+                    </div>
                 </div>
-            </div>
-            <div class="layui-form-item" id="tc_sql_except" style="display: none;">
-                <label class="layui-form-label">校验字段</label>
-                <div class="layui-input-inline">
+                <div class="layui-form-item" id="div_tc_sql_except">
+                    <label class="layui-form-label">校验字段</label>
+                    <div class="layui-input-inline">
                     <textarea id="tc_sql_except" name="tc_sql_except"
                               class="layui-textarea">{{ testcase.tc_sql_except }}</textarea>
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <div class="layui-form-item" id="div_tc_sql_host" style="display: none;">
+                    <label class="layui-form-label">数据库地址</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="tc_sql_host" name="tc_sql_host" autocomplete="off" class="layui-input"
+                               value="{{ testcase.tc_sql_host }}">
+                    </div>
+                </div>
+                <div class="layui-form-item" id="div_tc_sql_database" style="display: none;">
+                    <label class="layui-form-label">数据库库名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="tc_sql_database" name="tc_sql_database" autocomplete="off"
+                               class="layui-input" value="{{ testcase.tc_sql_database }}">
+                    </div>
+                </div>
+                <div class="layui-form-item" id="div_tc_sql_data" style="display: none;">
+                    <label class="layui-form-label">sql语句</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="tc_sql_data" name="tc_sql_data" autocomplete="off" class="layui-input"
+                               value="{{ testcase.tc_sql_data }}">
+                    </div>
+                </div>
+                <div class="layui-form-item" id="div_tc_sql_except" style="display: none;">
+                    <label class="layui-form-label">校验字段</label>
+                    <div class="layui-input-inline">
+                    <textarea id="tc_sql_except" name="tc_sql_except"
+                              class="layui-textarea">{{ testcase.tc_sql_except }}</textarea>
+                    </div>
+                </div>
+            {% endif %}
             <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label">
                 </label>
@@ -201,19 +249,32 @@
                 elem: '#end' //指定元素
             });
 
+            form.on('select(tc_link_case)', function (data) {
+                if (data.value != -1) {
+                    $("#div_tc_link_val").show();
+                } else {
+                    $("#div_tc_link_val").hide();
+                    $("#tc_link_val").val("");
+                }
+            });
+
             //选择是否sql校验
             form.on('radio(sql_tests)', function (data) {
                 var level = data.value;
                 if (level == 1) {
-                    $("#tc_sql_data").show();
-                    $("#tc_sql_except").show();
-                    $("#tc_sql_host").show();
-                    $("#tc_sql_database").show();
+                    $("#div_tc_sql_data").show();
+                    $("#div_tc_sql_except").show();
+                    $("#div_tc_sql_host").show();
+                    $("#div_tc_sql_database").show();
                 } else {
-                    $("#tc_sql_data").hide();
-                    $("#tc_sql_except").hide();
-                    $("#tc_sql_host").hide();
-                    $("#tc_sql_database").hide();
+                    $("#tc_sql_data").val("");
+                    $("#tc_sql_except").val("");
+                    $("#tc_sql_host").val("");
+                    $("#tc_sql_database").val("");
+                    $("#div_tc_sql_data").hide();
+                    $("#div_tc_sql_except").hide();
+                    $("#div_tc_sql_host").hide();
+                    $("#div_tc_sql_database").hide();
                 }
             });
 
@@ -225,6 +286,7 @@
                     "tc_url": $("#tc_url").val(),
                     "tc_in_module_id": $("#tc_in_module_id").find("option:selected").val(),
                     "tc_link_case": $("#tc_link_case").find("option:selected").val(),
+                    "tc_link_val": $("#tc_link_val").val(),
                     "tc_req_method": $("#tc_req_method").find("option:selected").val(),
                     "tc_param_type": $("#tc_param_type").find("option:selected").val(),
                     "tc_status_code": $("#tc_status_code").find("option:selected").val(),
@@ -233,14 +295,16 @@
                     "tc_desc": $("#tc_desc").val(),
                     "tc_sql_code": $('input[name="tc_sql_code"]:checked').val(),
                     "tc_sql_data": $("#tc_sql_data").val(),
-                    "tc_sql_except": $("#tc_sql_except").val()
+                    "tc_sql_except": $("#tc_sql_except").val(),
+                    "tc_sql_host": $("#tc_sql_host").val(),
+                    "tc_sql_database": $("#tc_sql_database").val()
                 };
                 var articleFrom = JSON.stringify(in_data);//获取数据集合
                 $.ajax({
                     type: "POST",
                     url: "/cases/updateTestCase",//提交数据接口
                     data: articleFrom,
-                    dataType: "JSON",
+                    dataType: "json",
                     success: function (data) {
                         if (data.flag) {
                             layer.alert(data.value, {icon: 6}, function () {
@@ -262,18 +326,6 @@
                 return false;
             });
         });
-
-    //进入加载sql校验信息
-    $(function () {
-        var level = $('input[name="tc_sql_code"]:checked').val();
-        if (level == 1) {
-            $("#sql_d").show();
-            $("#sql_e").show();
-        } else {
-            $("#sql_d").hide();
-            $("#sql_e").hide();
-        }
-    });
 </script>
 <script>var _hmt = _hmt || [];
 (function () {

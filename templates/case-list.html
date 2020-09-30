@@ -65,9 +65,9 @@
                     <button class="layui-btn layui-btn-danger" onclick="delAll()">
                         <i class="layui-icon"></i>批量删除
                     </button>
-{#                    <button class="layui-btn" onclick="xadmin.open('导入用例','/cases/leadTestCase',450,550)">#}
-{#                        <i class="layui-icon"></i>导入#}
-{#                    </button>#}
+                    {#                    <button class="layui-btn" onclick="xadmin.open('导入用例','/cases/leadTestCase',450,550)">#}
+                    {#                        <i class="layui-icon"></i>导入#}
+                    {#                    </button>#}
                 </div>
                 <div class="layui-card-body ">
                     <table class="layui-table layui-form">
@@ -76,12 +76,12 @@
                             <th width="5%">
                                 <input type="checkbox" lay-filter="checkall" lay-skin="primary">
                             </th>
-                            <th width="10%">用例名称</th>
+                            <th width="25%">用例名称</th>
                             <th width="10%">所属模块</th>
                             <th width="20%">用例描述</th>
                             <th width="10%">创建人</th>
                             <th width="15%">创建时间</th>
-                            <th width="30%">操作</th>
+                            <th width="15%">操作</th>
                         </tr>
                         </thead>
                         <tbody class="x-cate">
@@ -140,7 +140,13 @@
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>关联用例</td>
-                                <td colspan="6">{{ case.parent_name }}</td>
+                                {% if case.tc_link_case!=-1 %}
+                                    <td colspan="6">{{ case.parent_name }}
+                                        <br>关联字段：{{ case.tc_link_val }}
+                                    </td>
+                                {% else %}
+                                    <td colspan="6">{{ case.parent_name }}</td>
+                                {% endif %}
                             </tr>
                             <tr fid='{{ loop.index0 }}-1'>
                                 <td>数据库校验</td>
