@@ -122,7 +122,7 @@ python-editor==1.0.4
 python-slugify==4.0.1
 pytz==2020.1
 pywin32==227
-PyYAML==5.1.2
+PyYAML==5.4
 query-string==2019.4.13
 queued==2019.12.24
 queues==0.6.3
