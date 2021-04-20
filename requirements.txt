@@ -97,7 +97,7 @@ post==2019.4.13
 poyo==0.5.0
 public==2019.4.13
 pxpy==1.0a16
-py==1.8.0
+py==1.10.0
 py-html-checker==0.1.0
 py-html-table==0.0.8
 Py-Meta-Utils==0.7.6
