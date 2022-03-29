@@ -89,7 +89,7 @@ packaging==19.2
 pager==3.3
 pampy==0.3.0
 pandas==1.0.3
-paramiko==2.7.1
+paramiko==2.10.1
 pathlib==1.0.1
 Pillow==6.2.1
 pluggy==0.13.1
