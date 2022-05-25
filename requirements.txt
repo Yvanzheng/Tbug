@@ -104,7 +104,7 @@ Py-Meta-Utils==0.7.6
 pycparser==2.20
 pycryptodome==3.9.7
 Pygments==2.5.2
-PyJWT==1.7.1
+PyJWT==2.4.0
 pymal==0.6
 pymssql==2.1.4
 PyMySQL==0.9.3
