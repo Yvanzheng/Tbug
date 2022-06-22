@@ -83,7 +83,7 @@ mypy==0.770
 mypy-extensions==0.4.3
 mysql-connector==2.2.9
 namedlist==1.7
-numpy==1.17.4
+numpy==1.22.0
 objectpath==0.6.1
 packaging==19.2
 pager==3.3
