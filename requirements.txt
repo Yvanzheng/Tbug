@@ -143,7 +143,7 @@ sqlcollection==0.3.0
 sshutil==1.5.0
 strict-functions==2020.2.4
 subprocess32==3.5.4
-suds==0.4
+suds==1.0.0
 suds-py3==1.4.1.0
 tabulate==0.8.7
 test-pypi==0.22
